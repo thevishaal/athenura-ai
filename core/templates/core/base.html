@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+{% load static tailwind_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Athenura{% endblock %}</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      sizes="32x32"
+      href="{% static 'core/images/favicon.ico' %}"
+    />
+    {% tailwind_css %}
+</head>
+<body class="p-4">
+    
+    {% comment %} ______Navbar______ {% endcomment %}
+    <nav>
+        {% include "core/components/navbar.html" %}
+    </nav>
+
+    {% comment %} ______Content______ {% endcomment %}
+    <div class="h-[70vh] flex justify-center items-center text-[100px] text-sky-600">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
