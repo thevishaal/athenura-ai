@@ -216,3 +216,4 @@ __marimo__/
 .streamlit/secrets.toml
 theme/static_src/node_modules/
 theme/static/css/dist/
+media/

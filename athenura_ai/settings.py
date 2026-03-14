@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "social_media",
 ]
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = "npm.cmd"
 
