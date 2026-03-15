@@ -4,4 +4,48 @@
 
 {% block content %}
 <h1>Sign Up Page</h1>
+
+<form class="p-4" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+    <div>
+        {{ form.profile_img.label }}
+        {{ form.profile_img }}
+        {{ form.profile_img.errors }}
+    </div>
+
+    <div>
+        {{ form.full_name.label }}
+        {{ form.full_name }}
+        {{ form.full_name.errors }}
+    </div>
+
+    <div>
+        {{ form.email.label }}
+        {{ form.email }}
+        {{ form.email.errors }}
+    </div>
+
+
+    <div>
+        {{ form.password.label }}
+        {{ form.password }}
+        {{ form.password.errors }}
+    </div>
+    
+    <div>
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password }}
+        {{ form.confirm_password.errors }}
+    </div>
+
+    <div>
+        <label for="secret_key">Secret key</label>
+        <input type="text" name="secret_key">
+    </div>
+
+    <button class="bg-gray-600 px-5 py-2 rounded-lg font-serif" type="submit">Signup</button>
+
+</form>
 {% endblock %}

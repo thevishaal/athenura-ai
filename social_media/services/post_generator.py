@@ -53,6 +53,9 @@ def generate_social_media_content(topic, platform, tone):
     "suggested_time": "Best time to post"
   }}
 }}
+
+Do not return any explanation, markdown, headings, or extra text.
+Return only valid JSON.
 """
 
     response = client.chat.completions.create(
@@ -66,7 +69,8 @@ def generate_social_media_content(topic, platform, tone):
             "content": prompt
         }
     ],
-        response_format={"type": "json_object"}  
+        response_format={"type": "json_object"},
+        temperature=0.7  
     )
 
     return response.choices[0].message.content
