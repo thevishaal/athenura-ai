@@ -4,4 +4,20 @@
 
 {% block content %}
 <h1>Sign In Page</h1>
+
+<form method="POST" novalidate>
+  {% csrf_token %}
+
+  {{ form.email.label_tag }}
+  {{ form.email }}
+  {{ form.email.errors }}
+
+  {{ form.password.label_tag }}
+  {{ form.password }}
+  {{ form.password.errors }}
+
+  <button type="submit">Login</button>
+
+  {{ form.non_field_errors }}
+</form>
 {% endblock %}
