@@ -5,15 +5,14 @@ client = Groq(api_key=GROQ_API_KEY)
 
 
 def generate_social_media_content(topic, platform, tone):
-
     prompt = f"""
-    Generate social media content for:
+Generate social media content for:
 
-    Topic: {topic}
-    Platform: {platform}
-    Tone: {tone}
+Topic: {topic}
+Platform: {platform}
+Tone: {tone}
 
-    Return JSON in this exact format:
+Return JSON in this exact format:
 
 {{
   "carousel": {{
@@ -53,20 +52,25 @@ def generate_social_media_content(topic, platform, tone):
     "suggested_time": "Best time to post"
   }}
 }}
+
+Do not return any explanation, markdown, headings, or extra text.
+Return only valid JSON.
 """
 
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant", #generates ideas
-        messages=[{
-            "role": "system",
-            "content": "You are an API that ONLY returns valid JSON. Never include explanations, markdown, or text outside JSON."
-        },
-        {
-            "role": "user",
-            "content": prompt
-        }
-    ],
-        response_format={"type": "json_object"}  
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an API that only returns valid JSON."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.7
     )
 
     return response.choices[0].message.content

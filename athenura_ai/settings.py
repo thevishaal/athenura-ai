@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     "social_media",
 ]
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = "npm.cmd"
+LOGIN_URL = 'signin_view' 
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'signin_view' 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,6 +156,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+DOMAIN_NAME = os.getenv("DOMAIN_NAME")
 SENDER_DOMAIN_NAME = os.getenv("SENDER_DOMAIN_NAME")
 ATHENURA_SECRET_KEY = os.getenv("ATHENURA_SECRET_KEY")
 BREVO_API_KEY = os.getenv("BREVO_API_KEY") 
