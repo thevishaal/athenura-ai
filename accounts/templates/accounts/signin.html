@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Sign In Page</h1>
 
-<form method="POST" novalidate>
+<form method="POST" action="{% url 'signin_view' %}?next={{ request.GET.next }}" novalidate>
   {% csrf_token %}
 
   {{ form.email.label_tag }}
@@ -15,6 +15,8 @@
   {{ form.password.label_tag }}
   {{ form.password }}
   {{ form.password.errors }}
+
+  <a href="{% url 'forgot_password' %}">forgot password</a>
 
   <button type="submit">Login</button>
 

@@ -43,3 +43,31 @@ def send_activation_email(user, activation_url):
     }
 
     threading.Thread(target=_send_email, args=(payload,), daemon=True).start()
+
+
+def send_reset_email(recipient_email, reset_link):
+
+    payload = {
+        "sender": {
+            "name": settings.SENDER_DOMAIN_NAME,
+            "email": settings.DEFAULT_FROM_EMAIL
+        },
+        "to": [{"email": recipient_email}],
+        "subject": "Reset Your Password",
+        "htmlContent": f"""
+        <div style="font-family:sans-serif; line-height:1.5;">
+            <h2>Password Reset Request</h2>
+            <p>We received a request to reset your password. Click the button below:</p>
+
+            <a href="{reset_link}" 
+            style="background:#6366f1;color:white;padding:12px 25px;border-radius:6px;text-decoration:none;display:inline-block;">
+            Reset Password
+            </a>
+
+            <p>If you didn't request this, please ignore this email.</p>
+            <p>This link will expire in 24 hours.</p>
+        </div>
+        """
+    }
+
+    threading.Thread(target=_send_email, args=(payload,), daemon=True).start()

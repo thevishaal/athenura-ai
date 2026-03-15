@@ -45,6 +45,9 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "accounts.User"
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = "npm.cmd"
+LOGIN_URL = 'signin_view' 
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'signin_view' 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
