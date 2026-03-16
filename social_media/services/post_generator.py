@@ -1,5 +1,5 @@
 from groq import Groq
-from social_media.config import GROQ_API_KEY
+from core.config import GROQ_API_KEY, GROQ_MODEL
 
 client = Groq(api_key=GROQ_API_KEY)
 
@@ -58,7 +58,7 @@ Return only valid JSON.
 """
 
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model= GROQ_MODEL,
         messages=[
             {
                 "role": "system",
@@ -73,4 +73,5 @@ Return only valid JSON.
         temperature=0.7
     )
 
-    return response.choices[0].message.content
+    result = response.choices[0].message.content
+    return result

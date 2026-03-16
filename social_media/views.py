@@ -1,38 +1,51 @@
 import json
 from django.shortcuts import render
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .services.post_generator import generate_social_media_content
 from django.contrib.auth.decorators import login_required
+from .forms import SocialMediaForm
+from .services.post_generator import generate_social_media_content
 
-
-@csrf_exempt
 
 @login_required
 def social_media(request):
+
     if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON body"}, status=400)
 
-        topic = data.get("topic")
-        platform = data.get("platform")
-        tone = data.get("tone")
+        form = SocialMediaForm(request.POST)
 
-        if not topic or not platform or not tone:
-            return JsonResponse({"error": "Missing required fields"}, status=400)
+        if not form.is_valid():
+            return render(
+                request,
+                "social_media/partials/form.html",
+                {"form": form},
+            )
 
-        try:
-            content = generate_social_media_content(topic, platform, tone)
-            ideas_json = json.loads(content)
-            return JsonResponse(ideas_json)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "AI response parsing failed"}, status=500)
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
+        topic = form.cleaned_data["topic"]
+        platform = form.cleaned_data["platform"]
+        tone = form.cleaned_data["tone"]
 
-    elif request.method == "GET":
-        return render(request, "social_media/social_media.html")
+        content = generate_social_media_content(
+            topic=topic,
+            platform=platform,
+            tone=tone
+        )
 
-    return JsonResponse({"error": "Method not allowed"}, status=405)
+        data = json.loads(content)
+
+        return render(
+            request,
+            "social_media/partials/ai_result.html",
+            {
+                "topic": topic,
+                "platform": platform,
+                "tone": tone,
+                "data": data,
+            },
+        )
+
+    form = SocialMediaForm()
+
+    return render(
+        request,
+        "social_media/social_media.html",
+        {"form": form},
+    )
