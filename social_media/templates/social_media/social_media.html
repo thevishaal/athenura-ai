@@ -1,7 +1,11 @@
-{% extends "core/base.html" %}
+{% extends "core/base.html" %} {% block title %}Social Ideas | {{blocksuper}}{% endblock %} {% block content %}
+<div class="max-w-3xl mx-auto mt-10">
+  <h1 class="text-2xl font-bold mb-6">Social Media AI Generator</h1>
 
-{% block title %}Social Ideas | {{block.super}}{% endblock %}
+  <div id="form-area">
+    {% include "social_media/partials/form.html" %}
+  </div>
+  <div id="chat" class="space-y-6 mb-8"></div>
 
-{% block content %}
-<h1>Socail Media Page</h1>
-{% endblock %}
+  {% endblock %}
+</div>
