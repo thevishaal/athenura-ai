@@ -1,44 +1,36 @@
-import os
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .blog_prompts import BLOG_PROMPT
-from groq import Groq
-from dotenv import load_dotenv
-load_dotenv()
-import markdown
+from .forms import BlogForm
+from .blog_prompts import generate_blog_content
+import json
 
-# create client 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Create your views here.
 @login_required
 def blog(request):
     if request.method == "POST":
-        topic = request.POST.get("topic")
-        word_count = int(request.POST.get("word_count"))
-        tone = request.POST.get("tone")
-        style = request.POST.get("style")
-        audience =  request.POST.get("audience")
-        external_thoughts = request.POST.get("external_thoughts")
+        form = BlogForm(request.POST)
 
-        chat_completion = client.chat.completions.create(
-            messages=[
-                {
-                    "role": "user",
-                    "content": BLOG_PROMPT.format(
-                        topic=topic,
-                        word_count=word_count,
-                        tone=tone,
-                        style=style,
-                        audience=audience,
-                        external_thoughts=external_thoughts or "None"
-                    )
-                }
-            ],
-            model=os.getenv("GROQ_MODEL")
+        if not form.is_valid():
+            return render(request, "blog/partials/form.html", {"form": form})
+        
+        topic = form.cleaned_data["topic"]
+        word_count = form.cleaned_data["word_count"]
+        tone = form.cleaned_data["tone"]
+        style = form.cleaned_data["style"]
+        audience =  form.cleaned_data["audience"]
+        external_thoughts = form.cleaned_data["external_thoughts"]
+
+        content = generate_blog_content(topic, word_count, tone, style, audience, external_thoughts)
+
+        data = json.loads(content)
+        return render(
+            request, 
+            "blog/partials/blog_result.html", 
+            {
+                "data": data
+            }
         )
-
-        result = chat_completion.choices[0].message.content
-        html_blog = markdown.markdown(result)
-        return render(request, "blog/partials/blog_result.html", {"blog": html_blog})
-    return render(request, "blog/blog.html")
+    
+    form = BlogForm()
+    return render(request, "blog/blog.html", {"form": form})

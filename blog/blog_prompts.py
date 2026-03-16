@@ -1,4 +1,12 @@
-BLOG_PROMPT = """
+from groq import Groq
+from core.config import GROQ_API_KEY, GROQ_MODEL
+
+
+client = Groq(api_key=GROQ_API_KEY)
+
+def generate_blog_content(topic, word_count, tone, style, audience, external_thoughts=None):
+
+    BLOG_PROMPT = f"""
 
 You are a professional SEO content writer and expert blogger.
 
@@ -12,8 +20,7 @@ Tone: {tone}
 Writing Style: {style}
 Target Audience: {audience}
 
-Additional Context (Optional):
-{external_thoughts}
+Additional Context (Optional): {external_thoughts}
 
 IMPORTANT RULES
 
@@ -45,8 +52,7 @@ Write a 150–160 character meta description.
 Write an engaging introduction that hooks the reader.
 
 4. Main Sections
-Create structured sections using H2 headings.
-Explain concepts clearly with examples where useful.
+Create structured sections using H2 headings and detailed content.
 
 5. Tips / Best Practices
 Add actionable tips related to the topic.
@@ -60,45 +66,67 @@ Generate 3–5 relevant questions with answers.
 8. Conclusion
 Write a strong concluding paragraph.
 
+IMPORTANT OUTPUT RULES
+
+- Return the response ONLY in valid JSON format.
+- Do NOT include markdown.
+- Do NOT include explanations outside JSON.
+- Ensure the JSON is properly structured and valid.
+
 OUTPUT FORMAT
 
-Title:
-<title>
-
-Meta Description:
-<meta description>
-
-Introduction:
-<introduction paragraph>
-
-## Section Heading
-content...
-
-## Section Heading
-content...
-
-Tips:
-• tip
-• tip
-• tip
-
-Key Takeaways:
-• point
-• point
-• point
-
-FAQ
-
-Q1:
-Answer
-
-Q2:
-Answer
-
-Q3:
-Answer
-
-Conclusion:
-<summary>
-
+{{
+  "title": "",
+  "meta_description": "",
+  "introduction": "",
+  "sections": [
+    {{
+      "heading": "",
+      "content": ""
+    }},
+    {{
+      "heading": "",
+      "content": ""
+    }}
+  ],
+  "tips": [
+    "",
+    "",
+    ""
+  ],
+  "key_takeaways": [
+    "",
+    "",
+    ""
+  ],
+  "faq": [
+    {{
+      "question": "",
+      "answer": ""
+    }},
+    {{
+      "question": "",
+      "answer": ""
+    }}
+  ],
+  "conclusion": ""
+}}
 """
+    chat_completion = client.chat.completions.create(
+        model = GROQ_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a professional SEO content writer and expert blogger."
+            },
+            {
+                "role": "user",
+                "content": BLOG_PROMPT
+            }
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.7
+    )
+
+    result = chat_completion.choices[0].message.content
+    return result

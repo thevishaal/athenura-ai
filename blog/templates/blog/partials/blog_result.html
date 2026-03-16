@@ -1,3 +1,55 @@
-<div class="max-w-none">
-    {{ blog|safe }}
+<div class="bg-white rounded-xl shadow p-8 space-y-8">
+
+<h1 class="text-3xl font-bold">
+{{ data.title }}
+</h1>
+
+<p class="text-gray-500">
+{{ data.meta_description }}
+</p>
+
+<div class="prose max-w-none">
+
+<p>{{ data.introduction }}</p>
+
+{% for section in data.sections %}
+
+<h2>{{ section.heading }}</h2>
+
+<p>{{ section.content }}</p>
+
+{% endfor %}
+
+<h2>Tips</h2>
+
+<ul>
+{% for tip in data.tips %}
+<li>{{ tip }}</li>
+{% endfor %}
+</ul>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+{% for take in data.key_takeaways %}
+<li>{{ take }}</li>
+{% endfor %}
+</ul>
+
+<h2>FAQ</h2>
+
+{% for item in data.faq %}
+
+<p class="font-semibold">{{ item.question }}</p>
+
+<p>{{ item.answer }}</p>
+
+{% endfor %}
+
+<h2>Conclusion</h2>
+
+<p>{{ data.conclusion }}</p>
+
+</div>
+
 </div>
