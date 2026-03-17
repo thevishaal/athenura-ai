@@ -1,0 +1,159 @@
+{% load static %}
+
+<footer class="w-full border-t border-white/5 bg-footer pt-16 pb-8 mt-auto relative z-10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            
+            <div class="flex flex-col items-start">
+                <a href="{% url 'dashboard' %}" class="mb-6 block transition-transform hover:scale-105">
+                    <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-10 w-auto drop-shadow-lg" onerror="this.style.display='none'">
+                </a>
+                <p class="text-text-muted text-sm leading-relaxed max-w-xs">
+                    Empowering creators with the world's most advanced AI content tools.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Company</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="{% url 'about' %}" class="text-text-muted hover:text-accent transition-colors duration-300">About Us</a></li>
+                    <li><a href="#" class="text-text-muted hover:text-accent transition-colors duration-300">Privacy Policy</a></li>
+                    <li><a href="#" class="text-text-muted hover:text-accent transition-colors duration-300">Terms of Service</a></li>
+                    <li><a href="#" class="text-text-muted hover:text-accent transition-colors duration-300">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Tools</h4>
+                <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="{% url 'caption' %}" class="text-text-muted hover:text-accent transition-colors duration-300">Caption Generator</a></li>
+                    <li><a href="{% url 'blog' %}" class="text-text-muted hover:text-accent transition-colors duration-300">Blog Generator</a></li>
+                    <li><a href="{% url 'article' %}" class="text-text-muted hover:text-accent transition-colors duration-300">Article Generator</a></li>
+                    <li><a href="{% url 'social_media' %}" class="text-text-muted hover:text-accent transition-colors duration-300">Social Ideas</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Drop a Message</h4>
+                <form action="mailto:support@athenura.in" method="post" enctype="text/plain" class="space-y-3">
+                    <input type="mailto:support@athenura.in" placeholder="support@athenura.in" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-accent transition-all" disabled>
+                    <textarea placeholder="How can we help?" rows="2" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:outline-accent transition-all resize-none"></textarea>
+                    <button type="submit" class="w-full bg-accent hover:bg-accent-hover text-dark-bg font-bold py-2 rounded-lg text-xs transition-all transform active:scale-95 shadow-neon-glow">
+                        Send Mail
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <p class="text-xs text-text-darker order-2 md:order-1">
+                &copy; {% now "Y" %} Athenura. All rights reserved.
+            </p>
+
+                          <ul class="space-y-4 text-sm font-medium">
+
+                   
+
+                    <li>
+
+                        <a href="https://www.instagram.com/athenura.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+
+                                </svg>
+
+                            </div>
+
+                            Instagram
+
+                        </a>
+
+                    </li>
+
+                   
+
+                    <li>
+
+                        <a href="https://www.linkedin.com/company/athenura/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BA%2BVpZoJvQuSCidx8Y7LjFw%3D%3D" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+
+                                    <circle cx="4" cy="4" r="2"></circle>
+
+                                </svg>
+
+                            </div>
+
+                            LinkedIn
+
+                        </a>
+
+                    </li>
+
+                   
+
+                    <li>
+
+                        <a href="https://x.com/athenura_in" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
+
+                                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+
+                                </svg>
+
+                            </div>
+
+                            X (Twitter)
+
+                        </a>
+
+                    </li>
+
+
+
+                    <li>
+
+                        <a href="https://athenura.medium.com/" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
+
+                                    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+
+                                </svg>
+
+                            </div>
+
+                            Medium
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+        </div>
+
+    </div>
+</footer>
