@@ -1,0 +1,73 @@
+<div class="bg-white p-6 rounded-2xl shadow-md border">
+
+<form 
+    hx-post="{% url 'caption' %}"
+    hx-target="#main-container"
+    hx-swap="innerHTML"
+    class="space-y-5"
+>
+
+    {% csrf_token %}
+
+    <!-- Topic -->
+    <div>
+        <input type="text" name="topic" placeholder="Enter topic..."
+               value="{{ form.topic.value|default:'' }}"
+               class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none">
+
+        {% if form.topic.errors %}
+            <p class="text-red-500 text-sm">{{ form.topic.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Platform -->
+    <div>
+        <select name="platform"
+            class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none">
+
+            <option value="">Select Platform</option>
+            <option value="instagram" {% if form.platform.value == "instagram" %}selected{% endif %}>Instagram</option>
+            <option value="linkedin" {% if form.platform.value == "linkedin" %}selected{% endif %}>LinkedIn</option>
+            <option value="twitter" {% if form.platform.value == "twitter" %}selected{% endif %}>Twitter</option>
+            <option value="facebook" {% if form.platform.value == "facebook" %}selected{% endif %}>Facebook</option>
+            <option value="youtube" {% if form.platform.value == "youtube" %}selected{% endif %}>YouTube</option>
+
+        </select>
+
+        {% if form.platform.errors %}
+            <p class="text-red-500 text-sm">{{ form.platform.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Tone -->
+    <div>
+        <select name="tone"
+            class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-400 outline-none">
+
+            <option value="">Select Tone</option>
+            <option value="inspirational" {% if form.tone.value == "inspirational" %}selected{% endif %}>Inspirational</option>
+            <option value="funny" {% if form.tone.value == "funny" %}selected{% endif %}>Funny</option>
+            <option value="professional" {% if form.tone.value == "professional" %}selected{% endif %}>Professional</option>
+            <option value="casual" {% if form.tone.value == "casual" %}selected{% endif %}>Casual</option>
+
+        </select>
+
+        {% if form.tone.errors %}
+            <p class="text-red-500 text-sm">{{ form.tone.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Button -->
+    <button 
+        type="submit"
+        hx-disabled-elt="this"
+        class="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white py-3 rounded-lg font-semibold relative">
+
+        <span class="htmx-request:hidden">Generate Captions</span>
+        <span class="hidden htmx-request:inline">Generating...</span>
+
+    </button>
+
+</form>
+
+</div>

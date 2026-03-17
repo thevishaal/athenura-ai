@@ -1,0 +1,147 @@
+<form
+hx-post="{% url 'blog' %}"
+hx-target="#blog-output"
+hx-swap="innerHTML"
+hx-disabled-elt="button"
+class="bg-white p-6 rounded-xl shadow space-y-5"
+>
+
+{% csrf_token %}
+
+<h2 class="text-xl font-semibold">
+AI Blog Generator
+</h2>
+
+
+<!-- Topic -->
+
+<div>
+<label class="text-sm font-medium">Topic</label>
+
+<input
+type="text"
+name="topic"
+value="{{ form.topic.value|default:'' }}"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+/>
+
+{% if form.topic.errors %}
+<p class="text-red-500 text-sm">
+{{ form.topic.errors.0 }}
+</p>
+{% endif %}
+
+</div>
+
+
+<!-- Word Count -->
+
+<div>
+<label class="text-sm font-medium">Word Count</label>
+
+<input
+type="number"
+name="word_count"
+value="{{ form.word_count.value|default:'' }}"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+/>
+
+{% if form.word_count.errors %}
+<p class="text-red-500 text-sm">
+{{ form.word_count.errors.0 }}
+</p>
+{% endif %}
+
+</div>
+
+
+<!-- Tone -->
+
+<div>
+<label class="text-sm font-medium">Tone</label>
+
+<input
+type="text"
+name="tone"
+value="{{ form.tone.value|default:'' }}"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+/>
+
+{% if form.topic.errors %}
+<p class="text-red-500 text-sm">
+{{ form.topic.errors.0 }}
+</p>
+{% endif %}
+
+
+</div>
+
+
+<!-- Style -->
+
+<div>
+<label class="text-sm font-medium">Style</label>
+
+<input
+type="text"
+name="style"
+value="{{ form.style.value|default:'' }}"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+/>
+
+{% if form.topic.errors %}
+<p class="text-red-500 text-sm">
+{{ form.topic.errors.0 }}
+</p>
+{% endif %}
+
+
+</div>
+
+
+<!-- Audience -->
+
+<div>
+<label class="text-sm font-medium">Audience</label>
+
+<input
+type="text"
+name="audience"
+value="{{ form.audience.value|default:'' }}"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+/>
+
+{% if form.topic.errors %}
+<p class="text-red-500 text-sm">
+{{ form.topic.errors.0 }}
+</p>
+{% endif %}
+
+
+</div>
+
+
+<!-- Context -->
+
+<div>
+<label class="text-sm font-medium">Additional Context</label>
+
+<textarea
+name="external_thoughts"
+rows="4"
+class="w-full border rounded-lg px-3 py-2 mt-1"
+>{{ form.external_thoughts.value|default:'' }}</textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
+>
+
+Generate Blog
+
+</button>
+
+</form>

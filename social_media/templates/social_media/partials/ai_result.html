@@ -1,0 +1,48 @@
+<div class="bg-gray-100 p-5 rounded-xl shadow">
+  <h2 class="font-bold text-lg mb-3">{{ data.carousel.title }}</h2>
+
+  <ul class="list-disc ml-5">
+    {% for slide in data.carousel.slides %}
+    <li>{{ slide }}</li>
+    {% endfor %}
+  </ul>
+
+  <hr class="my-4" />
+
+  <h3 class="font-semibold">🎬 Reel Hook</h3>
+  <p>{{ data.reel.hook }}</p>
+
+  <ul class="list-disc ml-5">
+    {% for s in data.reel.script %}
+    <li>{{ s }}</li>
+    {% endfor %}
+  </ul>
+
+  <p class="mt-2 font-semibold">CTA: {{ data.reel.cta }}</p>
+
+  <hr class="my-4" />
+
+  <h3 class="font-semibold">📊 Poll</h3>
+
+  <p>{{ data.poll.question }}</p>
+
+  <ul class="list-disc ml-5">
+    {% for option in data.poll.options %}
+    <li>{{ option }}</li>
+    {% endfor %}
+  </ul>
+
+  <hr class="my-4" />
+
+  <h3 class="font-semibold">{{ data.educational.title }}</h3>
+
+  <p>{{ data.educational.post }}</p>
+
+  <hr class="my-4" />
+
+  <h3 class="font-semibold">💬 Engagement</h3>
+
+  <p>{{ data.engagement.post }}</p>
+
+  <p class="text-sm text-gray-500">{{ data.engagement.suggested_time }}</p>
+</div>

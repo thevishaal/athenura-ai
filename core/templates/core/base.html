@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-{% load static %}
+<!doctype html>
+{% load static %} 
 {% load static tailwind_tags %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{% block title %}Athenura{% endblock %}</title>
+
+    <!-- Favicon -->
     <link
       rel="icon"
       type="image/x-icon"
-      sizes="32x32"
       href="{% static 'core/images/favicon.ico' %}"
     />
     {% tailwind_css %}

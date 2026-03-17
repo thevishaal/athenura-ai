@@ -1,0 +1,53 @@
+<div id="form-area">
+  <form
+    hx-post="{% url 'social_media' %}"
+    hx-target="#form-area"
+    hx-swap="innerHTML"
+    hx-disabled-elt="button"
+    class="space-y-4"
+  >
+    {% csrf_token %}
+
+    <div>
+      <input
+        type="text"
+        name="topic"
+        value="{{form.topic.value|default:''}}"
+        placeholder="Topic"
+        class="border p-2 w-full rounded"
+      />
+
+      {% include "social_media/partials/form_error.html" with field=form.topic %}
+    </div>
+
+    <div>
+      <input
+        type="text"
+        name="platform"
+        value="{{form.platform.value|default:''}}"
+        placeholder="Platform"
+        class="border p-2 w-full rounded"
+      />
+
+      {% include "social_media/partials/form_error.html" with field=form.platform %}
+    </div>
+
+    <div>
+      <input
+        type="text"
+        name="tone"
+        value="{{form.tone.value|default:''}}"
+        placeholder="Tone"
+        class="border p-2 w-full rounded"
+      />
+
+      {% include "social_media/partials/form_error.html" with field=form.tone %}
+    </div>
+
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"
+    >
+      Generate
+    </button>
+  </form>
+</div>
