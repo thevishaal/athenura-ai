@@ -1,30 +1,34 @@
-<!DOCTYPE html>
-{% load static %}
+<!doctype html>
+{% load static %} 
 {% load static tailwind_tags %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{% block title %}Athenura{% endblock %}</title>
+
+    <!-- Favicon -->
     <link
       rel="icon"
       type="image/x-icon"
-      sizes="32x32"
       href="{% static 'core/images/favicon.ico' %}"
     />
-    {% tailwind_css %}
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-</head>
-<body class="p-4">
-    
-    {% comment %} ______Navbar______ {% endcomment %}
-    <nav>
-        {% include "core/components/navbar.html" %}
-    </nav>
 
-    {% comment %} ______Content______ {% endcomment %}
-    <div>
-        {% block content %}{% endblock %}
-    </div>
-</body>
+    <!-- Tailwind -->
+    {% tailwind_css %}
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen">
+    <!--  Navbar -->
+    {% include "core/components/navbar.html" %}
+
+    <!--  Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
 </html>

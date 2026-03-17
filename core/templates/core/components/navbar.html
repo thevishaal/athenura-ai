@@ -1,14 +1,111 @@
-<ul class="flex justify-center items-center text-xl text-red-200 gap-5 bg-gray-600 h-12 rounded-lg">
-    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-    {% if user.is_authenticated %}
-    <li><a href="{% url 'blog' %}">Blog Generator</a></li>
-    <li><a href="{% url 'caption' %}">Caption Ai</a></li>
-    <li><a href="{% url 'article' %}">Artical Generator</a></li>
-    <li><a href="{% url 'social_media' %}">Social Ideas</a></li>
-    <li><a href="{% url 'logout' %}" class="bg-red-500 text-white px-3 py-1 rounded">Logout</a></li>
-    <li><a href="{% url 'change_password' %}">Change Password</a></li>
-    {% else %}
-    <li><a href="{% url 'signin_view' %}">Sign In</a></li>
-    <li><a href="{% url 'signup_view' %}">Sign Up</a></li>
-    {% endif %}
-</ul>
+<nav class="bg-gray-900 text-white rounded-xl shadow">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center h-14">
+      <!-- Logo -->
+      <div class="text-lg font-bold">Athenura</div>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <li>
+          <a href="{% url 'dashboard' %}" class="{% if request.path == '/' %}text-blue-400{% else %}hover:text-gray-300{% endif %} hover:text-gray-300"
+            >Dashboard</a
+          >
+        </li>
+
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'blog' %}" class=" {% if request.path == '/blog-generator/' %}text-blue-400{% else %}hover:text-gray-300{% endif %} hover:text-gray-300">Blog</a></li>
+        <li>
+          <a href="{% url 'caption' %}" class="text-blue-400 font-semibold"
+            >Caption AI</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'article' %}" class=" hover:text-gray-300">Article</a>
+        </li>
+        <li>
+          <a href="{% url 'social_media' %}" class="hover:text-gray-300"
+            >Social Ideas</a
+          >
+        </li>
+
+        <li>
+          <a href="{% url 'change_password' %}" class="hover:text-gray-300">
+            Change Password
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'logout' %}"
+            class="bg-red-500 px-3 py-1 rounded hover:bg-red-600"
+          >
+            Logout
+          </a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'signin_view' %}" class="hover:text-gray-300"
+            >Sign In</a
+          >
+        </li>
+        <li>
+          <a
+            href="{% url 'signup_view' %}"
+            class="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600"
+          >
+            Sign Up
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+
+      <!-- Mobile Button -->
+      <button class="md:hidden text-white text-2xl" onclick="toggleMenu()">
+        ☰
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden pb-4">
+      <ul class="flex flex-col gap-3 text-sm">
+        <li><a href="{% url 'dashboard' %}" class="block">Dashboard</a></li>
+
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li>
+          <a href="{% url 'caption' %}" class="text-blue-400">Caption AI</a>
+        </li>
+        <li><a href="{% url 'article' %}">Article</a></li>
+        <li><a href="{% url 'social_media' %}">Social Ideas</a></li>
+        <li><a href="{% url 'change_password' %}">Change Password</a></li>
+        <li>
+          <a
+            href="{% url 'logout' %}"
+            class="bg-red-500 px-3 py-1 rounded inline-block"
+          >
+            Logout
+          </a>
+        </li>
+        {% else %}
+        <li><a href="{% url 'signin_view' %}">Sign In</a></li>
+        <li>
+          <a
+            href="{% url 'signup_view' %}"
+            class="bg-blue-500 px-3 py-1 rounded inline-block"
+          >
+            Sign Up
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Toggle Script -->
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("hidden");
+  }
+</script>
