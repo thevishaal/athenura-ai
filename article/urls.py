@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path("article-generater/", views.article, name="article"),
+    path("article/", views.article, name="article"),
 ]

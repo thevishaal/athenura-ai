@@ -1,7 +1,102 @@
 {% extends "core/base.html" %}
 
-{% block title %}Article | {{block.super}}{% endblock %}
+{% block title %}Article | {{ block.super }}{% endblock %}
 
 {% block content %}
-<h1>Article Page</h1>
+
+<h1 class="text-2xl font-bold text-white mb-6">AI Article Generator</h1>
+
+<form method="POST" class="bg-[#0c1824] p-6 rounded-2xl border border-cyan-500/20 shadow-xl space-y-5 text-white" novalidate>
+    
+    {% csrf_token %}
+
+    <h2 class="text-cyan-400 font-semibold text-lg">⚙ Article Parameters</h2>
+
+    <!-- Topic -->
+    <div>
+        <label class="text-sm text-gray-400">Article Topic</label>
+        <input
+            type="text"
+            name="topic"
+            placeholder="e.g. Future of AI"
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg focus:outline-none focus:border-cyan-400"
+        >
+    </div>
+
+    <!-- Word Count -->
+    <div>
+        <label class="text-sm text-gray-400">Word Count</label>
+        <input
+            type="number"
+            name="word_count"
+            value="1000"
+            min="300"
+            max="3000"
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg focus:outline-none focus:border-cyan-400"
+        >
+    </div>
+
+    <!-- Tone -->
+    <div>
+        <label class="text-sm text-gray-400">Tone</label>
+        <select
+            name="tone"
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg"
+        >
+            <option>Professional</option>
+            <option>Friendly</option>
+            <option>Casual</option>
+            <option>Informative</option>
+        </select>
+    </div>
+
+    <!-- Style -->
+    <div>
+        <label class="text-sm text-gray-400">Writing Style</label>
+        <select
+            name="style"
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg"
+        >
+            <option>Guide</option>
+            <option>Storytelling</option>
+            <option>Listicle</option>
+            <option>Tutorial</option>
+        </select>
+    </div>
+
+    <!-- Audience -->
+    <div>
+        <label class="text-sm text-gray-400">Target Audience</label>
+        <input
+            type="text"
+            name="audience"
+            placeholder="e.g. Students, Developers"
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg"
+        >
+    </div>
+
+    <!-- Context -->
+    <div>
+        <label class="text-sm text-gray-400">
+            Additional Context (Optional)
+        </label>
+
+        <textarea
+            name="external_thoughts"
+            rows="3"
+            placeholder="Add any specific idea..."
+            class="w-full mt-2 p-3 bg-[#08121c] border border-gray-700 rounded-lg"
+        ></textarea>
+    </div>
+
+    <!-- Button -->
+    <button
+        type="submit"
+        class="w-full bg-cyan-400 text-black font-semibold py-3 rounded-xl hover:bg-cyan-300 transition"
+    >
+        Generate Article ⚡
+    </button>
+
+</form>
+
 {% endblock %}
