@@ -1,11 +1,12 @@
 import json
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from .forms import SocialMediaForm
 from .services.post_generator import generate_social_media_content
+from django.views.decorators.csrf import csrf_exempt
 
-
-@login_required
+@csrf_exempt
+# @login_required
 def social_media(request):
 
     if request.method == "POST":

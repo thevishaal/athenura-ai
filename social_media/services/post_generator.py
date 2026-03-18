@@ -5,37 +5,73 @@ client = Groq(api_key=GROQ_API_KEY)
 
 
 def generate_social_media_content(topic, platform, tone):
-    prompt = f"""
-Generate social media content for:
 
+    prompt = f"""
+Act as a social media strategist, content creator, and platform-specific growth expert.
+
+Your task is to generate HIGH-QUALITY, ENGAGING, and PLATFORM-OPTIMIZED social media content ideas.
+
+INPUT:
 Topic: {topic}
 Platform: {platform}
 Tone: {tone}
 
-Return JSON in this exact format:
+CRITICAL TONE ENFORCEMENT:
+
+You MUST strictly follow the given tone:
+
+- professional → formal, authoritative, structured
+- casual → conversational, relatable, light tone
+- persuasive → emotional, strong hooks, CTA-focused
+- storytelling → narrative-driven, engaging flow
+- technical → precise, informative, expert-level
+- friendly → warm, supportive, approachable
+
+IMPORTANT:
+- Tone MUST be clearly visible in EVERY content type.
+- Do NOT default to neutral tone.
+
+PLATFORM ADAPTATION:
+
+Adapt content style based on platform:
+
+- Instagram → visual, hooks, short impactful text
+- LinkedIn → professional, insights, value-driven
+- Twitter → concise, punchy, high engagement
+- Facebook → conversational, community-driven
+
+CONTENT STRATEGY REQUIREMENTS:
+
+- Each idea must be UNIQUE
+- Focus on engagement + value
+- Include strong hooks
+- Keep content actionable
+- Make it audience-focused
+
+OUTPUT STRUCTURE (STRICT JSON ONLY):
 
 {{
   "carousel": {{
-    "title": "Catchy carousel title",
+    "title": "Catchy title",
     "slides": [
       "Hook slide",
-      "Point 1",
-      "Point 2",
-      "Point 3",
+      "Value point",
+      "Value point",
+      "Value point",
       "Call to action"
     ]
   }},
   "reel": {{
-    "hook": "Scroll stopping hook",
+    "hook": "Scroll-stopping hook",
     "script": [
-      "Scene 1 description",
-      "Scene 2 description",
-      "Scene 3 description"
+      "Scene 1",
+      "Scene 2",
+      "Scene 3"
     ],
-    "cta": "Call to action for viewers"
+    "cta": "Call to action"
   }},
   "poll": {{
-    "question": "Interactive poll question",
+    "question": "Engaging question",
     "options": [
       "Option A",
       "Option B",
@@ -45,20 +81,23 @@ Return JSON in this exact format:
   }},
   "educational": {{
     "title": "Educational post title",
-    "post": "Detailed educational caption"
+    "post": "Valuable educational content"
   }},
   "engagement": {{
-    "post": "Community engagement post encouraging comments",
+    "post": "Community engaging content",
     "suggested_time": "Best time to post"
   }}
 }}
 
-Do not return any explanation, markdown, headings, or extra text.
-Return only valid JSON.
+FINAL RULES:
+- Output ONLY valid JSON
+- NO markdown, NO explanation
+- NO extra text
+- Maintain strict structure
 """
 
     response = client.chat.completions.create(
-        model= GROQ_MODEL,
+        model=GROQ_MODEL,
         messages=[
             {
                 "role": "system",
@@ -73,5 +112,4 @@ Return only valid JSON.
         temperature=0.7
     )
 
-    result = response.choices[0].message.content
-    return result
+    return response.choices[0].message.content
