@@ -1,7 +1,26 @@
 {% extends "core/base.html" %}
 
-{% block title %}Article | {{block.super}}{% endblock %}
+{% block title %}Article | {{ block.super }}{% endblock %}
 
 {% block content %}
-<h1>Article Page</h1>
+
+<div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
+
+    <!-- LEFT PANEL -->
+    <div id="form-area">
+        {% include "article/partials/form.html" %}
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div id="output" class="md:col-span-2 space-y-6">
+
+        <div class="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 text-center text-gray-400">
+            🚀 Your AI-generated article will appear here
+        </div>
+
+    </div>
+
+</div>
+
+
 {% endblock %}

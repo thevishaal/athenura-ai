@@ -1,0 +1,46 @@
+<form
+    hx-post="{% url 'generate_structure' %}"
+    hx-target="#output"
+    hx-swap="innerHTML"
+    hx-indicator="#loader"
+    hx-disabled-elt="button"
+    class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 space-y-4"
+>
+    {% csrf_token %}
+
+    <h2 class="text-lg font-semibold">Generate Article</h2>
+
+    <!-- Topic -->
+    <input type="text" name="topic"
+        placeholder="Enter topic..."
+        class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
+
+    <!-- Tone -->
+    <select name="tone"
+        class="w-full p-2 rounded-lg bg-slate-900 border border-slate-700">
+        <option>Professional</option>
+        <option>Casual</option>
+    </select>
+
+    <!-- Length -->
+    <select name="length"
+        class="w-full p-2 rounded-lg bg-slate-900 border border-slate-700">
+        <option value="800">Short</option>
+        <option value="1500">Medium</option>
+        <option value="2500">Long</option>
+    </select>
+
+    <!-- Audience -->
+    <input type="text" name="audience"
+        placeholder="Target audience..."
+        class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
+
+    <button class="w-full bg-cyan-500 hover:bg-cyan-600 p-3 rounded-lg">
+        Generate Structure
+    </button>
+
+    <div id="loader" class="hidden text-center text-sm text-gray-400">
+        ⚡ AI is thinking...
+    </div>
+
+</form>
