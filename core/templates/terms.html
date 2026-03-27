@@ -1,0 +1,104 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Terms of Service - Athenura{% endblock %}
+{% block body_bg %}bg-[#0f0f0f]{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center">
+
+    <div class="w-full flex flex-col items-center text-center animate-slide-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent text-[15px] sm:text-xs font-bold tracking-widest uppercase mb-8">
+           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+           USER AGREEMENT
+        </div>
+
+        <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] mb-6 tracking-tight">
+            The Rules of the <br class="hidden md:block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-b from-gray-100 via-accent to-deep-blue">Creative Engine</span>
+        </h1>
+
+        <p class="text-text-muted max-w-3xl text-lg md:text-xl mb-12 leading-relaxed opacity-90">
+            By using Athenura, you agree to these terms. We keep our rules simple so you can focus on what matters most: building incredible content.
+        </p>
+    </div>
+
+    <div class="w-full mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start animate-slide-up" style="animation-delay: 0.2s;">
+        
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-deep-blue rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+            <div class="relative bg-card-bg border border-white/10 rounded-[2.5rem] p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-white mb-6">Acceptable Use</h2>
+                <p class="text-text-darker text-lg leading-relaxed mb-6">
+                    Athenura is designed to amplify human creativity. You agree not to use our AI tools to generate hate speech, illegal content, or deepfakes intended to deceive.
+                </p>
+                <p class="text-text-darker text-lg leading-relaxed">
+                    You retain <span class="text-accent font-semibold">100% ownership</span> of the outputs you generate. However, you are responsible for ensuring your final content complies with the platform's rules where you publish it.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
+                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">01</div>
+                <div class="text-white font-bold mb-1">Account Safety</div>
+                <p class="text-text-darker text-sm">You are responsible for maintaining the security of your login credentials.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
+                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">02</div>
+                <div class="text-white font-bold mb-1">Subscription</div>
+                <p class="text-text-darker text-sm">Billing is handled transparently. Cancel or upgrade your plan at any time.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
+                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">03</div>
+                <div class="text-white font-bold mb-1">API Access</div>
+                <p class="text-text-darker text-sm">Automated scraping of our platform without API keys is strictly prohibited.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
+                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">04</div>
+                <div class="text-white font-bold mb-1">Service Limits</div>
+                <p class="text-text-darker text-sm">We strive for 99.9% uptime but may perform scheduled maintenance.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full mt-32 text-center animate-slide-up" style="animation-delay: 0.4s;">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-16 tracking-tight">Legal Provisions</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Liability</h3>
+                <p class="text-text-darker leading-relaxed">Athenura is provided "as is". We aren't liable for how you use the AI-generated content.</p>
+            </div>
+
+            <div class="p-8 flex flex-col items-center border-x border-white/5">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Jurisdiction</h3>
+                <p class="text-text-darker leading-relaxed">These terms are governed by the laws of India. Any disputes will be settled in local courts.</p>
+            </div>
+
+            <div class="p-8 flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Modifications</h3>
+                <p class="text-text-darker leading-relaxed">We may update these terms as our AI evolves. We will notify you of any major changes.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full mt-32 rounded-[2rem] bg-gradient-to-br from-accent/20 to-deep-blue/10 border border-accent/20 flex flex-col gap-8 items-center text-center py-16 px-6">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white">Ready to create responsibly?</h2>
+        <p class="text-text-muted max-w-xl text-lg">By continuing to use our dashboard, you agree to the terms outlined above.</p>
+        <a href="{% url 'dashboard' %}" class="p-4 bg-accent hover:bg-accent-hover text-dark-bg font-extrabold rounded-xl transition-all duration-300 shadow-neon-glow flex items-center gap-2 group">
+            Back to Dashboard
+            <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12h18m-9-9l9 9-9 9"></path></svg>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

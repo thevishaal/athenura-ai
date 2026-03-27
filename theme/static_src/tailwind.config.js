@@ -53,7 +53,8 @@ module.exports = {
         'text-muted': '#9CA3AF',    // Subtitles aur labels
         'text-darker': '#6B7280',   // Placeholder text
         'footer': '#102222',    
-        'caption': '#131e1e',  // Gradient ke liye start color
+        'caption': '#131e1e',  //
+        'input-bg': '#0f172a',  // Input fields ka background
       },
       boxShadow: {
         'neon-glow': '0 0 20px rgba(0, 229, 255, 0.2)',
@@ -86,18 +87,9 @@ module.exports = {
         'pulse-glow': 'pulseGlow 2s infinite',
       },
       borderRadius: {
-        'btn': '20%', // Ab aapki custom class ban gayi
+        'btn': '30px', // Ab aapki custom class ban gayi
       }
         },
     },
-    plugins: [
-        /**
-         * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
-         * for forms. If you don't like it or have own styling for forms,
-         * comment the line below to disable '@tailwindcss/forms'.
-         */
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
-    ],
+    plugins: [],
 }

@@ -10,7 +10,13 @@
         
         {% if user.is_authenticated %}
            <ul class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
-    
+        <li>
+        <a href="{% url 'dashboard' %}" 
+           class="transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] hover:text-accent 
+           {% if request.resolver_match.url_name == 'dashboard' %} text-accent drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] {% else %} text-text-muted {% endif %}">
+           Home
+        </a>
+    </li>
     <li>
         <a href="{% url 'blog' %}" 
            class="transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] hover:text-accent 
@@ -43,13 +49,7 @@
         </a>
     </li>
 
-    <li>
-        <a href="{% url 'dashboard' %}" 
-           class="transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] hover:text-accent 
-           {% if request.resolver_match.url_name == 'dashboard' %} text-accent drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] {% else %} text-text-muted {% endif %}">
-           Dashboard
-        </a>
-    </li>
+
 </ul>
 
             <div class="hidden lg:block h-6 w-px bg-white/10"></div>

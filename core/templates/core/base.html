@@ -16,7 +16,7 @@
     />
     {% tailwind_css %}
 </head>
-<body class="{% block body_bg %}bg-[#0A0F16]{% endblock %} text-white font-sans antialiased overflow-x-hidden flex flex-col min-h-screen animate-fade-in">
+<body class="{% block body_bg %}bg-card-bg{% endblock %} text-white font-sans antialiased overflow-x-hidden  animate-fade-in">
     
     {% comment %} ______Navbar______ {% endcomment %}
     <nav>
@@ -31,5 +31,6 @@
     <footer class="mt-4">
         {% include "core/components/footer.html" %}
     </footer>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 </body>
 </html>

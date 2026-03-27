@@ -1,0 +1,92 @@
+{% for item in data.captions %}
+<div class="caption-card bg-card-bg border border-border-dark rounded-[24px] p-6 flex flex-col gap-5 transition-all duration-300 hover:border-gray-600 hover:shadow-xl group relative overflow-hidden">
+
+    <div class="absolute -top-10 -right-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+    <span class="text-accent text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">
+        <i class="fas fa-hashtag"></i> Variation {{ forloop.counter|add:offset }}
+    </span>
+
+    <p class="text-gray-300 text-base leading-relaxed">
+        {{ item.text }}
+    </p>
+
+    <div class="flex flex-wrap gap-2 mt-2">
+        {% for tag in item.hashtags %}
+        <span class="text-accent/90 text-xs font-medium bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-full">
+            {{ tag }}
+        </span>
+        {% endfor %}
+    </div>
+
+    <button onclick="copyText(this)" class="mt-auto w-full bg-transparent border-2 border-border-dark text-gray-400 hover:border-accent hover:text-accent hover:bg-accent/10 py-3 rounded-xl text-sm font-bold tracking-wide transition-all duration-300 flex items-center justify-center gap-2">
+        <i class="far fa-copy text-lg"></i> Copy Caption
+    </button>
+
+</div>
+{% endfor %}
+
+{% if data.captions %}
+<div 
+    id="generate-more"
+    hx-post="{% url 'caption' %}" 
+    hx-include="#caption-form"
+    hx-target="this"
+    hx-swap="outerHTML"
+    hx-vals='{"offset": {{ next_offset }}}'
+    class="border-2 border-dashed border-border-dark rounded-[24px] p-6 flex flex-col items-center justify-center cursor-pointer hover:border-accent hover:bg-accent/5 transition-all duration-300 group min-h-[250px]">
+
+    <span class="htmx-indicator hidden text-accent">
+        <i class="fas fa-circle-notch animate-spin text-4xl mb-3"></i>
+    </span>
+
+   <div class="htmx-main-text flex flex-col items-center justify-center text-gray-500 group-hover:text-accent transition-all duration-300">
+    
+    <div class="w-16 h-16 mb-4 rounded-full bg-gray-800/40 group-hover:bg-accent/20 border border-gray-700 group-hover:border-accent flex items-center justify-center transition-all duration-300 shadow-sm group-hover:shadow-[0_0_15px_rgba(0,207,213,0.3)]">
+        <i class="fas fa-plus text-2xl group-hover:scale-125 group-hover:rotate-90 transition-transform duration-300"></i>
+    </div>
+    
+    <span class="font-bold tracking-wider uppercase text-sm">Generate More</span>
+
+</div>
+
+</div>
+{% endif %}
+
+{% if offset == 0 %}
+<script>
+function copyText(btn) {
+    const card = btn.closest('.caption-card');
+    
+    // 1. Get the main caption text
+    const captionText = card.querySelector('p').innerText.trim();
+
+    // 2. Get all the hashtags
+    // Select all the spans inside the hashtag container
+    const hashtagSpans = card.querySelectorAll('.mt-2 span');
+    const hashtagsText = Array.from(hashtagSpans)
+        .map(span => span.innerText.trim()) // Extract text and remove extra spaces
+        .join(' '); // Join them together with a single space
+
+    // 3. Combine caption and hashtags with a couple of line breaks
+    const fullText = hashtagsText ? `${captionText}\n\n${hashtagsText}` : captionText;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(fullText);
+
+    // Save original states
+    const originalHTML = btn.innerHTML;
+    const originalClasses = btn.className;
+
+    // Apply "Success" styling (Solid Cyan + Glow)
+    btn.innerHTML = '<i class="fas fa-check-circle text-lg"></i> Copied!';
+    btn.className = "mt-auto w-full bg-accent border-2 border-accent text-dark-bg py-3 rounded-xl text-sm font-black tracking-wide transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,207,213,0.4)] scale-[0.98]";
+    
+    // Revert back after 2 seconds
+    setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.className = originalClasses;
+    }, 2000);
+}
+</script>
+{% endif %}

@@ -1,55 +1,98 @@
-<div class="bg-white rounded-xl shadow p-8 space-y-8">
+<div class="w-full h-full overflow-y-auto rounded-2xl pr-2">
 
-<h1 class="text-3xl font-bold">
-{{ data.title }}
-</h1>
+    
+    <div class="mb-8 border-b border-border-dark pb-6">
+        <h4 class="text-[10px] font-bold text-accent uppercase tracking-[0.15em] mb-3">
+            Generated Article
+        </h4>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight mb-4">
+            {{ data.title }}
+        </h2>
+        
+        <div class="bg-input-bg border border-border-dark rounded-lg p-3 inline-block shadow-inner mt-2">
+            <span class="text-[10px] font-bold text-text-muted uppercase tracking-wider mr-2">SEO Meta:</span>
+            <span class="text-sm text-gray-300 italic">"{{ data.meta_description }}"</span>
+        </div>
+    </div>
 
-<p class="text-gray-500">
-{{ data.meta_description }}
-</p>
+    <div class="bg-input-bg border border-border-dark rounded-[16px] p-6 mb-10 relative overflow-hidden shadow-inner">
+        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-accent shadow-neon-glow"></div>
+        <h4 class="text-[10px] font-bold text-accent uppercase tracking-[0.15em] mb-3 ml-2">
+            Introduction
+        </h4>
+        <p class="text-gray-300 text-[15px] leading-relaxed ml-2">
+            {{ data.introduction }}
+        </p>
+    </div>
 
-<div class="prose max-w-none">
+    <div class="mb-10 space-y-8 text-gray-200">
+        {% for section in data.sections %}
+        <div>
+            <h3 class="text-2xl font-bold text-white mb-3 flex items-center gap-2">
+                <span class="text-accent text-lg">#</span> {{ section.heading }}
+            </h3>
+            <p class="text-[15px] leading-relaxed text-gray-300 whitespace-pre-line">
+                {{ section.content }}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
 
-<p>{{ data.introduction }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        
+        <div class="bg-dark-bg border border-border-dark rounded-[16px] p-6 shadow-inner">
+            <h4 class="text-[11px] font-bold text-accent uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> Pro Tips
+            </h4>
+            <ul class="space-y-3">
+                {% for tip in data.tips %}
+                <li class="flex items-start gap-3 text-gray-300 text-sm">
+                    <svg class="w-4 h-4 text-accent shrink-0 mt-[2px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    {{ tip }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-{% for section in data.sections %}
+        <div class="bg-dark-bg border border-border-dark rounded-[16px] p-6 shadow-inner">
+            <h4 class="text-[11px] font-bold text-accent uppercase tracking-[0.1em] mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-key"></i> Key Takeaways
+            </h4>
+            <ul class="space-y-3">
+                {% for takeaway in data.key_takeaways %}
+                <li class="flex items-start gap-3 text-gray-300 text-sm">
+                    <div class="w-1.5 h-1.5 rounded-full bg-accent shrink-0 mt-1.5 shadow-neon-glow"></div>
+                    {{ takeaway }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-<h2>{{ section.heading }}</h2>
+    <div class="mb-10">
+        <h3 class="text-xl font-bold text-white mb-5 border-b border-border-dark pb-3">Frequently Asked Questions</h3>
+        <div class="space-y-4">
+            {% for item in data.faq %}
+            <div class="bg-input-bg border border-border-dark rounded-xl p-5">
+                <h4 class="font-semibold text-accent text-[15px] mb-2">Q: {{ item.question }}</h4>
+                <p class="text-gray-300 text-sm leading-relaxed">A: {{ item.answer }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-<p>{{ section.content }}</p>
-
-{% endfor %}
-
-<h2>Tips</h2>
-
-<ul>
-{% for tip in data.tips %}
-<li>{{ tip }}</li>
-{% endfor %}
-</ul>
-
-<h2>Key Takeaways</h2>
-
-<ul>
-{% for take in data.key_takeaways %}
-<li>{{ take }}</li>
-{% endfor %}
-</ul>
-
-<h2>FAQ</h2>
-
-{% for item in data.faq %}
-
-<p class="font-semibold">{{ item.question }}</p>
-
-<p>{{ item.answer }}</p>
-
-{% endfor %}
-
-<h2>Conclusion</h2>
-
-<p>{{ data.conclusion }}</p>
+    <div class="mt-auto border-t border-border-dark pt-8">
+        <h3 class="text-xl font-bold text-white mb-3">Conclusion</h3>
+        <p class="text-gray-300 text-[15px] leading-relaxed mb-6">
+            {{ data.conclusion }}
+        </p>
+        
+        <div class="flex items-center justify-between text-text-darker text-[11px] font-medium w-full bg-dark-bg px-4 py-3 rounded-lg border border-border-dark">
+            <span class="flex items-center gap-1"><i class="fa-solid fa-check-circle text-accent"></i> Generation complete</span>
+            <span>SEO Optimized</span>
+        </div>
+    </div>
 
 </div>
 
-</div>
+

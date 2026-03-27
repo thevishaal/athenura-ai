@@ -6,3 +6,12 @@ def dashboard(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def policy(request):
+    return render(request, 'policy.html')
+
+def terms(request):
+    return render(request,'terms.html')
+
+def contact(request):
+    return render(request,'contact.html')

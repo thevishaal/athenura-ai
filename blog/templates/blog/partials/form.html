@@ -1,147 +1,320 @@
+<style>
+    /* Liquid Glassmorphism Core */
+    .liquid-glass-panel {
+        background: rgba(6, 47, 39, 0.35); /* Deep translucent blue/black */
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05),
+                    0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .liquid-glass-input {
+        background: rgba(255, 255, 255, 0.02) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #ffffff;
+    }
+
+    .liquid-glass-input:focus, .custom-dropdown.active .dropdown-trigger {
+        border-color: #0df2f2 !important;
+        background: rgba(13, 242, 242, 0.04) !important;
+        box-shadow: 0 0 20px rgba(13, 242, 242, 0.15),
+                    inset 0 0 10px rgba(13, 242, 242, 0.05);
+        transform: translateY(-2px);
+    }
+
+    /* Custom Dropdown Styles (Glassified) */
+    .custom-dropdown {
+        position: relative;
+    }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.85); /* Darker glass for readability */
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(13, 242, 242, 0.3);
+        border-radius: 1rem;
+        overflow: hidden;
+        z-index: 50;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(13, 242, 242, 0.1);
+    }
+    
+    .custom-dropdown.active .dropdown-menu {
+        display: block;
+        animation: dropdownFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .custom-dropdown.active .fa-chevron-down {
+        transform: rotate(180deg);
+        color: #0df2f2;
+    }
+    
+    @keyframes dropdownFadeIn {
+        from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .option {
+        transition: all 0.2s ease;
+        color: #e2e8f0;
+    }
+    
+    .option:hover {
+        background: rgba(13, 242, 242, 0.15);
+        color: #0df2f2;
+        padding-left: 2rem;
+        border-left: 3px solid #0df2f2;
+    }
+    
+    /* Range Slider Styling */
+    .theme-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+    }
+    .theme-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #0df2f2;
+        cursor: pointer;
+        margin-top: -6px; 
+        box-shadow: 0 0 15px rgba(13, 242, 242, 0.6);
+        transition: transform 0.2s;
+    }
+    .theme-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.2);
+    }
+    .theme-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+    
+    /* Perfect Button Height & HTMX Loading Logic */
+    .htmx-indicator { display: none; }
+    
+    /* The button acts as a relative container to swap elements perfectly */
+    .submit-btn {
+        height: 56px; /* Fixed height so it never jumps */
+    }
+    
+    .htmx-request .htmx-main-text {
+        display: none !important;
+    }
+    
+    .htmx-request .htmx-indicator {
+        display: flex !important;
+    }
+    
+    .htmx-request.submit-btn {
+        /* Liquid animation during loading */
+        background: linear-gradient(90deg, #0df2f2, #04ffff, #0df2f2);
+        background-size: 200% auto;
+        animation: gradient-flow 2s linear infinite;
+        opacity: 0.9;
+        cursor: wait;
+    }
+
+    @keyframes gradient-flow {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    /* Form animations */
+    .form-group { animation: fadeInUp 0.6s ease-out backwards; }
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
 <form
-hx-post="{% url 'blog' %}"
-hx-target="#blog-output"
-hx-swap="innerHTML"
-hx-disabled-elt="button"
-class="bg-white p-6 rounded-xl shadow space-y-5"
+    method="POST"
+    hx-post="{% url 'blog' %}"
+    hx-target="#blog-output"
+    hx-swap="innerHTML"
+    hx-disabled-elt="button"
+    id="blog-form"
+    class="flex flex-col gap-5 bg-card-bg liquid-glass-panel p-6 sm:p-8 rounded-btn w-[90bw] relative overflow-hidden"
 >
+    {% csrf_token %}
+    
+    <div class="absolute -top-20 -right-20 w-40 h-40 bg-accent/20 rounded-full blur-[60px] pointer-events-none"></div>
 
-{% csrf_token %}
+    <div class="space-y-8 relative z-10">
+        <div class="form-group">
+            <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Blog Topic</label>
+            <textarea 
+                name="topic" 
+                class="liquid-glass-input w-full h-40 rounded-2xl p-6 text-sm placeholder-gray-500 outline-none resize-none"
+                placeholder="e.g. The Future of Quantum Computing and Neural Networks..."
+                required
+            >{{ form.topic.value|default:'' }}</textarea>
+        </div>
 
-<h2 class="text-xl font-semibold">
-AI Blog Generator
-</h2>
+        <div class="flex flex-row w-full justify-between form-group">
+            <div class="relative custom-dropdown" id="tone-select">
+                <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Tone of Voice</label>
+                <input type="hidden" name="tone" id="tone-input" value="Professional">
+                <div class="dropdown-trigger liquid-glass-input w-full bg-card-bg rounded-btn py-4 px-8 flex justify-between items-center cursor-pointer">
+                    <span class="selected-label text-sm">Professional</span>
+                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Professional">Professional</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Casual">Casual</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Witty">Witty</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Inspirational">Inspirational</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
+                </div>
+            </div>
 
+            <div class="relative custom-dropdown" id="style-select">
+                <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Writing Style</label>
+                <input type="hidden" name="style" id="style-input" value="Storytelling">
+                <div class="dropdown-trigger liquid-glass-input w-full py-4 px-8 flex justify-between items-center cursor-pointer rounded-btn">
+                    <span class="selected-label text-sm">Storytelling</span>
+                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Journalistic">Journalistic</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Listicle">Listicle</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Analytical">Analytical</div>
+                    <div class="option px-6 py-4 cursor-pointer" data-value="Persuasive">Persuasive</div>
+                </div>
+            </div>
+        </div>
 
-<!-- Topic -->
+        <div class="form-group">
+            <div class="flex justify-between items-end mb-3 ml-2 mr-2">
+                <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em]">Word Count</label>
+                <span id="wordCountDisplay" class="text-accent text-[11px] font-mono font-bold bg-accent/10 border border-accent/20 px-3 py-1.5 rounded-lg shadow-[0_0_10px_rgba(13,242,242,0.1)]">1,200 words</span>
+            </div>
+            <input
+                type="range"
+                name="word_count"
+                id="wordCountSlider"
+                min="100"
+                max="3000"
+                step="100"
+                value="1200"
+                class="theme-slider w-full h-1 mt-2 focus:outline-none"
+            />
+        </div>
 
-<div>
-<label class="text-sm font-medium">Topic</label>
+        <div class="form-group">
+            <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">External Thoughts / Context</label>
+            <textarea
+                name="external_thoughts"
+                rows="3"
+                placeholder="Mention the recent market shifts and their impact..."
+                class="liquid-glass-input w-full rounded-2xl px-6 py-4 text-sm placeholder-gray-500 outline-none resize-none"
+            ></textarea>
+        </div>
 
-<input
-type="text"
-name="topic"
-value="{{ form.topic.value|default:'' }}"
-class="w-full border rounded-lg px-3 py-2 mt-1"
-/>
+        <input type="hidden" name="audience" value="General" />
 
-{% if form.topic.errors %}
-<p class="text-red-500 text-sm">
-{{ form.topic.errors.0 }}
-</p>
-{% endif %}
+        <div class="mt-8 form-group">
+            <button
+                type="submit"
+                class="submit-btn relative w-full bg-accent text-dark-bg font-black text-[13px] tracking-[0.2em] uppercase rounded-btn flex items-center justify-center transition-all duration-300 shadow-neon-glow hover:shadow-neon-glow-strong disabled:opacity-70 disabled:cursor-not-allowed group"
+            >
+                <span class="htmx-main-text flex items-center justify-center gap-3 w-full h-full">
+                    GENERATE CONTENT
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </span>
 
-</div>
-
-
-<!-- Word Count -->
-
-<div>
-<label class="text-sm font-medium">Word Count</label>
-
-<input
-type="number"
-name="word_count"
-value="{{ form.word_count.value|default:'' }}"
-class="w-full border rounded-lg px-3 py-2 mt-1"
-/>
-
-{% if form.word_count.errors %}
-<p class="text-red-500 text-sm">
-{{ form.word_count.errors.0 }}
-</p>
-{% endif %}
-
-</div>
-
-
-<!-- Tone -->
-
-<div>
-<label class="text-sm font-medium">Tone</label>
-
-<input
-type="text"
-name="tone"
-value="{{ form.tone.value|default:'' }}"
-class="w-full border rounded-lg px-3 py-2 mt-1"
-/>
-
-{% if form.topic.errors %}
-<p class="text-red-500 text-sm">
-{{ form.topic.errors.0 }}
-</p>
-{% endif %}
-
-
-</div>
-
-
-<!-- Style -->
-
-<div>
-<label class="text-sm font-medium">Style</label>
-
-<input
-type="text"
-name="style"
-value="{{ form.style.value|default:'' }}"
-class="w-full border rounded-lg px-3 py-2 mt-1"
-/>
-
-{% if form.topic.errors %}
-<p class="text-red-500 text-sm">
-{{ form.topic.errors.0 }}
-</p>
-{% endif %}
-
-
-</div>
-
-
-<!-- Audience -->
-
-<div>
-<label class="text-sm font-medium">Audience</label>
-
-<input
-type="text"
-name="audience"
-value="{{ form.audience.value|default:'' }}"
-class="w-full border rounded-lg px-3 py-2 mt-1"
-/>
-
-{% if form.topic.errors %}
-<p class="text-red-500 text-sm">
-{{ form.topic.errors.0 }}
-</p>
-{% endif %}
-
-
-</div>
-
-
-<!-- Context -->
-
-<div>
-<label class="text-sm font-medium">Additional Context</label>
-
-<textarea
-name="external_thoughts"
-rows="4"
-class="w-full border rounded-lg px-3 py-2 mt-1"
->{{ form.external_thoughts.value|default:'' }}</textarea>
-
-</div>
-
-
-<button
-type="submit"
-class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
->
-
-Generate Blog
-
-</button>
-
+                <span class="htmx-indicator flex items-center justify-center gap-3 w-full h-full text-dark-bg font-black">
+                    <svg class="animate-spin h-5 w-5 text-dark-bg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    SYNTHESIZING...
+                </span>
+            </button>
+        </div>
+    </div>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Dropdown functionality
+        function initDropdown(dropdownId, inputId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            
+            const trigger = dropdown.querySelector('.dropdown-trigger');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const selectedLabel = trigger.querySelector('.selected-label');
+            const hiddenInput = document.getElementById(inputId);
+            
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other dropdowns
+                document.querySelectorAll('.custom-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+                dropdown.classList.toggle('active');
+            });
+            
+            menu.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    const label = this.textContent;
+                    
+                    selectedLabel.textContent = label;
+                    if (hiddenInput) hiddenInput.value = value;
+                    
+                    dropdown.classList.remove('active');
+                });
+            });
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
+        
+        // Initialize dropdowns
+        initDropdown('tone-select', 'tone-input');
+        initDropdown('style-select', 'style-input');
+        
+        // Range slider functionality
+        const slider = document.getElementById("wordCountSlider");
+        const display = document.getElementById("wordCountDisplay");
+        const accentColor = "#0df2f2"; 
+        const trackColor = "rgba(255, 255, 255, 0.1)";
+
+        function updateSlider() {
+            const formattedValue = Number(slider.value).toLocaleString();
+            display.textContent = `${formattedValue} words`;
+            const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+            slider.style.background = `linear-gradient(to right, ${accentColor} 0%, ${accentColor} ${percentage}%, ${trackColor} ${percentage}%, ${trackColor} 100%)`;
+        }
+
+        updateSlider();
+        slider.addEventListener("input", updateSlider);
+    });
+</script>

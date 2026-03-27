@@ -5,29 +5,21 @@
 {% block body_bg %}bg-dark-bg{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50">
-
-<div class="max-w-6xl mx-auto py-12 grid grid-cols-3 gap-8">
-
-    <!-- FORM AREA -->
-
-    <div id="form-area" class="col-span-1">
-        {% include "blog/partials/form.html" %}
-    </div>
-
-    <!-- OUTPUT AREA -->
-
-    <div id="blog-output" class="col-span-2 space-y-6">
-
-        <div class="bg-white rounded-xl p-10 shadow text-center text-gray-400">
-            Your generated blog will appear here
+<div class="mx-auto w-full max-w-7xl px-4 py-10 flex flex-col">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div id="form-area" class="md:col-span-1">
+            {% include "blog/partials/form.html" %}
         </div>
 
+        <div id="blog-output" class="md:col-span-2">
+            
+            <div class="bg-card-bg/50 rounded-2xl p-10 shadow text-center text-text-muted border border-dashed border-border-dark min-h-[500px] flex items-center justify-center">
+                <p class="font-mono text-[12px] uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-accent"></i>
+                    Your generated blog will appear here
+                </p>
+            </div>
+        </div>
     </div>
-
 </div>
-
-</div>
-
-
 {% endblock %}
