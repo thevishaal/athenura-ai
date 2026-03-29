@@ -1,12 +1,11 @@
 <style>
-    /* Liquid Glassmorphism Core */
+    /* --- Liquid Glassmorphism Core --- */
     .liquid-glass-panel {
-        background: rgba(6, 47, 39, 0.35); /* Deep translucent blue/black */
+        background: rgba(6, 47, 39, 0.31);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05),
-                    0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     .liquid-glass-input {
@@ -17,18 +16,8 @@
         color: #ffffff;
     }
 
-    .liquid-glass-input:focus, .custom-dropdown.active .dropdown-trigger {
-        border-color: #0df2f2 !important;
-        background: rgba(13, 242, 242, 0.04) !important;
-        box-shadow: 0 0 20px rgba(13, 242, 242, 0.15),
-                    inset 0 0 10px rgba(13, 242, 242, 0.05);
-        transform: translateY(-2px);
-    }
-
-    /* Custom Dropdown Styles (Glassified) */
-    .custom-dropdown {
-        position: relative;
-    }
+    /* --- Custom Dropdown Styles --- */
+    .custom-dropdown { position: relative; }
     
     .dropdown-menu {
         display: none;
@@ -36,9 +25,9 @@
         top: calc(100% + 10px);
         left: 0;
         right: 0;
-        background: rgba(15, 23, 42, 0.85); /* Darker glass for readability */
+        background: rgba(15, 23, 42, 0.85);
         backdrop-filter: blur(30px);
-        border: 1px solid rgba(13, 242, 242, 0.3);
+        border: 1px solid rgba(13, 242, 185, 0.3);
         border-radius: 1rem;
         overflow: hidden;
         z-index: 50;
@@ -72,7 +61,7 @@
         border-left: 3px solid #0df2f2;
     }
     
-    /* Range Slider Styling */
+    /* --- Range Slider Styling --- */
     .theme-slider {
         -webkit-appearance: none;
         appearance: none;
@@ -89,9 +78,7 @@
         box-shadow: 0 0 15px rgba(13, 242, 242, 0.6);
         transition: transform 0.2s;
     }
-    .theme-slider::-webkit-slider-thumb:hover {
-        transform: scale(1.2);
-    }
+    .theme-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
     .theme-slider::-webkit-slider-runnable-track {
         width: 100%;
         height: 4px;
@@ -100,24 +87,13 @@
         border-radius: 2px;
     }
     
-    /* Perfect Button Height & HTMX Loading Logic */
+    /* --- Perfect Button & HTMX Logic --- */
     .htmx-indicator { display: none; }
-    
-    /* The button acts as a relative container to swap elements perfectly */
-    .submit-btn {
-        height: 56px; /* Fixed height so it never jumps */
-    }
-    
-    .htmx-request .htmx-main-text {
-        display: none !important;
-    }
-    
-    .htmx-request .htmx-indicator {
-        display: flex !important;
-    }
+    .submit-btn { height: 56px; }
+    .htmx-request .htmx-main-text { display: none !important; }
+    .htmx-request .htmx-indicator { display: flex !important; }
     
     .htmx-request.submit-btn {
-        /* Liquid animation during loading */
         background: linear-gradient(90deg, #0df2f2, #04ffff, #0df2f2);
         background-size: 200% auto;
         animation: gradient-flow 2s linear infinite;
@@ -130,12 +106,13 @@
         100% { background-position: 200% center; }
     }
     
-    /* Form animations */
+    /* --- Form Animations --- */
     .form-group { animation: fadeInUp 0.6s ease-out backwards; }
     .form-group:nth-child(1) { animation-delay: 0.1s; }
     .form-group:nth-child(2) { animation-delay: 0.2s; }
     .form-group:nth-child(3) { animation-delay: 0.3s; }
     .form-group:nth-child(4) { animation-delay: 0.4s; }
+    .form-group:nth-child(5) { animation-delay: 0.5s; }
     
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(20px); }
@@ -150,13 +127,11 @@
     hx-swap="innerHTML"
     hx-disabled-elt="button"
     id="blog-form"
-    class="flex flex-col gap-5 bg-card-bg liquid-glass-panel p-6 sm:p-8 rounded-btn w-[90bw] relative overflow-hidden"
->
+    class="flex flex-col gap-5 bg-card-bg liquid-glass-panel p-6 sm:p-8 rounded-btn relative w-full min-w-[450px]">
     {% csrf_token %}
-    
-    <div class="absolute -top-20 -right-20 w-40 h-40 bg-accent/20 rounded-full blur-[60px] pointer-events-none"></div>
 
     <div class="space-y-8 relative z-10">
+        
         <div class="form-group">
             <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Blog Topic</label>
             <textarea 
@@ -167,13 +142,14 @@
             >{{ form.topic.value|default:'' }}</textarea>
         </div>
 
-        <div class="flex flex-row w-full justify-between form-group">
-            <div class="relative custom-dropdown" id="tone-select">
+        <div class="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 form-group">
+            
+            <div class="relative custom-dropdown w-full" id="tone-select">
                 <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Tone of Voice</label>
                 <input type="hidden" name="tone" id="tone-input" value="Professional">
-                <div class="dropdown-trigger liquid-glass-input w-full bg-card-bg rounded-btn py-4 px-8 flex justify-between items-center cursor-pointer">
-                    <span class="selected-label text-sm">Professional</span>
-                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300"></i>
+                <div class="dropdown-trigger liquid-glass-input w-full bg-card-bg rounded-btn py-4 px-6 flex justify-between items-center cursor-pointer gap-3">
+                    <span class="selected-label text-sm flex-1 text-left truncate">Professional</span>
+                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
                 </div>
                 <div class="dropdown-menu">
                     <div class="option px-6 py-4 cursor-pointer" data-value="Professional">Professional</div>
@@ -185,12 +161,12 @@
                 </div>
             </div>
 
-            <div class="relative custom-dropdown" id="style-select">
+            <div class="relative custom-dropdown w-full" id="style-select">
                 <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Writing Style</label>
                 <input type="hidden" name="style" id="style-input" value="Storytelling">
-                <div class="dropdown-trigger liquid-glass-input w-full py-4 px-8 flex justify-between items-center cursor-pointer rounded-btn">
-                    <span class="selected-label text-sm">Storytelling</span>
-                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300"></i>
+                <div class="dropdown-trigger liquid-glass-input w-full py-4 px-6 flex justify-between items-center cursor-pointer rounded-btn gap-3">
+                    <span class="selected-label text-sm flex-1 text-left truncate">Storytelling</span>
+                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
                 </div>
                 <div class="dropdown-menu">
                     <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
@@ -258,7 +234,8 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Dropdown functionality
+        
+        // --- Dropdown Initialization Helper ---
         function initDropdown(dropdownId, inputId) {
             const dropdown = document.getElementById(dropdownId);
             if (!dropdown) return;
@@ -270,7 +247,7 @@
             
             trigger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Close other dropdowns
+                // Close others first
                 document.querySelectorAll('.custom-dropdown').forEach(d => {
                     if (d !== dropdown) d.classList.remove('active');
                 });
@@ -279,37 +256,31 @@
             
             menu.querySelectorAll('.option').forEach(option => {
                 option.addEventListener('click', function() {
-                    const value = this.getAttribute('data-value');
-                    const label = this.textContent;
-                    
-                    selectedLabel.textContent = label;
-                    if (hiddenInput) hiddenInput.value = value;
-                    
+                    selectedLabel.textContent = this.textContent;
+                    if (hiddenInput) hiddenInput.value = this.getAttribute('data-value');
                     dropdown.classList.remove('active');
                 });
             });
         }
         
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function() {
+        // Close dropdowns if clicking anywhere else on the page
+        document.addEventListener('click', () => {
             document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
         });
         
-        // Initialize dropdowns
         initDropdown('tone-select', 'tone-input');
         initDropdown('style-select', 'style-input');
         
-        // Range slider functionality
+        // --- Range Slider Logic ---
         const slider = document.getElementById("wordCountSlider");
         const display = document.getElementById("wordCountDisplay");
         const accentColor = "#0df2f2"; 
         const trackColor = "rgba(255, 255, 255, 0.1)";
 
         function updateSlider() {
-            const formattedValue = Number(slider.value).toLocaleString();
-            display.textContent = `${formattedValue} words`;
+            display.textContent = `${Number(slider.value).toLocaleString()} words`;
             const percentage = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
             slider.style.background = `linear-gradient(to right, ${accentColor} 0%, ${accentColor} ${percentage}%, ${trackColor} ${percentage}%, ${trackColor} 100%)`;
         }

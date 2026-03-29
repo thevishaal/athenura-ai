@@ -44,7 +44,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-        'dark-bg': '#0A0F16',       // Deepest background (pure app ke liye)
+              'social': '#000000',
+        'dark-bg': '#0A0F16',     // Deepest background (pure app ke liye)
         'card-bg': '#161616',       // Cards aur panels ka background
         'card-hover': '#1A2333',    // Cards par hover effect ke liye
         'border-dark': '#1F2937',   // Borders aur dividers
@@ -55,6 +56,7 @@ module.exports = {
         'footer': '#102222',    
         'caption': '#131e1e',  //
         'input-bg': '#0f172a',  // Input fields ka background
+         
       },
       boxShadow: {
         'neon-glow': '0 0 20px rgba(0, 229, 255, 0.2)',
@@ -64,6 +66,7 @@ module.exports = {
       backgroundImage: {
         // Heading mein jo "Instantly" par color gradient hai uske liye
         'text-gradient': 'linear-gradient(to bottom, #ffffff, #000000)',
+        'gradient-bg': 'radial-gradient(circle at top, #0d2b2d 0%, #020607 100%)',
       },
       // Chhote aur smooth animations
       keyframes: {

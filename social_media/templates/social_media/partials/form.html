@@ -1,53 +1,216 @@
-<div id="form-area">
-  <form
+<style>
+    /* Liquid Glassmorphism Core */
+    .liquid-glass-panel {
+        background: #171717;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .liquid-glass-input {
+        background: rgba(255, 255, 255, 0.03) !important;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        color: #ffffff;
+    }
+
+    .liquid-glass-input:focus, .custom-dropdown.active .dropdown-trigger {
+        border-color: #0df2f2 !important;
+        background: rgba(13, 242, 242, 0.04) !important;
+        box-shadow: 0 0 20px rgba(13, 242, 242, 0.15), inset 0 0 10px rgba(13, 242, 242, 0.05);
+        transform: translateY(-2px);
+        outline: none;
+    }
+
+    /* Custom Dropdown Styles */
+    .custom-dropdown { position: relative; }
+    
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: #171717aa;
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(13, 242, 242, 0.2);
+        border-radius: 1rem;
+        overflow: hidden;
+        z-index: 50;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(13, 242, 242, 0.1);
+    }
+    
+    .custom-dropdown.active .dropdown-menu {
+        display: block;
+        animation: dropdownFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .custom-dropdown.active svg.chevron {
+        transform: rotate(180deg);
+        color: #0df2f2;
+    }
+    
+    @keyframes dropdownFadeIn {
+        from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .option {
+        transition: all 0.2s ease;
+        color: #e2e8f0;
+        font-size: 0.875rem;
+    }
+    
+    .option:hover {
+        background: rgba(13, 242, 242, 0.15);
+        color: #0df2f2;
+        padding-left: 2rem;
+        border-left: 3px solid #0df2f2;
+    }
+    
+    /* Perfect Button Height & HTMX Loading Logic */
+    .htmx-indicator { display: none; }
+    .submit-btn { height: 56px; }
+    
+    .htmx-request .htmx-main-text { display: none !important; }
+    .htmx-request .htmx-indicator { display: flex !important; }
+    
+    .htmx-request.submit-btn {
+        background: linear-gradient(90deg, #0df2f2, #04ffff, #0df2f2);
+        background-size: 200% auto;
+        opacity: 0.9;
+        cursor: wait;
+    }
+    
+    /* Form animations */
+    .form-group { animation: fadeInUp 0.6s ease-out backwards; }
+    .form-group:nth-child(1) { animation-delay: 0.1s; }
+    .form-group:nth-child(2) { animation-delay: 0.2s; }
+    .form-group:nth-child(3) { animation-delay: 0.3s; }
+    .form-group:nth-child(4) { animation-delay: 0.4s; }
+    .form-group:nth-child(5) { animation-delay: 0.5s; }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<form
+    method="POST"
     hx-post="{% url 'social_media' %}"
-    hx-target="#form-area"
-    hx-swap="innerHTML"
+    hx-target="#chat"
+    hx-swap="outerHTML" 
     hx-disabled-elt="button"
-    class="space-y-4"
-  >
+    class="liquid-glass-panel w-full max-w-[340px] rounded-3xl p-6 sm:p-8 flex flex-col gap-6 relative"
+>
     {% csrf_token %}
 
-    <div>
-      <input
-        type="text"
-        name="topic"
-        value="{{form.topic.value|default:''}}"
-        placeholder="Topic"
-        class="border p-2 w-full rounded bg-card-bg"
-      />
-
-      {% include "social_media/partials/form_error.html" with field=form.topic %}
+    <div class="flex items-center gap-3 mb-2 form-group">
+        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+        </svg>
+        <h2 class="text-xl font-bold text-white tracking-tight">Parameters</h2>
     </div>
 
-    <div>
-      <input
-        type="text"
-        name="platform"
-        value="{{form.platform.value|default:''}}"
-        placeholder="Platform"
-        class="border p-2 w-full rounded bg-card-bg"
-      />
-
-      {% include "social_media/partials/form_error.html" with field=form.platform %}
+    <div class="form-group space-y-2">
+        <label class="block text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] ml-1">Topic or Keyword</label>
+        <input type="text" name="topic" value="{{form.topic.value|default:''}}" placeholder="e.g., Sustainable Living" class="liquid-glass-input w-full rounded-2xl p-4 text-sm placeholder-gray-500"/>
     </div>
 
-    <div>
-      <input
-        type="text"
-        name="tone"
-        value="{{form.tone.value|default:''}}"
-        placeholder="Tone"
-        class="border p-2 w-full rounded bg-card-bg"
-      />
-
-      {% include "social_media/partials/form_error.html" with field=form.tone %}
+    <div class="form-group space-y-2">
+        <label class="block text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] ml-1">Platform</label>
+        <div class="custom-dropdown" id="platform-select">
+            <input type="hidden" name="platform" id="platform-input" value="{{form.platform.value|default:'Instagram'}}">
+            <div class="dropdown-trigger liquid-glass-input w-full rounded-2xl p-4 flex justify-between items-center cursor-pointer">
+                <span class="selected-label text-sm text-gray-200">{{form.platform.value|default:'Instagram'}}</span>
+                <svg class="w-4 h-4 text-gray-500 transition-transform duration-300 chevron" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                </svg>
+            </div>
+            <div class="dropdown-menu">
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Instagram">Instagram</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="LinkedIn">LinkedIn</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Twitter">Twitter</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="TikTok">TikTok</div>
+            </div>
+        </div>
     </div>
 
-    <button
-      class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"
-    >
-      Generate
-    </button>
-  </form>
-</div>
+    <div class="form-group space-y-2 z-10">
+        <label class="block text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] ml-1">Tone</label>
+        <div class="custom-dropdown" id="tone-select">
+            <input type="hidden" name="tone" id="tone-input" value="{{form.tone.value|default:'Professional'}}">
+            <div class="dropdown-trigger liquid-glass-input w-full rounded-2xl p-4 flex justify-between items-center cursor-pointer">
+                <span class="selected-label text-sm text-gray-200">{{form.tone.value|default:'Professional'}}</span>
+                <svg class="w-4 h-4 text-gray-500 transition-transform duration-300 chevron" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                </svg>
+            </div>
+            <div class="dropdown-menu">
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Professional">Professional</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Casual">Casual</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Witty">Witty</div>
+                <div class="option px-5 py-3.5 cursor-pointer" data-value="Inspirational">Inspirational</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-2">
+        <button type="submit" class="submit-btn relative w-full h-[60px] bg-[#112a2a] border-[1.5px] border-accent hover:bg-accent/10 text-accent font-bold text-lg rounded-2xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.1)] hover:shadow-[0_0_25px_rgba(13,242,242,0.25)] group overflow-hidden">
+            <span class="htmx-main-text flex items-center justify-center gap-2.5 w-full h-full">
+                <svg class="w-6 h-6 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+                Generate Ideas
+            </span>
+            <span class="htmx-indicator flex items-center justify-center gap-3 w-full h-full text-accent font-bold text-lg">
+                <svg class="animate-spin h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Generating...
+            </span>
+        </button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function initDropdown(dropdownId, inputId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            const trigger = dropdown.querySelector('.dropdown-trigger');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const selectedLabel = trigger.querySelector('.selected-label');
+            const hiddenInput = document.getElementById(inputId);
+            
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+                dropdown.classList.toggle('active');
+            });
+            
+            menu.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectedLabel.textContent = this.textContent;
+                    if (hiddenInput) hiddenInput.value = this.getAttribute('data-value');
+                    dropdown.classList.remove('active');
+                });
+            });
+        }
+        
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
+        
+        initDropdown('platform-select', 'platform-input');
+        initDropdown('tone-select', 'tone-input');
+    });
+</script>
