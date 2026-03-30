@@ -8,82 +8,76 @@ def generate_blog_content(topic, word_count, tone, style, audience, external_tho
 
     BLOG_PROMPT = f"""
 
-You are a professional SEO content writer and expert blogger.
+Act as a professional SEO content writer, expert blogger, and tone-adaptive copywriter.
 
-Your task is to generate a high-quality, engaging, and SEO-optimized blog post.
+Your primary goal is to generate a high-quality, SEO-optimized blog post that STRICTLY adapts to the requested tone and writing style.
 
-USER INPUT
-
+INPUT:
 Topic: {topic}
 Target Word Count: {word_count}
 Tone: {tone}
 Writing Style: {style}
 Target Audience: {audience}
+Additional Context: {external_thoughts}
 
-Additional Context (Optional): {external_thoughts}
+CRITICAL TONE ENFORCEMENT:
 
-IMPORTANT RULES
+You MUST strictly follow the given tone. Use the guidelines below:
 
-1. Write a complete blog post close to the requested word count.
-2. Maintain the requested tone and writing style.
-3. Write in a natural, human-like style.
-4. Use SEO best practices.
-5. Use headings, subheadings, and bullet points where helpful.
-6. Provide practical insights, tips, and examples.
+- If tone = "professional":
+  → Use formal language, structured sentences, no slang, authoritative voice.
 
-SPECIAL INSTRUCTION ABOUT ADDITIONAL CONTEXT
+- If tone = "casual":
+  → Use conversational language, contractions, relatable examples, friendly vibe.
 
-If "Additional Context" is provided:
-- Use the information naturally in the blog.
-- Expand upon those ideas.
+- If tone = "persuasive":
+  → Use emotional triggers, strong hooks, compelling arguments, call-to-action.
 
-If no additional context is provided:
-- Generate the blog using your own knowledge and expertise.
+- If tone = "storytelling":
+  → Use narrative flow, real-life examples, descriptive language.
 
-BLOG STRUCTURE
+- If tone = "technical":
+  → Use precise terminology, concise explanations, data-driven approach.
 
-1. Title
-Generate an engaging SEO-friendly blog title.
+- If tone = "friendly":
+  → Warm, approachable, supportive language.
 
-2. Meta Description
-Write a 150–160 character meta description.
+IMPORTANT:
+- The tone MUST be clearly distinguishable throughout the blog.
+- Do NOT default to neutral tone.
+- Each paragraph should reflect the tone consistently.
 
-3. Introduction
-Write an engaging introduction that hooks the reader.
+WRITING STYLE ENFORCEMENT:
 
-4. Main Sections
-Create structured sections using H2 headings and detailed content.
+- If style = "short & crisp":
+  → Short sentences, minimal fluff.
 
-5. Tips / Best Practices
-Add actionable tips related to the topic.
+- If style = "detailed":
+  → In-depth explanations, examples, expanded insights.
 
-6. Key Takeaways
-Summarize the most important insights.
+- If style = "analytical":
+  → Break down concepts logically, include comparisons.
 
-7. FAQ Section
-Generate 3–5 relevant questions with answers.
+- If style = "engaging":
+  → Use hooks, rhetorical questions, dynamic flow.
 
-8. Conclusion
-Write a strong concluding paragraph.
+SEO INSTRUCTIONS:
 
-IMPORTANT OUTPUT RULES
+- Naturally include primary + related keywords.
+- Optimize headings (H1, H2).
+- Keep readability high (avoid long dense paragraphs).
+- Use bullet points where helpful.
 
-- Return the response ONLY in valid JSON format.
-- Do NOT include markdown.
-- Do NOT include explanations outside JSON.
-- Ensure the JSON is properly structured and valid.
+CONTEXT HANDLING:
+- If additional context exists → integrate + expand it.
+- Else → generate expert-level content.
 
-OUTPUT FORMAT
-
+OUTPUT STRUCTURE (STRICT JSON ONLY):
 {{
   "title": "",
   "meta_description": "",
   "introduction": "",
   "sections": [
-    {{
-      "heading": "",
-      "content": ""
-    }},
     {{
       "heading": "",
       "content": ""
@@ -103,14 +97,17 @@ OUTPUT FORMAT
     {{
       "question": "",
       "answer": ""
-    }},
-    {{
-      "question": "",
-      "answer": ""
     }}
   ],
   "conclusion": ""
 }}
+
+FINAL RULES:
+
+- Output ONLY valid JSON.
+- NO markdown, NO explanations.
+- Ensure clean formatting.
+- Ensure tone difference is OBVIOUS even to a non-expert reader.
 """
     chat_completion = client.chat.completions.create(
         model = GROQ_MODEL,
@@ -125,7 +122,6 @@ OUTPUT FORMAT
             }
         ],
         response_format={"type": "json_object"},
-        temperature=0.7
     )
 
     result = chat_completion.choices[0].message.content
