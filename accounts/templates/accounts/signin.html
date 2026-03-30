@@ -1,90 +1,143 @@
 {% extends "core/base.html" %}
-
+{% load static %}
 {% block title %}Sign In | {{block.super}}{% endblock %}
 
 {% block content %}
-<div class="min-h-[80vh] w-full flex items-center justify-center px-4 sm:px-6 relative overflow-hidden animate-fade-in">
+<style>
+    /* --- Liquid Mesh Gradient Animations --- */
+    @keyframes blob1 {
+        0% { transform: translate(0%, 0%) scale(1); }
+        33% { transform: translate(15%, 25%) scale(1.1); }
+        66% { transform: translate(-10%, 15%) scale(0.9); }
+        100% { transform: translate(0%, 0%) scale(1); }
+    }
+    @keyframes blob2 {
+        0% { transform: translate(0%, 0%) scale(1); }
+        33% { transform: translate(-15%, -25%) scale(1.1); }
+        66% { transform: translate(10%, -15%) scale(0.9); }
+        100% { transform: translate(0%, 0%) scale(1); }
+    }
+    @keyframes blob3 {
+        0% { transform: translate(0%, 0%) scale(1); }
+        33% { transform: translate(15%, -15%) scale(1.1); }
+        66% { transform: translate(-15%, 15%) scale(0.9); }
+        100% { transform: translate(0%, 0%) scale(1); }
+    }
     
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#0df2f2]/10 rounded-full blur-[120px] pointer-events-none"></div>
+    .mesh-blob-1 { animation: blob1 18s infinite ease-in-out; }
+    .mesh-blob-2 { animation: blob2 22s infinite ease-in-out; }
+    .mesh-blob-3 { animation: blob3 25s infinite ease-in-out; }
+</style>
 
-    <div class="w-full max-w-md bg-[#151515]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl relative z-10">
-        
-        <div class="text-center mb-10">
-            <div class="w-16 h-16 mx-auto bg-gradient-to-br from-[#0df2f2]/20 to-transparent border border-[#0df2f2]/30 rounded-2xl flex items-center justify-center text-[#0df2f2] text-2xl mb-6 shadow-[0_0_20px_rgba(13,242,242,0.15)]">
-                <i class="fa-solid fa-user-astronaut"></i>
+<div class="min-h-[85vh] w-full flex items-center justify-center px-4 sm:px-6 py-12 relative overflow-hidden animate-fade-in">
+    
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#0df2f2]/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="w-full max-w-6xl bg-[#151515]/90 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col lg:flex-row-reverse overflow-hidden relative z-10">
+
+        <div class="w-full lg:w-1/2 p-8 sm:p-12 xl:p-16 flex flex-col justify-center relative z-20 bg-white/[0.03] backdrop-blur-3xl shadow-[inset_1px_0_0_rgba(255,255,255,0.05)]">
+            
+            <div class="mb-10">
+                <h1 class="text-4xl md:text-5xl font-black text-white mb-3 tracking-tight">Hello!</h1>
+                <p class="text-gray-400 text-sm md:text-base">Welcome back to the community.</p>
             </div>
-            <h1 class="text-3xl font-black text-white mb-2 tracking-tight">Welcome Back</h1>
-            <p class="text-gray-400 text-sm">Sign in to continue your creative journey.</p>
+
+            <form method="POST" action="{% url 'signin_view' %}?next={{ request.GET.next }}" class="space-y-6" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="bg-[#ff4d5e]/10 border border-[#ff4d5e]/30 rounded-2xl p-4 flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-[#ff4d5e]"></i>
+                    <div class="text-[#ff4d5e] text-sm font-medium">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="space-y-2">
+                    <label for="{{ form.email.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1">
+                        Email Address
+                    </label>
+                    <input 
+                        type="email" 
+                        name="{{ form.email.name }}" 
+                        id="{{ form.email.id_for_label }}" 
+                        value="{{ form.email.value|default:'' }}"
+                        class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
+                        placeholder="you@example.com"
+                        required
+                    >
+                    {% if form.email.errors %}
+                        <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.email.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center ml-1">
+                        <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+                            Password
+                        </label>
+                        <a href="{% url 'forgot_password' %}" class="text-[#0df2f2] text-[11px] font-bold hover:text-white hover:underline transition-colors tracking-wide">
+                            FORGOT PASSWORD?
+                        </a>
+                    </div>
+                    <input 
+                        type="password" 
+                        name="{{ form.password.name }}" 
+                        id="{{ form.password.id_for_label }}" 
+                        class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
+                        placeholder="••••••••"
+                        required
+                    >
+                    {% if form.password.errors %}
+                        <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 group">
+                        Log In
+                        <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </form>
+
+            <p class="text-center text-gray-400 text-sm mt-8">
+                Don't have an account? 
+                <a href="{% url 'signup_view' %}" class="text-[#0df2f2] font-semibold hover:text-white transition-colors ml-1">
+                    Sign Up
+                </a>
+            </p>
         </div>
 
-        <form method="POST" action="{% url 'signin_view' %}?next={{ request.GET.next }}" class="space-y-6" novalidate>
-            {% csrf_token %}
-
-            {% if form.non_field_errors %}
-            <div class="bg-[#ff4d5e]/10 border border-[#ff4d5e]/30 rounded-2xl p-4 flex items-center gap-3">
-                <i class="fa-solid fa-triangle-exclamation text-[#ff4d5e]"></i>
-                <div class="text-[#ff4d5e] text-sm font-medium">
-                    {% for error in form.non_field_errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="space-y-2">
-                <label for="{{ form.email.id_for_label }}" class="block text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em] ml-1">
-                    Email Address
-                </label>
-                <input 
-                    type="email" 
-                    name="{{ form.email.name }}" 
-                    id="{{ form.email.id_for_label }}" 
-                    value="{{ form.email.value|default:'' }}"
-                    class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
-                    placeholder="you@example.com"
-                    required
-                >
-                {% if form.email.errors %}
-                    <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.email.errors.0 }}</p>
-                {% endif %}
+        <div class="hidden lg:flex lg:w-1/2 relative p-12 xl:p-16 flex-col justify-between items-start overflow-hidden border-r border-white/5 bg-[#050A10]">
+            
+            <div class="absolute inset-0 pointer-events-none opacity-80">
+                <div class="absolute inset-0 bg-[#020617]"></div>
+                <div class="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] bg-[#0df2f2]/40 rounded-full filter blur-[120px] mesh-blob-1"></div>
+                <div class="absolute top-[10%] -right-[20%] w-[80%] h-[80%] bg-[#0284c7]/40 rounded-full filter blur-[140px] mesh-blob-2"></div>
+                <div class="absolute -bottom-[30%] left-[10%] w-[90%] h-[90%] bg-[#0f766e]/40 rounded-full filter blur-[150px] mesh-blob-3"></div>
             </div>
 
-            <div class="space-y-2">
-                <div class="flex justify-between items-center ml-1">
-                    <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[11px] font-bold uppercase tracking-[0.2em]">
-                        Password
-                    </label>
-                    <a href="{% url 'forgot_password' %}" class="text-[#0df2f2] text-[11px] font-bold hover:text-white hover:underline transition-colors tracking-wide">
-                        FORGOT PASSWORD?
-                    </a>
-                </div>
-                <input 
-                    type="password" 
-                    name="{{ form.password.name }}" 
-                    id="{{ form.password.id_for_label }}" 
-                    class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
-                    placeholder="••••••••"
-                    required
-                >
-                {% if form.password.errors %}
-                    <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
-                {% endif %}
+            <div class="absolute inset-0 bg-[#0b121c]/20 backdrop-blur-[40px] pointer-events-none"></div>
+
+            <div class="relative z-10 w-full">
+                <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-12 xl:h-14 w-auto drop-shadow-lg" onerror="this.style.display='none'">
             </div>
 
-            <div class="pt-2">
-                <button type="submit" class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 group">
-                    Sign In
-                    <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
-                </button>
-            </div>
-        </form>
+           <div class="relative z-10 w-full pr-8">
+    <h2 class="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
+        Generate brilliant <span class="text-[#0df2f2]">ideas & content</span>, one click at a time.
+    </h2>
+    
+    <p class="text-gray-300 text-lg leading-relaxed max-w-md">
+        Welcome back. Your AI workspace is ready. Jump right in and instantly generate high-quality captions, full-length blogs, detailed articles, and fresh social media ideas.
+    </p>
+</div>
 
-        <p class="text-center text-gray-400 text-sm mt-8">
-            Don't have an account? 
-            <a href="{% url 'signup_view' %}" class="text-[#0df2f2] font-semibold hover:text-white transition-colors ml-1">
-                Sign Up
-            </a>
-        </p>
+        </div>
 
     </div>
 </div>

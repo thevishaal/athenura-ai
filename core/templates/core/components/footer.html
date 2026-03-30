@@ -1,5 +1,5 @@
 {% load static %}
-
+ {% if user.is_authenticated %}
 <footer class="w-full border-t border-white/5 bg-footer pt-16 pb-8 mt-auto relative z-10">
     <div class="w-full max-w-8xl mx-auto px-6 lg:px-8">
         
@@ -105,3 +105,4 @@
         
     </div>
 </footer>
+{% endif %}
