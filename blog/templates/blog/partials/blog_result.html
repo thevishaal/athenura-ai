@@ -98,6 +98,25 @@
     </div>
 
 </div>
+<textarea id="hidden-blog-content" class="hidden" aria-hidden="true">{{ data.title }}
+
+{{ data.introduction }}
+
+{% for section in data.sections %}
+{{ section.heading }}
+{{ section.content }}
+
+{% endfor %}
+--- PRO TIPS ---
+{% for tip in data.tips %}- {{ tip }}
+{% endfor %}
+
+--- KEY TAKEAWAYS ---
+{% for takeaway in data.key_takeaways %}- {{ takeaway }}
+{% endfor %}
+
+--- CONCLUSION ---
+{{ data.conclusion }}</textarea>
 
 <script>
     // --- HELPER: Extracts content safely ---
