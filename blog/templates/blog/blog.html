@@ -1,31 +1,37 @@
-{% extends "core/base.html" %}
+{% extends 'core/base.html' %}
+{% load static %}
 
-{% block title %}Blogs | {{block.super}}{% endblock %}
+{% block title %}Blog Generator | Athenura{% endblock %}
+{% block body_bg %}bg-dark-bg{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50">
 
-<div class="max-w-6xl mx-auto py-12 grid grid-cols-3 gap-8">
-
-    <!-- FORM AREA -->
-
-    <div id="form-area" class="col-span-1">
+<div class="flex flex-col md:flex-row md:items-end justify-center text-center gap-4  px-4 mt-10 mb-10">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none mb-4">
+                    Create Magic <span class="text-accent">Instantly.</span>
+                </h1>
+                <p class="text-text-muted max-w-2xl text-md md:text-xl  leading-relaxed opacity-90">
+           Input your parameters and let our advanced neural network create a compelling, SEO-optimized blog post for you.
+        </p>
+            </div>
+            
+        </div>
+<div class="mx-auto w-full max-w-7xl px-4 py-10 flex flex-col md:flex-row lg:flex-row gap-10 items-start shrink-0">
+    
+    
+    <div id="form-area">
         {% include "blog/partials/form.html" %}
     </div>
 
-    <!-- OUTPUT AREA -->
-
-    <div id="blog-output" class="col-span-2 space-y-6">
-
-        <div class="bg-white rounded-xl p-10 shadow text-center text-gray-400">
-            Your generated blog will appear here
+    <div id="blog-output" class="w-full lg:w-full liquid-glass-panel border border-border-dark rounded-2xl shadow ">
+        <div class="h-full min-h-full flex items-center justify-center p-10 text-center text-text-muted border border-dashed border-border-dark m-2 rounded-xl">
+            <p class="font-mono text-[12px] uppercase tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-accent"></i>
+                Your generated blog will appear here
+            </p>
         </div>
-
     </div>
-
-</div>
-
-</div>
 
 
 {% endblock %}

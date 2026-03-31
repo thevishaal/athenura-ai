@@ -1,55 +1,172 @@
-<div class="bg-white rounded-xl shadow p-8 space-y-8">
+<style>
+    /* Sleek Accent Scrollbar */
+    .liquid-scrollbar::-webkit-scrollbar { width: 6px; }
+    .liquid-scrollbar::-webkit-scrollbar-track { background: transparent; margin: 60px 0; }
+    .liquid-scrollbar::-webkit-scrollbar-thumb { 
+        background: #0df2f2; 
+        border-radius: 10px; 
+        box-shadow: 0 0 10px rgba(13, 242, 242, 0.4); 
+    }
+    .liquid-scrollbar::-webkit-scrollbar-thumb:hover { background: #00ffff; }
+</style>
 
-<h1 class="text-3xl font-bold">
-{{ data.title }}
-</h1>
+<div id="blog-output" class="w-full h-[83vh] overflow-y-auto overflow-x-hidden liquid-glass-panel/2 rounded-2xl relative flex flex-col animate-fade-in text-left liquid-scrollbar bg-[#0b1c1e]"> 
 
-<p class="text-gray-500">
-{{ data.meta_description }}
-</p>
+    <div class="sticky top-0 z-20 flex items-center justify-between px-8 py-5 border-b border-white/5 bg-[#0b1c1e]/90 backdrop-blur-xl shrink-0 w-full">
+        <div class="flex items-center gap-3 text-[#0df2f2] font-bold text-lg tracking-wide">
+            <i class="fa-regular fa-file-lines"></i> Output Preview
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="copy-btn" onclick="copyBlog()" title="Copy to clipboard" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-white/10 transition-all cursor-pointer shadow-sm">
+                <i class="fa-regular fa-copy"></i>
+            </button>
+            <button id="download-btn" onclick="downloadBlog()" title="Download as .txt" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-white/10 transition-all cursor-pointer shadow-sm">
+                <i class="fa-solid fa-download"></i>
+            </button>
+        </div>
+    </div>
 
-<div class="prose max-w-none">
+    <div class="p-8 flex flex-col flex-grow">
+        
+        <div class="mb-12">
+            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4 ml-1">Generated Title</h4>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight">{{ data.title }}</h2>
+        </div>
 
-<p>{{ data.introduction }}</p>
+        <div class="mb-12">
+            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 ml-1">Content Outline</h4>
+            <ul class="space-y-4">
+                {% for section in data.sections %}
+                <li class="flex items-start gap-3 text-gray-300 text-[15px] transition-colors hover:text-white">
+                    <i class="fa-regular fa-circle-check text-[#0df2f2] mt-1 text-[16px] shadow-[0_0_10px_rgba(13,242,242,0.3)] rounded-full"></i>
+                    {{ section.heading }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="bg-black/20 border-l-[3px] border-[#0df2f2] rounded-r-2xl rounded-l-sm p-8 mb-12 shadow-[inset_0_0_15px_rgba(13,242,242,0.05)]">
+            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">Introduction Paragraph</h4>
+            <p class="text-gray-200 text-[15px] leading-relaxed italic">"{{ data.introduction }}"</p>
+        </div>
+
+        <div class="mb-12 space-y-10">
+            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-6 border-b border-white/10 pb-4 ml-1">Full Article Body</h4>
+            {% for section in data.sections %}
+            <div class="group">
+                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-[#0df2f2] transition-colors duration-300">{{ section.heading }}</h3>
+                <p class="text-[15px] leading-relaxed text-[#e2e8f0] whitespace-pre-line">{{ section.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div class="bg-white/5 border border-white/5 rounded-2xl p-8 hover:border-[#0df2f2] hover:-translate-y-1 transition-all duration-300">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">Pro Tips</h4>
+                <ul class="space-y-4">
+                    {% for tip in data.tips %}
+                    <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
+                        <i class="fa-solid fa-bolt text-[#0df2f2] mt-1 text-[12px]"></i> {{ tip }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="bg-white/5 border border-white/5 rounded-2xl p-8 hover:border-[#0df2f2] hover:-translate-y-1 transition-all duration-300">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">Key Takeaways</h4>
+                <ul class="space-y-4">
+                    {% for takeaway in data.key_takeaways %}
+                    <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#0df2f2] shrink-0 mt-2 shadow-[0_0_8px_rgba(13,242,242,0.8)]"></div>
+                        {{ takeaway }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 border-b border-white/10 pb-4 ml-1">Conclusion</h4>
+            <p class="text-[#e2e8f0] text-[15px] leading-relaxed">{{ data.conclusion }}</p>
+        </div>
+
+    </div> 
+
+    <div class="sticky bottom-0 z-20 border-t border-white/5 bg-[#0b1c1e]/90 backdrop-blur-xl px-8 py-4 flex justify-between items-center text-[12px] shrink-0 mt-auto w-full">
+        <span class="text-gray-400 uppercase tracking-widest text-[10px]">Generation Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">1.2s</span></span>
+        <span class="text-gray-400 uppercase tracking-widest text-[10px]">Read Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">~8 mins</span></span>
+    </div>
+
+</div>
+<textarea id="hidden-blog-content" class="hidden" aria-hidden="true">{{ data.title }}
+
+{{ data.introduction }}
 
 {% for section in data.sections %}
-
-<h2>{{ section.heading }}</h2>
-
-<p>{{ section.content }}</p>
+{{ section.heading }}
+{{ section.content }}
 
 {% endfor %}
-
-<h2>Tips</h2>
-
-<ul>
-{% for tip in data.tips %}
-<li>{{ tip }}</li>
-{% endfor %}
-</ul>
-
-<h2>Key Takeaways</h2>
-
-<ul>
-{% for take in data.key_takeaways %}
-<li>{{ take }}</li>
-{% endfor %}
-</ul>
-
-<h2>FAQ</h2>
-
-{% for item in data.faq %}
-
-<p class="font-semibold">{{ item.question }}</p>
-
-<p>{{ item.answer }}</p>
-
+--- PRO TIPS ---
+{% for tip in data.tips %}- {{ tip }}
 {% endfor %}
 
-<h2>Conclusion</h2>
+--- KEY TAKEAWAYS ---
+{% for takeaway in data.key_takeaways %}- {{ takeaway }}
+{% endfor %}
 
-<p>{{ data.conclusion }}</p>
+--- CONCLUSION ---
+{{ data.conclusion }}</textarea>
 
-</div>
+<script>
+    // --- HELPER: Extracts content safely ---
+    function getBlogContent() {
+        const elem = document.getElementById('hidden-blog-content');
+        return elem ? elem.value.trim() : '';
+    }
 
-</div>
+    // --- HELPER: Handles button success animation ---
+    function animateButtonSuccess(btnId) {
+        const btn = document.getElementById(btnId);
+        const originalHTML = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fa-solid fa-check text-[#0df2f2]"></i>';
+        btn.classList.add('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        
+        setTimeout(() => { 
+            btn.innerHTML = originalHTML; 
+            btn.classList.remove('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        }, 2000);
+    }
+
+    // --- 1. COPY TO CLIPBOARD ---
+    function copyBlog() {
+        const content = getBlogContent();
+        if (!content) return alert('No content found to copy.');
+
+        navigator.clipboard.writeText(content).then(() => {
+            animateButtonSuccess('copy-btn');
+        }).catch(err => {
+            console.error('Copy failed: ', err);
+            alert('Failed to copy. Please try manually.');
+        });
+    }
+
+    // --- 2. DOWNLOAD AS .TXT ---
+    function downloadBlog() {
+        const content = getBlogContent();
+        if (!content) return alert('No content found to download.');
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = "{{ data.title|default:'generated-blog'|slugify }}.txt";
+        
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+        
+        animateButtonSuccess('download-btn');
+    }
+</script>

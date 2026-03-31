@@ -1,0 +1,137 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Contact - Athenura{% endblock %}
+{% block body_bg %}bg-[#0f0f0f]{% endblock %}
+
+{% block content %}
+<div class="h-[calc(100vh-80px)] w-full overflow-hidden grid grid-cols- px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
+    
+    <div class="max-w-4xl mx-auto h-full flex flex-col gap-6 lg:gap-8 animate-slide-up">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none">
+                    Contact <span class="text-accent">Athenura.</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="flex flex-row  gap-10 min-h-0">
+            
+            <div class="lg:col-span-4 flex flex-col gap-4">
+                <div class="flex-1 bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 flex flex-col justify-center group hover:border-accent/30 transition-all">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-[8px] font-black text-white/30 uppercase tracking-[0.2em]">Email</p>
+                                <p class="text-white font-bold text-sm">support@athenura.in</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="text-[8px] font-black text-white/30 uppercase tracking-[0.2em]">Origin</p>
+                                <p class="text-white font-bold text-sm">Noida, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-accent/10 to-transparent lg:col-span-8 border border-white/10 rounded-[2rem] p-6">
+                    <p class="text-[8px] font-black text-white/50 uppercase tracking-[0.2em] mb-4">Neural Networks</p>
+                    <div class="flex gap-3">
+                         <ul class="space-y-4 text-sm font-medium">
+                    <li><a href="https://www.instagram.com/athenura.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+                        <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+                            <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </div>
+                        Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/company/athenura/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BA%2BVpZoJvQuSCidx8Y7LjFw%3D%3D" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </div>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://x.com/athenura_in" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                                </svg>
+                            </div>
+                            X (Twitter)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://athenura.medium.com/" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                                </svg>
+                            </div>
+                            Medium
+                        </a>
+                    </li>
+                </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 liquid-glass-panel/2 border border-white/10 rounded-[2.5rem] p-6 lg:p-10 flex flex-col relative overflow-hidden group">
+                <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-accent/5 rounded-full blur-[100px]"></div>
+                
+                <form action="#" method="POST" class="h-full flex flex-col justify-between gap-4">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                        <div class="space-y-1">
+                            <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Identify</label>
+                            <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Address</label>
+                            <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Subject</label>
+                        <select class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm appearance-none cursor-pointer">
+                            <option class="bg-[#0f0f0f]">General Inquiry</option>
+                            <option class="bg-[#0f0f0f]">Technical Support</option>
+                            <option class="bg-[#0f0f0f]">Enterprise Access</option>
+                        </select>
+                    </div>
+
+                    <div class="flex-1 space-y-1 flex flex-col min-h-0">
+                        <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Message</label>
+                        <textarea placeholder="Begin transmission..." class="flex-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-accent transition-all resize-none text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-accent hover:bg-accent-hover text-dark-bg font-black py-4 rounded-xl transition-all shadow-neon-glow flex items-center justify-center gap-3 active:scale-[0.98]">
+                        SEND MESSAGE
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

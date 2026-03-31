@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}About Us - Athenura{% endblock %}
+{% block body_bg %}bg-[#0f0f0f]{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center">
+
+    <div class="w-full flex flex-col items-center text-center animate-slide-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent text-[15px] sm:text-xs font-bold tracking-widest uppercase mb-8">
+           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+           OUR MISSION
+        </div>
+
+        <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] mb-6 tracking-tight ">
+            Redefining the <br class="hidden md:block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-b from-gray-100 via-accent to-deep-blue">Creative Process</span>
+        </h1>
+
+        <p class="text-text-muted max-w-3xl text-lg md:text-xl mb-12 leading-relaxed opacity-90">
+            Athenura is born from the intersection of human creativity and artificial intelligence. We build tools that don't just "generate" content, but understand the pulse of digital storytelling.
+        </p>
+    </div>
+
+    <div class="w-full mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-slide-up" style="animation-delay: 0.2s;">
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-deep-blue rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div class="relative bg-card-bg border border-white/10 rounded-[2.5rem] p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-white mb-6">Why Athenura?</h2>
+                <p class="text-text-darker text-lg leading-relaxed mb-6">
+                    Content fatigue is real. In a world flooded with generic AI text, we focused on building an engine that prioritizes **context, engagement, and viral potential.**
+                </p>
+                <p class="text-text-darker text-lg leading-relaxed">
+                    Our team of developers and marketing experts fine-tuned the <span class="text-accent font-semibold">Athenura Core V1</span> to ensure that every idea generated feels authentic to your brand's voice.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
+                <div class="text-accent text-4xl font-black mb-2">10x</div>
+                <div class="text-white font-bold mb-1">Faster Growth</div>
+                <p class="text-text-darker text-sm">Accelerate your content pipeline without burnouts.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
+                <div class="text-accent text-4xl font-black mb-2">99%</div>
+                <div class="text-white font-bold mb-1">Accuracy</div>
+                <p class="text-text-darker text-sm">Content optimized for high-conversion and SEO.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
+                <div class="text-accent text-4xl font-black mb-2">24/7</div>
+                <div class="text-white font-bold mb-1">AI Support</div>
+                <p class="text-text-darker text-sm">Always ready to brainstorm your next big hit.</p>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
+                <div class="text-accent text-4xl font-black mb-2">API</div>
+                <div class="text-white font-bold mb-1">Seamless</div>
+                <p class="text-text-darker text-sm">Integrates directly into your existing workflow.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full mt-32 text-center animate-slide-up" style="animation-delay: 0.4s;">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-16 tracking-tight">Core Philosophy</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Innovation First</h3>
+                <p class="text-text-darker leading-relaxed">We push the boundaries of what's possible with Generative AI every single day.</p>
+            </div>
+
+            <div class="p-8 flex flex-col items-center border-x border-white/5">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Privacy Centric</h3>
+                <p class="text-text-darker leading-relaxed">Your data and creative drafts are always secure and private with us.</p>
+            </div>
+
+            <div class="p-8 flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Community Driven</h3>
+                <p class="text-text-darker leading-relaxed">Built for creators, by creators. Your feedback drives our roadmap.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full mt-32 rounded-lg bg-gradient-to-br from-accent/20 to-deep-blue/10 border border-accent/20 flex flex-col gap-10 items-center text-center">
+        <h2 class="text-5xl md:text-5xl font-extrabold text-white  mt-10">Ready to join the future?</h2>
+        <a href="{% url 'dashboard' %}" class="p-4 mb-6 bg-accent hover:bg-accent-hover text-dark-bg font-extrabold rounded-btn transition-all duration-300 shadow-neon-glow flex items-center gap-2 group">
+            Start Creating Now
+            <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

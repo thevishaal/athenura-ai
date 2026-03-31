@@ -1,48 +1,168 @@
-<div class="bg-gray-100 p-5 rounded-xl shadow">
-  <h2 class="font-bold text-lg mb-3">{{ data.carousel.title }}</h2>
+<div id="chat" class="lg:col-span-8 w-full flex flex-col h-full animate-fade-in">
 
-  <ul class="list-disc ml-5">
-    {% for slide in data.carousel.slides %}
-    <li>{{ slide }}</li>
-    {% endfor %}
-  </ul>
+    <div class="flex justify-between items-center mb-6 shrink-0">
+        <h2 class="text-xl font-bold text-white">Generated Concepts</h2>
+        <span class="text-[10px] bg-[#0df2f2]/10 border border-[#0df2f2]/30 text-[#0df2f2] font-bold px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap shadow-[0_0_10px_rgba(13,242,242,0.2)]">
+            5 Ideas Ready
+        </span>
+    </div>
 
-  <hr class="my-4" />
+    <div class="overflow-y-auto glass-scrollbar pr-2 pb-10 h-[75vh]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
 
-  <h3 class="font-semibold">🎬 Reel Hook</h3>
-  <p>{{ data.reel.hook }}</p>
+            <div class="bg-[#151515] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col h-full hover:border-white/10 hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-[#2b4c7e]/20 flex items-center justify-center text-[#4da6ff] border border-[#2b4c7e]/30">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <span class="text-[#4da6ff] text-[10px] font-bold uppercase tracking-[0.15em] mt-2">Carousel</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3 leading-tight">{{ data.carousel.title }}</h3>
+                <div class="text-gray-400 text-[15px] mb-8 flex-grow">
+                    <ul class="space-y-2">
+                        {% for slide in data.carousel.slides %}
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#4da6ff]/50 mt-1 text-[10px]"><i class="fa-solid fa-circle"></i></span>
+                            <span class="leading-relaxed">{{ slide }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <textarea id="copy-carousel" class="hidden">{{ data.carousel.title }}&#13;&#10;{% for slide in data.carousel.slides %}Slide {{ forloop.counter }}: {{ slide }}&#13;&#10;{% endfor %}</textarea>
+                <div class="flex justify-between items-center text-sm pt-4 border-t border-white/5 mt-auto">
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full bg-white/10 border border-[#151515]"></div>
+                        <div class="w-6 h-6 rounded-full bg-white/20 border border-[#151515] -ml-2"></div>
+                    </div>
+                    <button onclick="copyCardData(this, 'copy-carousel')" class="text-[#0df2f2] font-semibold hover:text-white transition-colors flex items-center gap-2 group">
+                        <span class="btn-text">Copy Carousel</span> <i class="fa-solid fa-copy text-xs group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
 
-  <ul class="list-disc ml-5">
-    {% for s in data.reel.script %}
-    <li>{{ s }}</li>
-    {% endfor %}
-  </ul>
+            <div class="bg-[#151515] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col h-full hover:border-white/10 hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-[#6b2b7e]/20 flex items-center justify-center text-[#d24dff] border border-[#6b2b7e]/30">
+                        <i class="fa-solid fa-clapperboard"></i>
+                    </div>
+                    <span class="text-[#d24dff] text-[10px] font-bold uppercase tracking-[0.15em] mt-2">Reels / Shorts</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3 leading-tight">{{ data.reel.hook }}</h3>
+                <div class="text-gray-400 text-[15px] mb-8 flex-grow">
+                    <ul class="space-y-2 mb-4">
+                        {% for s in data.reel.script %}
+                        <li class="flex items-start gap-3">
+                            <span class="text-[#d24dff]/50 mt-1 text-[10px]"><i class="fa-solid fa-circle"></i></span>
+                            <span class="leading-relaxed">{{ s }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="inline-block bg-[#d24dff]/10 border border-[#d24dff]/20 text-[#d24dff] px-3 py-1.5 rounded-lg text-xs font-semibold">
+                        CTA: {{ data.reel.cta }}
+                    </div>
+                </div>
+                <textarea id="copy-reel" class="hidden">Hook: {{ data.reel.hook }}&#13;&#10;Script:&#13;&#10;{% for s in data.reel.script %}- {{ s }}&#13;&#10;{% endfor %}CTA: {{ data.reel.cta }}</textarea>
+                <div class="flex justify-between items-center text-sm pt-4 border-t border-white/5 mt-auto">
+                    <span class="text-gray-500">Estimated Reach: High</span>
+                    <button onclick="copyCardData(this, 'copy-reel')" class="text-[#0df2f2] font-semibold hover:text-white transition-colors flex items-center gap-2 group">
+                        <span class="btn-text">Copy Script</span> <i class="fa-solid fa-copy text-xs group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
 
-  <p class="mt-2 font-semibold">CTA: {{ data.reel.cta }}</p>
+            <div class="bg-[#151515] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col h-full hover:border-white/10 hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-[#7e622b]/20 flex items-center justify-center text-[#ffb84d] border border-[#7e622b]/30">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+                    <span class="text-[#ffb84d] text-[10px] font-bold uppercase tracking-[0.15em] mt-2">Interactive Poll</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">{{ data.poll.question }}</h3>
+                <div class="text-gray-400 text-[15px] mb-8 flex-grow">
+                    <ul class="space-y-3">
+                        {% for option in data.poll.options %}
+                        <li class="bg-black/40 border border-white/5 rounded-xl px-4 py-3 flex items-center gap-4 hover:border-white/10 transition-colors">
+                            <div class="w-4 h-4 rounded-full border border-gray-500 shrink-0"></div>
+                            <span class="leading-relaxed text-gray-300">{{ option }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <textarea id="copy-poll" class="hidden">{{ data.poll.question }}&#13;&#10;{% for option in data.poll.options %}- {{ option }}&#13;&#10;{% endfor %}</textarea>
+                <div class="flex justify-between items-center text-sm pt-4 border-t border-white/5 mt-auto">
+                    <span class="text-gray-500">Engagement focus</span>
+                    <button onclick="copyCardData(this, 'copy-poll')" class="text-[#0df2f2] font-semibold hover:text-white transition-colors flex items-center gap-2 group">
+                        <span class="btn-text">Copy Poll</span> <i class="fa-regular fa-copy text-xs group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
 
-  <hr class="my-4" />
+            <div class="bg-[#151515] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col h-full hover:border-white/10 hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-[#2b7e5c]/20 flex items-center justify-center text-[#4dffa6] border border-[#2b7e5c]/30">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <span class="text-[#4dffa6] text-[10px] font-bold uppercase tracking-[0.15em] mt-2">Educational</span>
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3 leading-tight">{{ data.educational.title }}</h3>
+                <div class="text-gray-400 text-[15px] mb-8 flex-grow">
+                    <p class="leading-relaxed whitespace-pre-line">{{ data.educational.post }}</p>
+                </div>
+                <textarea id="copy-edu" class="hidden">{{ data.educational.title }}&#13;&#10;&#13;&#10;{{ data.educational.post }}</textarea>
+                <div class="flex justify-between items-center text-sm pt-4 border-t border-white/5 mt-auto">
+                    <span class="text-gray-500">Authority builder</span>
+                    <button onclick="copyCardData(this, 'copy-edu')" class="text-[#0df2f2] font-semibold hover:text-white transition-colors flex items-center gap-2 group">
+                        <span class="btn-text">Copy Post</span> <i class="fa-solid fa-copy text-xs group-hover:scale-110 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
 
-  <h3 class="font-semibold">📊 Poll</h3>
+            <div class="md:col-span-2 bg-[#151515] border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col h-full hover:border-white/10 hover:bg-[#1a1a1a] transition-all duration-300 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-[#e63946]/5 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="flex justify-between items-start mb-6 relative z-10">
+                    <div class="w-12 h-12 rounded-xl bg-[#e63946]/10 flex items-center justify-center text-[#ff4d5e] border border-[#e63946]/20">
+                        <i class="fa-solid fa-heart text-xl"></i>
+                    </div>
+                    <span class="text-[#ff4d5e] text-[10px] font-bold uppercase tracking-[0.15em] mt-2">Community Engagement</span>
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 md:gap-12 relative z-10 flex-grow">
+                    <div class="flex-1">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">Join the Conversation</h3>
+                        <p class="text-gray-300 text-[16px] leading-relaxed whitespace-pre-line">{{ data.engagement.post }}</p>
+                    </div>
+                    <div class="md:w-64 flex flex-col justify-end pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-white/5 md:pl-8">
+                        <div class="mb-6">
+                            <span class="block text-[10px] text-gray-500 uppercase tracking-widest mb-1">Suggested Time</span>
+                            <span class="text-white font-mono font-semibold">{{ data.engagement.suggested_time }}</span>
+                        </div>
+                        <textarea id="copy-engage" class="hidden">{{ data.engagement.post }}</textarea>
+                        <button onclick="copyCardData(this, 'copy-engage')" class="w-full bg-white/5 border border-white/10 hover:border-[#0df2f2] hover:text-[#0df2f2] text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3">
+                            <span class="btn-text">Copy to Schedule</span> <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-  <p>{{ data.poll.question }}</p>
-
-  <ul class="list-disc ml-5">
-    {% for option in data.poll.options %}
-    <li>{{ option }}</li>
-    {% endfor %}
-  </ul>
-
-  <hr class="my-4" />
-
-  <h3 class="font-semibold">{{ data.educational.title }}</h3>
-
-  <p>{{ data.educational.post }}</p>
-
-  <hr class="my-4" />
-
-  <h3 class="font-semibold">💬 Engagement</h3>
-
-  <p>{{ data.engagement.post }}</p>
-
-  <p class="text-sm text-gray-500">{{ data.engagement.suggested_time }}</p>
+        </div>
+    </div>
 </div>
+
+<script>
+    function copyCardData(buttonElement, textareaId) {
+        const textToCopy = document.getElementById(textareaId).value;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalHtml = buttonElement.innerHTML;
+            buttonElement.innerHTML = `<span class="text-[#0df2f2] flex items-center gap-2"><i class="fa-solid fa-check"></i> Copied!</span>`;
+            if(buttonElement.classList.contains('w-full')) {
+                buttonElement.classList.add('!border-[#0df2f2]', '!bg-[#0df2f2]/10'); 
+            }
+            setTimeout(() => {
+                buttonElement.innerHTML = originalHtml;
+                buttonElement.classList.remove('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+            alert("Clipboard access denied. Please copy manually.");
+        });
+    }
+</script>
