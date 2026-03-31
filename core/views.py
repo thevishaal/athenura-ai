@@ -5,13 +5,13 @@ def dashboard(request):
     return render(request, "core/dashboard.html")
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'core/about.html')
 
 def policy(request):
-    return render(request, 'policy.html')
+    return render(request, 'core/policy.html')
 
 def terms(request):
-    return render(request,'terms.html')
+    return render(request,'core/terms.html')
 
 def contact(request):
-    return render(request,'contact.html')
+    return render(request,'core/contact.html')
