@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav
-  class="w-full flex items-center justify-between py-5 px-6 sm:px-8 border-b border-white/5 relative z-40 {% if request.resolver_match.url_name == 'caption' %}bg-footer{% else %}bg-transparent{% endif %}"
+  class="w-full flex items-center justify-between py-5 px-6 sm:px-8  relative z-40 {% if request.resolver_match.url_name == 'caption' %}bg-footer{% else %}bg-transparent{% endif %}"
 >
   <a
     href="{% url 'dashboard' %}"

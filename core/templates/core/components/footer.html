@@ -1,6 +1,6 @@
 {% load static %}
  {% if user.is_authenticated %}
-<footer class="w-full border-t border-white/5 bg-footer pt-16 pb-8 mt-auto relative z-10">
+<footer class="w-full bg-footer pt-16 pb-8 mt-auto relative z-10">
     <div class="w-full max-w-8xl mx-auto px-6 lg:px-8">
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
@@ -36,8 +36,8 @@
 
             <div>
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Drop a Message</h4>
-                <form action="mailto:support@athenura.in" method="post" enctype="text/plain" class="space-y-3">
-                    <input type="mailto:support@athenura.in" placeholder="support@athenura.in" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-accent transition-all" disabled>
+                <form action="mailto:official@athenura.in" method="post" enctype="text/plain" class="space-y-3">
+                    <input type="mailto:official@athenura.in" placeholder="official@athenura.in" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-accent transition-all" disabled>
                     <textarea placeholder="How can we help?" rows="2" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-accent transition-all resize-none"></textarea>
                     <button type="submit" class="w-full bg-accent hover:bg-accent-hover text-dark-bg font-bold py-2 rounded-lg text-xs transition-all transform active:scale-95 shadow-neon-glow">
                         Send Mail

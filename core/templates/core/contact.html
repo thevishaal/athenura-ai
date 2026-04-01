@@ -2,135 +2,92 @@
 {% load static %}
 
 {% block title %}Contact - Athenura{% endblock %}
-{% block body_bg %}bg-[#0f0f0f]{% endblock %}
+{% block body_bg %}bg-[#0b1717]{% endblock %}
 
 {% block content %}
-<div class="h-[calc(100vh-80px)] w-full overflow-hidden grid grid-cols- px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
-    
-    <div class="max-w-4xl mx-auto h-full flex flex-col gap-6 lg:gap-8 animate-slide-up">
+<style>
+    /* Custom floating label animations */
+    .input-field:focus ~ .input-label,
+    .input-field:not(:placeholder-shown) ~ .input-label {
+        transform: translateY(-1.5rem);
+        font-size: 0.75rem;
+        color: #ffffff;
+    }
+</style>
+
+<div class="min-h-[calc(100vh-80px)] w-full bg-[#0b1717] relative flex items-center justify-center py-12 px-6 lg:px-20 overflow-hidden font-sans">
+   
+    <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
         
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
-            <div class="max-w-2xl">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none">
-                    Contact <span class="text-accent">Athenura.</span>
-                </h1>
+        <div class="flex flex-col items-center text-center animate-fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-wide uppercase mb-8">
+                Contact
+            </h1>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-12 max-w-md">
+                Have questions or need assistance with our AI tools? Reach out to the Athenura team. We are here to help you revolutionize your content creation workflow.
+            </p>
+            
+            <div class="space-y-10">
+                <div>
+                    <h3 class="text-white font-bold text-lg tracking-wider mb-2">Address</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Sector 62, Noida,<br>Uttar Pradesh, India
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold text-lg tracking-wider mb-2">Email</h3>
+                    <p class="text-gray-400 text-sm">
+                        official@athenura.in
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex gap-6 mt-12">
+                <a href="https://www.linkedin.com/company/athenura/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-xl"></i></a>
+                <a href="https://www.instagram.com/athenura.in" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="https://x.com/athenura_in" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-x-twitter text-xl"></i></a>
+                <a href="https://athenura.medium.com/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-medium text-xl"></i></a>
             </div>
         </div>
 
-        <div class="flex flex-row  gap-10 min-h-0">
+        <div class="bg-[#121820]/80 p-10 lg:p-14 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 animate-slide-up" style="animation-delay: 100ms;">
             
-            <div class="lg:col-span-4 flex flex-col gap-4">
-                <div class="flex-1 bg-white/[0.02] border border-white/10 rounded-[2rem] p-6 flex flex-col justify-center group hover:border-accent/30 transition-all">
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <div>
-                                <p class="text-[8px] font-black text-white/30 uppercase tracking-[0.2em]">Email</p>
-                                <p class="text-white font-bold text-sm">support@athenura.in</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                            </div>
-                            <div>
-                                <p class="text-[8px] font-black text-white/30 uppercase tracking-[0.2em]">Origin</p>
-                                <p class="text-white font-bold text-sm">Noida, India</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gradient-to-br from-accent/10 to-transparent lg:col-span-8 border border-white/10 rounded-[2rem] p-6">
-                    <p class="text-[8px] font-black text-white/50 uppercase tracking-[0.2em] mb-4">Neural Networks</p>
-                    <div class="flex gap-3">
-                         <ul class="space-y-4 text-sm font-medium">
-                    <li><a href="https://www.instagram.com/athenura.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
-                        <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
-                            <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </div>
-                        Instagram
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/company/athenura/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BA%2BVpZoJvQuSCidx8Y7LjFw%3D%3D" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
-                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                    <rect x="2" y="9" width="4" height="12"></rect>
-                                    <circle cx="4" cy="4" r="2"></circle>
-                                </svg>
-                            </div>
-                            LinkedIn
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://x.com/athenura_in" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
-                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
-                                </svg>
-                            </div>
-                            X (Twitter)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://athenura.medium.com/" target="_blank" class="flex items-center gap-3 text-text-muted hover:text-accent transition-colors duration-300 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-accent/10 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
-                                <svg class="w-4 h-4 text-accent group-hover:drop-shadow-[0_0_8px_rgba(0,229,255,0.4)] transition-all" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42c1.87 0 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
-                                </svg>
-                            </div>
-                            Medium
-                        </a>
-                    </li>
-                </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-8 liquid-glass-panel/2 border border-white/10 rounded-[2.5rem] p-6 lg:p-10 flex flex-col relative overflow-hidden group">
-                <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-accent/5 rounded-full blur-[100px]"></div>
+            <h2 class="text-2xl font-black text-white text-center mb-12 tracking-wider uppercase">
+                Get In Touch
+            </h2>
+            
+            <form action="mailto:official@athenura.in" method="POST" class="space-y-10">
+                {% csrf_token %}
                 
-                <form action="#" method="POST" class="h-full flex flex-col justify-between gap-4">
-                    {% csrf_token %}
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                        <div class="space-y-1">
-                            <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Identify</label>
-                            <input type="text" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm">
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Address</label>
-                            <input type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm">
-                        </div>
-                    </div>
+                <div class="relative">
+                    <input type="text" id="name" name="name" class="input-field w-full bg-transparent border-b border-gray-500 text-white placeholder-transparent focus:border-white focus:outline-none py-2 transition-colors" placeholder="Name">
+                    <label for="name" class="input-label absolute left-0 top-2 text-gray-400 text-sm transition-all pointer-events-none">Name</label>
+                </div>
 
-                    <div class="space-y-1">
-                        <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Subject</label>
-                        <select class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent transition-all text-sm appearance-none cursor-pointer">
-                            <option class="bg-[#0f0f0f]">General Inquiry</option>
-                            <option class="bg-[#0f0f0f]">Technical Support</option>
-                            <option class="bg-[#0f0f0f]">Enterprise Access</option>
-                        </select>
-                    </div>
+                <div class="relative">
+                    <input type="email" id="email" name="email" class="input-field w-full bg-transparent border-b border-gray-500 text-white placeholder-transparent focus:border-white focus:outline-none py-2 transition-colors" placeholder="Email">
+                    <label for="email" class="input-label absolute left-0 top-2 text-gray-400 text-sm transition-all pointer-events-none">Email</label>
+                </div>
 
-                    <div class="flex-1 space-y-1 flex flex-col min-h-0">
-                        <label class="text-[8px] font-black text-accent uppercase tracking-widest ml-1">Message</label>
-                        <textarea placeholder="Begin transmission..." class="flex-1 w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-accent transition-all resize-none text-sm"></textarea>
-                    </div>
+                <div class="relative">
+                    <input type="tel" id="phone" name="phone" class="input-field w-full bg-transparent border-b border-gray-500 text-white placeholder-transparent focus:border-white focus:outline-none py-2 transition-colors" placeholder="Phone number">
+                    <label for="phone" class="input-label absolute left-0 top-2 text-gray-400 text-sm transition-all pointer-events-none">Phone number</label>
+                </div>
 
-                    <button type="submit" class="w-full bg-accent hover:bg-accent-hover text-dark-bg font-black py-4 rounded-xl transition-all shadow-neon-glow flex items-center justify-center gap-3 active:scale-[0.98]">
-                        SEND MESSAGE
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <div class="relative pt-2">
+                    <textarea id="message" name="message" rows="1" class="input-field w-full bg-transparent border-b border-gray-500 text-white placeholder-transparent focus:border-white focus:outline-none py-2 transition-colors resize-none overflow-hidden" placeholder="Message" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                    <label for="message" class="input-label absolute left-0 top-2 text-gray-400 text-sm transition-all pointer-events-none">Message</label>
+                </div>
+
+                <div class="pt-6 flex justify-center">
+                    <button type="submit" class="bg-[#0D1120] hover:bg-[#151b32] text-gray-200 hover:text-white font-semibold py-4 px-12 rounded-xl shadow-lg border border-white/5 transition-all duration-300 tracking-wide active:scale-95">
+                        Send Message
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>

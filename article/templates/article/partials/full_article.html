@@ -1,23 +1,135 @@
-<div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 space-y-6">
+<style>
+    /* --- Custom Cyan Scrollbar --- */
+    .article-scrollbar::-webkit-scrollbar { 
+        width: 8px; 
+    }
+    .article-scrollbar::-webkit-scrollbar-track { 
+        background: rgba(255, 255, 255, 0.02); 
+        border-radius: 10px;
+        margin: 10px 0;
+    }
+    .article-scrollbar::-webkit-scrollbar-thumb { 
+        background: rgba(13, 242, 242, 0.2); 
+        border-radius: 10px; 
+        border: 2px solid #0B131D; 
+    }
+    .article-scrollbar::-webkit-scrollbar-thumb:hover { 
+        background: rgba(13, 242, 242, 0.5); 
+    }
+</style>
 
-    <h1 class="text-3xl font-bold text-cyan-400">
-        {{ article.title }}
-    </h1>
-
-    <p class="text-gray-300">
-        {{ article.introduction }}
-    </p>
-
-    {% for sec in article.sections %}
-    <div>
-        <h2 class="text-xl font-semibold mt-6">{{ sec.heading }}</h2>
-        <p class="text-gray-400 mt-2">{{ sec.content }}</p>
+<div class="w-full h-[90vh] flex flex-col animate-fade-in overflow-hidden relative justify-between">
+    
+    <div class="sticky top-0 z-20 flex items-center justify-between px-6 py-6 shrink-0 lg:mb-8">
+        <div class="flex items-center gap-3 text-[#0df2f2] font-bold text-[20px] tracking-wide">
+            <i class="fa-solid fa-pen-nib text-[15px]"></i> Final Draft
+        </div>
+        <div class="flex items-center gap-2">
+            <button id="art-copy-btn" onclick="copyArticle()" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-[#0df2f2]/10 transition-all cursor-pointer shadow-sm" title="Copy Full Article">
+                <i class="fa-regular fa-copy text-[13px]"></i>
+            </button>
+            <button id="art-download-btn" onclick="downloadArticle()" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-[#0df2f2]/10 transition-all cursor-pointer shadow-sm" title="Download Article">
+                <i class="fa-solid fa-download text-[13px]"></i>
+            </button>
+        </div>
     </div>
-    {% endfor %}
 
-    <div class="border-t border-slate-700 pt-4">
-        <h3 class="font-semibold">Conclusion</h3>
-        <p class="text-gray-400">{{ article.conclusion }}</p>
+    <div class="p-6 md:p-10 overflow-y-auto overflow-x-hidden article-scrollbar flex-grow bg-[#121820]/30 backdrop-blur-md rounded-[24px] border border-white/5 shadow-2xl">
+        
+        <div class="max-w-3xl mx-auto space-y-8">
+            <div class="space-y-3">
+                <h4 class="text-[#0df2f2] text-[10px] font-bold uppercase tracking-[0.2em]">Generated Article</h4>
+                <h1 class="text-2xl md:text-4xl font-black text-white leading-tight tracking-tight">
+                    {{ article.title }}
+                </h1>
+            </div>
+
+            <div class="bg-white/[0.02] border-l-[3px] border-l-[#0df2f2] rounded-r-xl p-5 md:p-6 shadow-inner">
+                <p class="text-gray-300 text-[15px] md:text-[16px] leading-relaxed italic">
+                    {{ article.introduction }}
+                </p>
+            </div>
+
+            <div class="space-y-7 pt-2">
+                {% for sec in article.sections %}
+                <div class="group">
+                    <h2 class="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">
+                        {{ sec.heading }}
+                    </h2>
+                    <p class="text-gray-300 text-[14px] md:text-[15px] leading-relaxed whitespace-pre-line">
+                        {{ sec.content }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="border-t border-white/10 pt-6 mt-8">
+                <h3 class="text-[16px] md:text-lg font-bold text-[#0df2f2] mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-flag-checkered"></i> Conclusion
+                </h3>
+                <p class="text-gray-300 text-[14px] md:text-[15px] leading-relaxed">
+                    {{ article.conclusion }}
+                </p>
+            </div>
+            
+            <div class="h-6"></div>
+        </div>
+
     </div>
-
 </div>
+
+<textarea id="hidden-article-content" class="hidden" aria-hidden="true">{{ article.title }}
+
+{{ article.introduction }}
+
+{% for sec in article.sections %}
+{{ sec.heading }}
+{{ sec.content }}
+
+{% endfor %}
+Conclusion:
+{{ article.conclusion }}</textarea>
+
+<script>
+    function animateArtButtonSuccess(btnId) {
+        const btn = document.getElementById(btnId);
+        const originalHTML = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fa-solid fa-check text-[#0df2f2] text-[13px]"></i>';
+        btn.classList.add('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        
+        setTimeout(() => { 
+            btn.innerHTML = originalHTML; 
+            btn.classList.remove('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        }, 2000);
+    }
+
+    function copyArticle() {
+        const content = document.getElementById('hidden-article-content');
+        if (!content || !content.value.trim()) return alert('No article found to copy.');
+
+        navigator.clipboard.writeText(content.value.trim()).then(() => {
+            animateArtButtonSuccess('art-copy-btn');
+        }).catch(err => {
+            console.error('Copy failed: ', err);
+            alert('Failed to copy. Please try manually.');
+        });
+    }
+
+    function downloadArticle() {
+        const content = document.getElementById('hidden-article-content');
+        if (!content || !content.value.trim()) return alert('No article found to download.');
+
+        const blob = new Blob([content.value.trim()], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = "{{ article.title|default:'article'|slugify }}.txt";
+        
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+        
+        animateArtButtonSuccess('art-download-btn');
+    }
+</script>

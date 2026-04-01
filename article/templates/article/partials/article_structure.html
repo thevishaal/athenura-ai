@@ -1,51 +1,191 @@
-<div class="space-y-6">
+<style>
+    /* HTMX Button Loading Logic */
+    .htmx-indicator { display: none; }
+    .htmx-request .htmx-main-text { display: none !important; }
+    .htmx-request .htmx-indicator { display: flex !important; }
+    .htmx-request.submit-btn { cursor: wait; opacity: 0.9; }
 
-    <!-- Title -->
-    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-        <h2 class="text-2xl font-bold text-cyan-400">
-            {{ data.title }}
-        </h2>
-    </div>
+    /* Hide Scrollbar but keep functionality */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+</style>
 
-    <!-- Structure -->
-    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-        <h3 class="mb-4 font-semibold">Content Structure</h3>
-
-        {% for item in data.content_structure %}
-        <div class="p-4 mb-3 bg-slate-900 rounded-lg border border-slate-700">
-            <h4 class="font-semibold">{{ item.heading }}</h4>
-            <p class="text-gray-400 text-sm">{{ item.description }}</p>
+<div class="w-full flex flex-col animate-fade-in bg-transparent rounded-[24px] overflow-hidden">
+    
+    <div class="flex items-center justify-between px-5 sm:px-6 py-4">
+        <div class="flex items-center gap-2 sm:gap-3 text-[#0df2f2] font-bold text-[21px] sm:text-[15px] tracking-wide">
+            <i class="fa-regular fa-file-lines text-lg"></i> <span class="hidden sm:inline">Suggested</span> Blueprint
         </div>
-        {% endfor %}
-    </div>
-
-    <!-- Points -->
-    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-        <h3 class="mb-4 font-semibold">Key Points</h3>
-
-        {% for p in data.key_discussion_points %}
-        <div class="p-3 bg-slate-900 rounded-lg mb-2 border border-slate-700">
-            {{ p }}
+        <div class="flex items-center gap-2">
+            <button id="bp-copy-btn" onclick="copyBlueprint()" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-[#0df2f2]/10 transition-all cursor-pointer" title="Copy Blueprint">
+                <i class="fa-regular fa-copy"></i>
+            </button>
+            <button id="bp-save-btn" onclick="toggleSaveBlueprint()" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-[#0df2f2]/10 transition-all cursor-pointer" title="Save Blueprint">
+                <i class="fa-regular fa-bookmark" id="bp-save-icon"></i>
+            </button>
+            <button id="bp-download-btn" onclick="downloadBlueprint()" class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-[#0df2f2]/10 transition-all cursor-pointer" title="Download">
+                <i class="fa-solid fa-download"></i>
+            </button>
         </div>
-        {% endfor %}
     </div>
 
-    <!-- Button -->
-    <form
-        hx-post="{% url 'generate_article' %}"
-        hx-target="#output"
-        hx-swap="innerHTML"
-    >
-    {% csrf_token %}
-        <input type="hidden" name="title" value="{{ data.title }}">
-        <input type="hidden" name="structure" value='{{ data.content_structure|escapejs }}'>
-        <input type="hidden" name="tone" value="{{ tone }}">
-        <input type="hidden" name="length" value="{{ length }}">
-        <input type="hidden" name="audience" value="{{ audience }}">
+    <div class="p-5 sm:p-6 md:p-8 flex flex-col gap-6">
+        
+        <div class="bg-[#121820] border border-white/5 rounded-2xl p-5 sm:p-6 shadow-inner">
+            <h4 class="text-[#0df2f2] text-[10px] font-bold uppercase tracking-[0.2em] mb-3">Optimized Title</h4>
+            <h2 class="text-2xl md:text-3xl font-bold text-white leading-snug tracking-tight">
+                {{ data.title }}
+            </h2>
+        </div>
 
-        <button class="w-full bg-green-500 hover:bg-green-600 p-3 rounded-xl">
-            ✨ Write Full Draft
-        </button>
-    </form>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <div class="bg-[#121820] border border-white/5 rounded-2xl p-5 sm:p-6 flex flex-col">
+                <h3 class="text-white font-bold text-[14px] sm:text-[15px] flex items-center gap-3 mb-4 sm:mb-6 border-b border-white/5 pb-4 shrink-0">
+                    <i class="fa-solid fa-sitemap text-[#0df2f2]"></i> Content Structure
+                </h3>
+                <div class="flex flex-col gap-5 h-[250px] sm:h-[300px] overflow-y-auto overflow-x-hidden no-scrollbar">
+                    {% for item in data.content_structure %}
+                    <div class="flex gap-3 sm:gap-4 items-start group">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0df2f2]/10 border border-[#0df2f2]/20 text-[#0df2f2] flex items-center justify-center font-bold text-[10px] sm:text-[11px] shrink-0 mt-0.5 group-hover:bg-[#0df2f2] group-hover:text-[#121820] transition-colors">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </div>
+                        <div class="flex flex-col">
+                            <h4 class="text-gray-200 font-semibold text-[13px] sm:text-[14px] leading-tight mb-1 group-hover:text-[#0df2f2] transition-colors">{{ item.heading }}</h4>
+                            <p class="text-gray-500 text-[11px] sm:text-[12px] leading-relaxed">{{ item.description }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
+            <div class="bg-[#121820] border border-white/5 rounded-2xl p-5 sm:p-6 flex flex-col">
+                <h3 class="text-white font-bold text-[14px] sm:text-[15px] flex items-center gap-3 mb-4 sm:mb-6 border-b border-white/5 pb-4 shrink-0">
+                    <i class="fa-solid fa-key text-[#0df2f2]"></i> Key Discussion Points
+                </h3>
+                <div class="flex flex-col gap-4 h-[250px] sm:h-[300px] overflow-y-auto overflow-x-hidden no-scrollbar">
+                    {% for p in data.key_discussion_points %}
+                    <div class="bg-white/[0.02] border border-white/5 border-l-[3px] border-l-[#0df2f2] rounded-r-xl rounded-l-sm p-4 hover:bg-white/[0.04] transition-colors">
+                        <p class="text-gray-300 text-[12px] sm:text-[13px] leading-relaxed">"{{ p }}"</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <form
+            hx-post="{% url 'generate_article' %}"
+            hx-target="#output"
+            hx-swap="innerHTML"
+            hx-disabled-elt="button"
+            class="mt-2 flex flex-col sm:flex-row gap-3 sm:gap-4"
+        >
+            {% csrf_token %}
+            <input type="hidden" name="title" value="{{ data.title }}">
+            <input type="hidden" name="structure" value='{{ data.content_structure|escapejs }}'>
+            <input type="hidden" name="tone" value="{{ tone }}">
+            <input type="hidden" name="length" value="{{ length }}">
+            <input type="hidden" name="audience" value="{{ audience }}">
+
+            <button type="submit" class="submit-btn relative flex-grow w-full sm:w-auto h-[56px] sm:h-[60px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-black text-[15px] sm:text-[16px] rounded-2xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.2)] hover:shadow-[0_0_25px_rgba(13,242,242,0.4)] hover:-translate-y-0.5 group overflow-hidden">
+                <span class="htmx-main-text flex items-center justify-center gap-2">
+                    Write Full Draft with AI <i class="fa-solid fa-arrow-right opacity-70 group-hover:translate-x-1 transition-transform"></i>
+                </span>
+                <span class="htmx-indicator flex items-center justify-center gap-2 absolute inset-0 w-full h-full text-[#0b121c]">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Writing Draft...
+                </span>
+            </button>
+
+            <button type="button" onclick="window.location.reload();" class="w-full sm:w-[60px] h-[48px] sm:h-[60px] shrink-0 bg-[#121820] border border-white/10 hover:border-[#0df2f2]/50 hover:text-[#0df2f2] rounded-2xl flex items-center justify-center text-gray-400 transition-all duration-300 hover:-translate-y-0.5 shadow-sm gap-2 sm:gap-0" title="Restart">
+                <i class="fa-solid fa-rotate-right text-lg"></i> <span class="sm:hidden font-medium text-sm">Start Over</span>
+            </button>
+        </form>
+    </div>
 </div>
+
+<textarea id="hidden-blueprint-content" class="hidden" aria-hidden="true">TITLE: {{ data.title }}
+
+--- CONTENT STRUCTURE ---
+{% for item in data.content_structure %}{{ forloop.counter|stringformat:"02d" }}. {{ item.heading }}
+{{ item.description }}
+
+{% endfor %}
+--- KEY DISCUSSION POINTS ---
+{% for p in data.key_discussion_points %}- "{{ p }}"
+{% endfor %}
+</textarea>
+
+<script>
+    // Helper function to animate buttons on success
+    function animateBpButtonSuccess(btnId) {
+        const btn = document.getElementById(btnId);
+        const originalHTML = btn.innerHTML;
+        
+        btn.innerHTML = '<i class="fa-solid fa-check text-[#0df2f2]"></i>';
+        btn.classList.add('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        
+        setTimeout(() => { 
+            btn.innerHTML = originalHTML; 
+            btn.classList.remove('!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        }, 2000);
+    }
+
+    // 1. Copy to Clipboard
+    function copyBlueprint() {
+        const content = document.getElementById('hidden-blueprint-content');
+        if (!content || !content.value.trim()) return alert('No blueprint found to copy.');
+
+        navigator.clipboard.writeText(content.value.trim()).then(() => {
+            animateBpButtonSuccess('bp-copy-btn');
+        }).catch(err => {
+            console.error('Copy failed: ', err);
+            alert('Failed to copy. Please try manually.');
+        });
+    }
+
+    // 2. Download as .txt
+    function downloadBlueprint() {
+        const content = document.getElementById('hidden-blueprint-content');
+        if (!content || !content.value.trim()) return alert('No blueprint found to download.');
+
+        const blob = new Blob([content.value.trim()], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        // Uses Django slugify to create a clean filename if possible, otherwise defaults
+        a.download = "{{ data.title|default:'blueprint'|slugify }}-blueprint.txt";
+        
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(a.href);
+        
+        animateBpButtonSuccess('bp-download-btn');
+    }
+
+    // 3. Save Blueprint (Visual Toggle)
+    // Note: If you want to save to database, you will need to add an AJAX/HTMX call here.
+    let isSaved = false;
+    function toggleSaveBlueprint() {
+        const btn = document.getElementById('bp-save-btn');
+        const icon = document.getElementById('bp-save-icon');
+        
+        isSaved = !isSaved;
+        
+        if (isSaved) {
+            // Saved State: Solid icon, Cyan border/text
+            icon.classList.remove('fa-regular');
+            icon.classList.add('fa-solid');
+            btn.classList.add('!text-[#0df2f2]', '!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        } else {
+            // Unsaved State: Outline icon, default gray
+            icon.classList.remove('fa-solid');
+            icon.classList.add('fa-regular');
+            btn.classList.remove('!text-[#0df2f2]', '!border-[#0df2f2]', '!bg-[#0df2f2]/10');
+        }
+    }
+</script>

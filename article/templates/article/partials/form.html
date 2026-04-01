@@ -1,46 +1,224 @@
-<form
-    hx-post="{% url 'generate_structure' %}"
-    hx-target="#output"
-    hx-swap="innerHTML"
-    hx-indicator="#loader"
-    hx-disabled-elt="button"
-    class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 space-y-4"
->
-    {% csrf_token %}
+<style>
+    /* --- Entrance Animations --- */
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-up {
+        animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
 
-    <h2 class="text-lg font-semibold">Generate Article</h2>
+   /* --- Custom Dropdown Animations --- */
+    .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px) scale(0.98);
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 100;
+    }
+    .custom-dropdown.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+    }
+    .custom-dropdown.active .chevron {
+        transform: rotate(180deg);
+        color: #0df2f2;
+    }
+    .custom-dropdown.active .dropdown-trigger {
+        border-color: rgba(13, 242, 242, 0.5);
+        background-color: rgba(13, 242, 242, 0.05);
+        box-shadow: 0 0 15px rgba(13, 242, 242, 0.1);
+    }
 
-    <!-- Topic -->
-    <input type="text" name="topic"
-        placeholder="Enter topic..."
-        class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
+    /* --- HTMX Button State --- */
+    .htmx-indicator { display: none; }
+    .htmx-request .htmx-main-text { display: none !important; }
+    .htmx-request .htmx-indicator { display: flex !important; }
+    .htmx-request.submit-btn { cursor: wait; opacity: 0.8; }
+</style>
 
-    <!-- Tone -->
-    <select name="tone"
-        class="w-full p-2 rounded-lg bg-slate-900 border border-slate-700">
-        <option>Professional</option>
-        <option>Casual</option>
-    </select>
+<div class="w-full max-w-[400px] flex flex-col gap-5">
 
-    <!-- Length -->
-    <select name="length"
-        class="w-full p-2 rounded-lg bg-slate-900 border border-slate-700">
-        <option value="800">Short</option>
-        <option value="1500">Medium</option>
-        <option value="2500">Long</option>
-    </select>
+    <form
+        hx-post="{% url 'generate_structure' %}"
+        hx-target="#output"
+        hx-swap="innerHTML"
+        hx-disabled-elt="button"
+        class="bg-[#121820]/80 backdrop-blur-2xl p-6 md:p-7 rounded-[24px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] space-y-6"
+    >
+        {% csrf_token %}
 
-    <!-- Audience -->
-    <input type="text" name="audience"
-        placeholder="Target audience..."
-        class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
+        <div class="animate-slide-up">
+            <label class="block text-[#0df2f2] text-[12px] font-bold uppercase tracking-[0.15em] mb-2.5 ml-1">Core Topic</label>
+            <textarea 
+                name="topic" 
+                rows="3" 
+                placeholder="e.g. The impact of quantum computing on modern cybersecurity architecture..."
+                class="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2]/60 focus:bg-[#0df2f2]/[0.03] focus:shadow-[0_0_20px_rgba(13,242,242,0.15)] focus:-translate-y-0.5 transition-all duration-300 resize-none"
+                required
+            ></textarea>
+        </div>
 
-    <button class="w-full bg-cyan-500 hover:bg-cyan-600 p-3 rounded-lg">
-        Generate Structure
-    </button>
+        <div class="grid grid-cols-2 gap-4 relative z-50">
+            
+            <div class="animate-slide-up delay-100">
+                <label class="block text-[#0df2f2] text-[12px] font-bold uppercase tracking-[0.15em] mb-2.5 ml-1">Tone</label>
+                <div class="relative custom-dropdown" id="dropdown-tone">
+                    <input type="hidden" name="tone" value="Professional">
+                    
+                    <button type="button" class="dropdown-trigger w-full bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm text-gray-200 flex justify-between items-center hover:bg-white/10 transition-all duration-300 focus:outline-none">
+                        <span class="selected-text truncate pr-2">Professional</span>
+                        <i class="fa-solid fa-chevron-down text-gray-500 text-[10px] chevron transition-transform duration-300"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu absolute left-0 w-full mt-2 bg-[#0B131D] border border-[#0df2f2]/30 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-hidden">
+                        <ul class="py-1">
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors flex items-center gap-2" data-value="Professional" data-label="Professional">
+                                Professional
+                            </li>
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors flex items-center gap-2" data-value="Casual" data-label="Casual">
+                                Casual
+                            </li>
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors flex items-center gap-2" data-value="Academic" data-label="Academic">
+                                 Academic
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-    <div id="loader" class="hidden text-center text-sm text-gray-400">
-        ⚡ AI is thinking...
+            <div class="animate-slide-up delay-200">
+                <label class="block text-[#0df2f2] text-[12px] font-bold uppercase tracking-[0.15em] mb-2.5 ml-1">Length</label>
+                <div class="relative custom-dropdown" id="dropdown-length">
+                    <input type="hidden" name="length" value="1500">
+                    
+                    <button type="button" class="dropdown-trigger w-full bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm text-gray-200 flex justify-between items-center hover:bg-white/10 transition-all duration-300 focus:outline-none">
+                        <span class="selected-text truncate pr-2">Medium (1500w)</span>
+                        <i class="fa-solid fa-chevron-down text-gray-500 text-[10px] chevron transition-transform duration-300"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu absolute left-0 w-full mt-2 bg-[#0B131D] border border-[#0df2f2]/30 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-hidden">
+                        <ul class="py-1">
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors" data-value="800" data-label="Short (800w)">
+                                Short <span class="text-xs text-gray-500 ml-1">(800w)</span>
+                            </li>
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors" data-value="1500" data-label="Medium (1500w)">
+                                Medium <span class="text-xs text-gray-500 ml-1">(1500w)</span>
+                            </li>
+                            <li class="px-4 py-3 text-sm text-gray-300 hover:bg-[#0df2f2]/10 hover:text-[#0df2f2] cursor-pointer transition-colors" data-value="2500" data-label="Long (2500w)">
+                                Long <span class="text-xs text-gray-500 ml-1">(2500w)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-slide-up delay-300">
+            <label class="block text-[#0df2f2] text-[12px] font-bold uppercase tracking-[0.15em] mb-2.5 ml-1">Target Audience</label>
+            <input 
+                type="text" 
+                name="audience"
+                placeholder="e.g. Tech Founders, CTOs"
+                class="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2]/60 focus:bg-[#0df2f2]/[0.03] focus:shadow-[0_0_20px_rgba(13,242,242,0.15)] focus:-translate-y-0.5 transition-all duration-300"
+                required
+            >
+        </div>
+
+        <div class="pt-3 animate-slide-up delay-400">
+            <button 
+                type="submit" 
+                class="submit-btn relative w-full h-[56px] bg-gradient-to-r from-[#0df2f2]/10 to-[#0df2f2]/5 border border-[#0df2f2]/40 hover:bg-[#0df2f2]/20 hover:border-[#0df2f2] text-[#0df2f2] font-bold text-[15px] rounded-2xl flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.1)] hover:shadow-[0_0_25px_rgba(13,242,242,0.25)] group overflow-hidden"
+            >
+                <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
+
+                <span class="htmx-main-text flex items-center justify-center gap-2.5">
+                    <i class="fa-solid fa-wand-magic-sparkles group-hover:rotate-12 transition-transform duration-300"></i> Generate Structure
+                </span>
+                
+                <span class="htmx-indicator flex items-center justify-center gap-2.5 absolute inset-0 w-full h-full text-[#0df2f2]">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Generating...
+                </span>
+            </button>
+        </div>
+
+    </form>
+
+    <div class="bg-[#0df2f2]/[0.02] backdrop-blur-md border border-[#0df2f2]/20 rounded-[20px] p-5 shadow-lg relative overflow-hidden animate-slide-up delay-400 group hover:bg-[#0df2f2]/[0.04] transition-colors duration-300">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-[#0df2f2]/10 rounded-full blur-2xl pointer-events-none transition-opacity group-hover:opacity-100 opacity-50"></div>
+        
+        <div class="flex items-center gap-2.5 text-white font-bold mb-2 text-[14px] relative z-10">
+            <div class="w-6 h-6 rounded-full bg-[#0df2f2]/20 flex items-center justify-center animate-pulse">
+                <i class="fa-solid fa-bolt text-[#0df2f2] text-[10px]"></i>
+            </div>
+            Pro Tip
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed relative z-10">
+            Mention specific keywords or competitors to help the AI tailor the discussion points for better SEO performance.
+        </p>
     </div>
 
-</form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdowns = document.querySelectorAll('.custom-dropdown');
+
+        dropdowns.forEach(dropdown => {
+            const trigger = dropdown.querySelector('.dropdown-trigger');
+            const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+            const selectedText = dropdown.querySelector('.selected-text');
+            const options = dropdown.querySelectorAll('li');
+
+            // Toggle dropdown on click
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close all other dropdowns first
+                dropdowns.forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+                dropdown.classList.toggle('active');
+            });
+
+            // Handle option selection using the clean data-label approach
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Get the exact text to display from the data-label attribute
+                    const value = option.getAttribute('data-value');
+                    const label = option.getAttribute('data-label');
+
+                    // Update visible text and hidden input
+                    selectedText.textContent = label;
+                    hiddenInput.value = value;
+                    
+                    // Close dropdown
+                    dropdown.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking anywhere outside
+        document.addEventListener('click', () => {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
+        
+        // Add shimmer keyframe dynamically for the Generate button
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shimmer {
+                100% { transform: translateX(100%); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
