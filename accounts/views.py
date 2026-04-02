@@ -85,6 +85,7 @@ def signin_view(request):
                 
                 if user.is_active:
                     login(request, user)
+                    messages.success(request, f"Welcome {user.full_name}")
                     redirect_to = request.POST.get('next') or next_url or 'dashboard'
                     return redirect(redirect_to)
                 else:
@@ -168,3 +169,4 @@ def reset_password_view(request, uid64, token):
         form = ResetPasswordForm()
 
     return render(request, "accounts/reset_password.html", {"form": form})
+    
