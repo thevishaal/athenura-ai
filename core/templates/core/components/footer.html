@@ -1,20 +1,20 @@
 {% load static %}
- {% if user.is_authenticated %}
-<footer class="w-full bg-footer pt-16 pb-8 mt-auto relative z-10">
+
+<footer class="w-full bg-footer py-6 relative z-10">
     <div class="w-full max-w-8xl mx-auto px-6 lg:px-8">
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
             
-            <div class="flex flex-col items-start sm:col-span-2 lg:col-span-1">
-                <a href="{% url 'dashboard' %}" class="mb-6 block transition-transform hover:scale-105">
-                    <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-10 w-auto drop-shadow-lg" onerror="this.style.display='none'">
+            <div class="flex flex-col items-start sm:col-span-2 lg:col-span-1 mt-2 gap-3">
+                <a href="{% url 'dashboard' %}" class="block transition-transform hover:scale-105">
+                    <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-12 w-auto drop-shadow-lg" onerror="this.style.display='none'">
                 </a>
-                <p class="text-text-muted text-sm leading-relaxed max-w-xs">
+                <p class="text-text-muted text-sm font-medium leading-relaxed max-w-xs mt-2">
                     Empowering creators with the world's most advanced AI content tools.
                 </p>
             </div>
 
-            <div>
+            <div class="flex flex-col items-start gap-3 mt-6">
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Company</h4>
                 <ul class="space-y-4 text-sm font-medium">
                     <li><a href="{% url 'about' %}" class="text-text-muted hover:text-accent transition-colors duration-300">About Us</a></li>
@@ -24,7 +24,7 @@
                 </ul>
             </div>
 
-            <div>
+            <div class="flex flex-col items-start gap-3 mt-6">
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Tools</h4>
                 <ul class="space-y-4 text-sm font-medium">
                     <li><a href="{% url 'caption' %}" class="text-text-muted hover:text-accent transition-colors duration-300">Caption Generator</a></li>
@@ -34,7 +34,7 @@
                 </ul>
             </div>
 
-            <div>
+            <div class="flex flex-col items-start gap-2 mt-5">
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Drop a Message</h4>
                 <form action="mailto:official@athenura.in" method="post" enctype="text/plain" class="space-y-3">
                     <input type="mailto:official@athenura.in" placeholder="official@athenura.in" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-accent transition-all" disabled>
@@ -45,7 +45,7 @@
                 </form>
             </div>
             
-            <div class="flex flex-col items-start lg:items-end">
+            <div class="flex flex-col items-start lg:items-end gap-2 mt-6">
                 <h4 class="text-white text-xs font-bold uppercase tracking-widest mb-6">Follow Us</h4>
                 <ul class="space-y-4 text-sm font-medium flex flex-col items-start lg:items-end">
                     <li>
@@ -105,4 +105,3 @@
         
     </div>
 </footer>
-{% endif %}

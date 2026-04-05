@@ -74,34 +74,52 @@
                     {% endif %}
                 </div>
 
-                <div class="space-y-2">
-                    <div class="flex justify-between items-center ml-1">
-                        <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">
-                            Password
-                        </label>
-                        <a href="{% url 'forgot_password' %}" class="text-[#0df2f2] text-[11px] font-bold hover:text-white hover:underline transition-colors tracking-wide">
-                            FORGOT PASSWORD?
-                        </a>
-                    </div>
-                    <input 
-                        type="password" 
-                        name="{{ form.password.name }}" 
-                        id="{{ form.password.id_for_label }}" 
-                        class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
-                        placeholder="••••••••"
-                        required
-                    >
-                    {% if form.password.errors %}
-                        <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
-                    {% endif %}
-                </div>
+               <div class="space-y-2">
+    <div class="flex justify-between items-center ml-1">
+        <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+            Password
+        </label>
+        <a href="{% url 'forgot_password' %}" class="text-[#0df2f2] text-[11px] font-bold hover:text-white hover:underline transition-colors tracking-wide">
+            FORGOT PASSWORD?
+        </a>
+    </div>
+    
+    <div class="relative">
+        <input 
+            type="password" 
+            name="{{ form.password.name }}" 
+            id="{{ form.password.id_for_label }}" 
+            class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all"
+            placeholder="••••••••"
+            required
+        >
+        <button type="button" onclick="togglePasswordVisibility('{{ form.password.id_for_label }}', this)" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#0df2f2] transition-colors duration-300 focus:outline-none">
+            <i class="fa-regular fa-eye"></i>
+        </button>
+    </div>
+    
+    {% if form.password.errors %}
+        <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
+    {% endif %}
+</div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 group">
-                        Log In
-                        <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
-                    </button>
-                </div>
+    <button 
+        type="submit" 
+        class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:-translate-y-0 disabled:hover:shadow-[0_0_15px_rgba(13,242,242,0.3)] group"
+        onclick="
+            if(this.closest('form').checkValidity()) {
+                setTimeout(() => {
+                    this.disabled = true;
+                    this.innerHTML = 'Authenticating... <i class=\'fa-solid fa-circle-notch fa-spin ml-2\'></i>';
+                }, 10);
+            }
+        "
+    >
+        Log In
+        <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
+    </button>
+</div>
             </form>
 
             <p class="text-center text-gray-400 text-sm mt-8">
@@ -141,4 +159,25 @@
 
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility(inputId, button) {
+        // Find the input field and the icon inside the clicked button
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        
+        // Toggle between hiding and showing the password
+        if (input.type === 'password') {
+            input.type = 'text';
+            // Change icon to 'eye-slash' and light it up with your accent color
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash', 'text-[#0df2f2]');
+        } else {
+            input.type = 'password';
+            // Revert back to the normal 'eye' and default gray color
+            icon.classList.remove('fa-eye-slash', 'text-[#0df2f2]');
+            icon.classList.add('fa-eye');
+        }
+    }
+</script>
 {% endblock %}

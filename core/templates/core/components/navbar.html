@@ -16,9 +16,9 @@
   </a>
 
   <div class="flex items-center gap-4 md:gap-8">
-    {% if user.is_authenticated %}
+    
     <ul
-      class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide"
+      class="hidden lg:flex items-center gap-5 text-sm font-medium tracking-wide"
     >
       <li>
         <a
@@ -28,6 +28,7 @@
           Home
         </a>
       </li>
+      {% if user.is_authenticated %}
       <li>
         <a
           href="{% url 'blog' %}"

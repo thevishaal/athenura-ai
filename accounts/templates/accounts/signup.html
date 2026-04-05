@@ -89,22 +89,36 @@
                     {% endif %}
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div class="space-y-2">
-                        <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1">Password</label>
-                        <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="w-full bg-white/5 border border-white/10 rounded-2xl p-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all" placeholder="••••••••">
-                        {% if form.password.errors %}
-                            <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                    <div class="space-y-2">
-                        <label for="{{ form.confirm_password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1">Confirm Password</label>
-                        <input type="password" name="{{ form.confirm_password.name }}" id="{{ form.confirm_password.id_for_label }}" class="w-full bg-white/5 border border-white/10 rounded-2xl p-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all" placeholder="••••••••">
-                        {% if form.confirm_password.errors %}
-                            <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.confirm_password.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                </div>
+               <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    
+    <div class="space-y-2">
+        <label for="{{ form.password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1">Password</label>
+        <div class="relative">
+            <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="w-full bg-white/5 border border-white/10 rounded-2xl p-3.5 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all" placeholder="••••••••">
+            
+            <button type="button" onclick="togglePasswordVisibility('{{ form.password.id_for_label }}', this)" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#0df2f2] transition-colors duration-300 focus:outline-none">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+        {% if form.password.errors %}
+            <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.password.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <div class="space-y-2">
+        <label for="{{ form.confirm_password.id_for_label }}" class="block text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1">Confirm Password</label>
+        <div class="relative">
+            <input type="password" name="{{ form.confirm_password.name }}" id="{{ form.confirm_password.id_for_label }}" class="w-full bg-white/5 border border-white/10 rounded-2xl p-3.5 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#0df2f2] focus:bg-[#0df2f2]/5 focus:shadow-[0_0_15px_rgba(13,242,242,0.1)] transition-all" placeholder="••••••••">
+            
+            <button type="button" onclick="togglePasswordVisibility('{{ form.confirm_password.id_for_label }}', this)" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#0df2f2] transition-colors duration-300 focus:outline-none">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+        {% if form.confirm_password.errors %}
+            <p class="text-[#ff4d5e] text-xs font-medium ml-1 mt-1">{{ form.confirm_password.errors.0 }}</p>
+        {% endif %}
+    </div>
+</div>
 
                 <div class="space-y-2">
                     <label for="secret_key" class=" text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] ml-1 flex justify-between">
@@ -115,11 +129,22 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 group">
-                        Create Account
-                        <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
-                    </button>
-                </div>
+    <button 
+        type="submit" 
+        class="w-full h-[56px] bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] font-bold text-[15px] tracking-[0.1em] uppercase rounded-full flex items-center justify-center transition-all duration-300 shadow-[0_0_15px_rgba(13,242,242,0.3)] hover:shadow-[0_0_25px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:-translate-y-0 disabled:hover:shadow-[0_0_15px_rgba(13,242,242,0.3)] group"
+        onclick="
+            if(this.closest('form').checkValidity()) {
+                setTimeout(() => {
+                    this.disabled = true;
+                    this.innerHTML = 'Creating Account... <i class=\'fa-solid fa-circle-notch fa-spin ml-2\'></i>';
+                }, 10);
+            }
+        "
+    >
+        Create Account
+        <i class="fa-solid fa-arrow-right ml-2 opacity-70 group-hover:translate-x-1 transition-transform"></i>
+    </button>
+</div>
             </form>
 
             <p class="text-center text-gray-400 text-sm mt-8">
@@ -128,37 +153,41 @@
             </p>
         </div>
 
-        <div class="hidden lg:flex lg:w-1/2 relative p-12 xl:p-16 flex-col justify-between items-start overflow-hidden border-l border-white/5 bg-[#050A10]">
+       <div class="hidden lg:flex lg:w-1/2 relative p-12 xl:p-16 flex-col justify-center items-start overflow-hidden border-l border-white/5 bg-[#050A10]">
             
-            <div class="absolute inset-0 pointer-events-none opacity-80">
-                <div class="absolute inset-0 bg-[#020617]"></div>
-                <div class="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] bg-[#0df2f2]/40 rounded-full filter blur-[120px] mesh-blob-1"></div>
-                <div class="absolute top-[10%] -right-[20%] w-[80%] h-[80%] bg-[#0284c7]/40 rounded-full filter blur-[140px] mesh-blob-2"></div>
-                <div class="absolute -bottom-[30%] left-[10%] w-[90%] h-[90%] bg-[#0f766e]/40 rounded-full filter blur-[150px] mesh-blob-3"></div>
-            </div>
+    <div class="absolute inset-0 pointer-events-none opacity-80">
+        <div class="absolute inset-0 bg-[#020617]"></div>
+        <div class="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] bg-[#0df2f2]/40 rounded-full filter blur-[120px] mesh-blob-1"></div>
+        <div class="absolute top-[10%] -right-[20%] w-[80%] h-[80%] bg-[#0284c7]/40 rounded-full filter blur-[140px] mesh-blob-2"></div>
+        <div class="absolute -bottom-[30%] left-[10%] w-[90%] h-[90%] bg-[#0f766e]/40 rounded-full filter blur-[150px] mesh-blob-3"></div>
+    </div>
 
-            <div class="absolute inset-0 bg-[#0b121c]/20 backdrop-blur-[40px] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[#0b121c]/20 backdrop-blur-[40px] pointer-events-none"></div>
 
-            <div class="relative z-10 w-full">
-                <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-12 xl:h-14 w-auto drop-shadow-lg" onerror="this.style.display='none'">
-            </div>
+    <div class="relative z-10 w-full mb-12 xl:mb-16">
+        <img src="{% static 'core/images/White.png' %}" alt="Athenura Logo" class="h-12 xl:h-14 w-auto drop-shadow-lg" onerror="this.style.display='none'">
+    </div>
 
-            <div class="relative z-10 w-full pr-8">
-                <h2 class="text-4xl xl:text-5xl font-black text-white leading-tight mb-6">
-                    Discover the future of <span class="text-[#0df2f2]">content creation</span>, one click at a time.
-                </h2>
-                
-                <p class="text-gray-300 text-lg leading-relaxed max-w-md">
-                    Empower your brand with AI. Generate engaging carousels, viral reel scripts, and interactive polls instantly tailored to your unique voice.
-                </p>
+    <div class="relative z-10 w-full pr-8">
+        <h2 class="text-4xl xl:text-5xl font-black text-white leading-tight mb-5">
+            Discover the future of <span class="text-[#0df2f2]">content creation</span>, one click at a time.
+        </h2>
+        
+        <p class="text-gray-300 text-lg leading-relaxed max-w-md">
+            Empower your brand with AI. Generate engaging carousels, viral reel scripts, and interactive polls instantly tailored to your unique voice.
+        </p>
 
-                <div class="flex flex-wrap gap-3 mt-10">
-                    <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-gray-300 backdrop-blur-md"><i class="fa-solid fa-check text-[#0df2f2] mr-2"></i> No Credit Card</span>
-                    <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-gray-300 backdrop-blur-md"><i class="fa-solid fa-check text-[#0df2f2] mr-2"></i> Instant Access</span>
-                </div>
-            </div>
-            
+        <div class="flex flex-wrap gap-3 mt-8">
+            <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-gray-300 backdrop-blur-md shadow-sm">
+                <i class="fa-solid fa-check text-[#0df2f2] mr-2"></i> No Credit Card
+            </span>
+            <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-gray-300 backdrop-blur-md shadow-sm">
+                <i class="fa-solid fa-check text-[#0df2f2] mr-2"></i> Instant Access
+            </span>
         </div>
+    </div>
+    
+</div>
 
     </div>
 </div>
@@ -176,6 +205,23 @@
         } else {
             displaySpan.textContent = 'Choose a picture...';
             displaySpan.classList.remove('text-[#0df2f2]');
+        }
+    }
+
+    function togglePasswordVisibility(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+            icon.classList.add('text-[#0df2f2]'); // Keeps the icon lit up when visible
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.remove('text-[#0df2f2]');
+            icon.classList.add('fa-eye');
         }
     }
 </script>

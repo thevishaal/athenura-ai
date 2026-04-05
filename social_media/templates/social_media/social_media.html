@@ -4,25 +4,25 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-6 py-8 md:py-12">
-    
-    <div class="mb-10 md:mb-12">
-        <h1 class="text-4xl md:text-5xl font-black text-white mb-4">
+
+    <div class="max-w-6xl mx-auto lg:mx-0 mb-10 md:mb-12 text-center lg:text-left flex flex-col items-center lg:items-start animate-fade-in">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none mb-4">
             Social Media Post <span class="text-accent">Idea Generator</span>
         </h1>
-        <p class="text-gray-400 max-w-2xl text-base md:text-lg leading-relaxed">
+        <p class="text-text-muted max-w-2xl text-md md:text-xl leading-relaxed opacity-90">
             Fuel your content calendar with AI-powered creative directions tailored to your brand voice and platform requirements.
         </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center lg:items-start">
         
-        <div id="form-area" class="lg:col-span-4 w-full">
+        <div id="form-area" class="lg:col-span-4 w-full max-w-md mx-auto lg:max-w-full lg:mx-0 animate-fade-in" style="animation-delay: 100ms;">
             {% include "social_media/partials/form.html" %}
         </div>
 
-        <div class="lg:col-span-8 w-full" id="chat">
+        <div class="lg:col-span-8 w-full animate-fade-in" id="chat" style="animation-delay: 200ms;">
             
-            <div class="border-2 border-dashed border-white/10 bg-white/[0.02] rounded-[32px] flex flex-col items-center justify-center p-8 text-center relative overflow-hidden animate-fade-in h-full min-h-[500px]">
+            <div class="border-2 border-dashed border-white/10 bg-white/[0.02] rounded-[32px] flex flex-col items-center justify-center p-8 text-center relative overflow-hidden h-full min-h-[500px]">
                 
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#0df2f2]/5 rounded-full blur-[100px] pointer-events-none"></div>
 

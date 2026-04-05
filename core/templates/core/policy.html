@@ -5,98 +5,113 @@
 {% block body_bg %}bg-[#0f0f0f]{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center font-sans">
 
     <div class="w-full flex flex-col items-center text-center animate-slide-up">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent text-[15px] sm:text-xs font-bold tracking-widest uppercase mb-8">
-           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-           TRUST & SAFETY
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#0df2f2]/20 bg-[#0df2f2]/5 text-[#0df2f2] text-[12px] font-bold tracking-[0.2em] uppercase mb-8 shadow-[0_0_15px_rgba(13,242,242,0.1)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            Trust & Safety
         </div>
 
-        <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] mb-6 tracking-tight">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-8 tracking-tight">
             Protecting Your <br class="hidden md:block">
             <span class="text-transparent bg-clip-text bg-gradient-to-b from-gray-100 via-accent to-deep-blue">Digital Identity</span>
         </h1>
 
-        <p class="text-text-muted max-w-3xl text-lg md:text-xl mb-12 leading-relaxed opacity-90">
+        <p class="text-gray-300 max-w-3xl text-lg md:text-xl mb-12 leading-relaxed">
             At Athenura, privacy isn't a legal checkbox—it's a core feature. We've built our architecture to ensure that your creative data remains exclusively yours.
         </p>
     </div>
 
-    <div class="w-full mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start animate-slide-up" style="animation-delay: 0.2s;">
+    <div class="w-full mt-16 flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch animate-slide-up" style="animation-delay: 0.2s;">
         
-        <div class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-deep-blue rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-            <div class="relative bg-card-bg border border-white/10 rounded-[2.5rem] p-8 md:p-12">
-                <h2 class="text-3xl font-bold text-white mb-6">Data Collection</h2>
-                <p class="text-text-darker text-lg leading-relaxed mb-6">
-                    We only collect what is necessary to power your experience. This includes account credentials and the <span class="text-accent font-semibold">contextual inputs</span> required for our AI to generate high-quality outputs.
-                </p>
-                <p class="text-text-darker text-lg leading-relaxed">
-                    We do not "scrape" your personal workspace for training data. Your private drafts are protected by enterprise-grade encryption from the moment they are created.
-                </p>
+        <div class="w-full lg:w-5/12 relative group flex flex-col">
+            <div class="absolute -inset-1 bg-gradient-to-r from-[#0df2f2] to-blue-600 rounded-[2rem] blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+            
+            <div class="relative flex-grow bg-[#121820] border border-white/10 rounded-[2rem] p-8 md:p-12 lg:p-14 hover:border-accent hover:bg-[#121820]/80 transition-all duration-300 flex flex-col justify-center">
+                <h2 class="text-3xl lg:text-4xl font-black text-white mb-8 tracking-tight">Data Collection</h2>
+                
+                <div class="space-y-7 text-gray-300 text-[16px] md:text-[17px] leading-[1.8] max-w-xl">
+                    <p>
+                        We only collect what is necessary to power your experience. This includes account credentials and the <span class="text-[#0df2f2] font-bold tracking-wide">contextual inputs</span> required for our AI to generate high-quality outputs.
+                    </p>
+                    <p>
+                        We do not "scrape" your personal workspace for training data. Your private drafts are protected by enterprise-grade encryption from the moment they are created.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
-                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">01</div>
-                <div class="text-white font-bold mb-1">Zero Data Sale</div>
-                <p class="text-text-darker text-sm">We never sell your personal or creative data to third parties.</p>
+        <div class="w-full lg:w-7/12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">01</div>
+                <div class="text-white text-lg font-bold mb-2">Zero Data Sale</div>
+                <p class="text-gray-400 text-sm leading-relaxed">We never sell your personal or creative data to third-party data brokers or advertisers.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
-                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">02</div>
-                <div class="text-white font-bold mb-1">AES-256</div>
-                <p class="text-text-darker text-sm">Your content is encrypted at rest and during transmission.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">02</div>
+                <div class="text-white text-lg font-bold mb-2">AES-256</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Your content is protected with enterprise-level encryption at rest and during transmission.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
-                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">03</div>
-                <div class="text-white font-bold mb-1">Full Control</div>
-                <p class="text-text-darker text-sm">Export or delete your entire history with a single click.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">03</div>
+                <div class="text-white text-lg font-bold mb-2">Full Control</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Export or permanently delete your entire generation history with a single click.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all group">
-                <div class="text-accent text-3xl font-black mb-2 group-hover:scale-110 transition-transform origin-left">04</div>
-                <div class="text-white font-bold mb-1">Compliance</div>
-                <p class="text-text-darker text-sm">Regular audits to ensure we meet global privacy standards.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">04</div>
+                <div class="text-white text-lg font-bold mb-2">Compliance</div>
+                <p class="text-gray-400 text-sm leading-relaxed">We undergo regular audits to ensure we meet and exceed global privacy standards.</p>
             </div>
+
         </div>
     </div>
 
     <div class="w-full mt-32 text-center animate-slide-up" style="animation-delay: 0.4s;">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-16 tracking-tight">How We Handle Information</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="p-8 flex flex-col items-center">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-12 tracking-tight">How We Handle Information</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-4.514A11.042 11.042 0 0010 12.5V12m2.753 8.571A11.042 11.042 0 0014 12.5V12m-9 4.315C4.03 14.627 3.5 12.874 3.5 11c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.874-.53 3.627-1.5 5.315m-4.5 4.514a11.042 11.042 0 01-2.753-9.571"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Identity Security</h3>
-                <p class="text-text-darker leading-relaxed">Multi-factor authentication ensures only you can access your Athenura account.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">Identity Security</h3>
+                <p class="text-gray-400 leading-relaxed">Multi-factor authentication ensures only you can access your Athenura account.</p>
             </div>
 
-            <div class="p-8 flex flex-col items-center border-x border-white/5">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">No Hidden Trackers</h3>
-                <p class="text-text-darker leading-relaxed">We don't use invasive third-party tracking or behavioral profiling on our platform.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">No Hidden Trackers</h3>
+                <p class="text-gray-400 leading-relaxed">We don't use invasive third-party tracking or behavioral profiling on our platform.</p>
             </div>
 
-            <div class="p-8 flex flex-col items-center">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Retention Policy</h3>
-                <p class="text-text-darker leading-relaxed">Content is stored only as long as your account is active. Once deleted, it's gone forever.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">Retention Policy</h3>
+                <p class="text-gray-400 leading-relaxed">Content is stored only as long as your account is active. Once deleted, it's gone forever.</p>
             </div>
+
         </div>
     </div>
 
-    <div class="w-full mt-32 rounded-[2rem] bg-gradient-to-br from-accent/20 to-deep-blue/10 border border-accent/20 flex flex-col gap-8 items-center text-center py-16 px-6">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-white">Have Privacy Concerns?</h2>
-        <p class="text-text-muted max-w-xl text-lg">Our legal and security teams are available to clarify how we handle your data.</p>
-        <a href="mailto:support@athenura.in" class="p-4 bg-accent hover:bg-accent-hover text-dark-bg font-extrabold rounded-xl transition-all duration-300 shadow-neon-glow flex items-center gap-2 group">
+    <div class="w-full mt-32 rounded-[2.5rem] bg-gradient-to-br from-[#0df2f2]/10 to-[#121820] border border-[#0df2f2]/20 py-16 px-8 flex flex-col gap-8 items-center text-center relative overflow-hidden group">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0df2f2]/10 rounded-full blur-[80px] pointer-events-none transition-opacity group-hover:opacity-100 opacity-50"></div>
+        
+        <h2 class="text-4xl md:text-5xl font-black text-white relative z-10">Have Privacy Concerns?</h2>
+        <p class="text-gray-300 max-w-xl text-lg relative z-10 mb-2">Our legal and security teams are available to clarify how we handle your data.</p>
+        
+        <a href="mailto:support@athenura.in" class="relative z-10 px-8 py-4 bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] text-lg font-black rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(13,242,242,0.3)] hover:shadow-[0_0_30px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 flex items-center gap-3 active:scale-95 group/btn">
             Contact Security Team
-            <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </a>
     </div>
 

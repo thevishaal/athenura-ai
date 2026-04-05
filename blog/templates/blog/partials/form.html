@@ -118,6 +118,15 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+   /* Custom Shimmer Sweep Animation */
+    @keyframes shimmer-sweep {
+        0% { transform: translateX(-150%); }
+        100% { transform: translateX(150%); }
+    }
+    .animate-shimmer-sweep {
+        animation: shimmer-sweep 1.5s ease-in-out infinite;
+    }
 </style>
 
 <form
@@ -208,27 +217,34 @@
 
         <input type="hidden" name="audience" value="General" />
 
-        <div class="mt-8 form-group">
-            <button
-                type="submit"
-                class="submit-btn relative w-full bg-accent text-dark-bg font-black text-[13px] tracking-[0.2em] uppercase rounded-btn flex items-center justify-center transition-all duration-300 shadow-neon-glow hover:shadow-neon-glow-strong disabled:opacity-70 disabled:cursor-not-allowed group"
-            >
-                <span class="htmx-main-text flex items-center justify-center gap-3 w-full h-full">
-                    GENERATE CONTENT
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </span>
+      <div class="mt-8 form-group">
+    <button
+        type="submit"
+        id="generate-btn"
+        class="submit-btn relative w-full overflow-hidden bg-accent text-dark-bg font-black text-[13px] tracking-[0.2em] uppercase rounded-btn flex items-center justify-center transition-all duration-300 shadow-neon-glow hover:shadow-neon-glow-strong disabled:opacity-70 disabled:cursor-not-allowed group p-4"
+    >
+        <span class="htmx-main-text flex items-center justify-center gap-3 w-full h-full relative z-10">
+            <span id="btn-text">GENERATE CONTENT</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </span>
 
-                <span class="htmx-indicator flex items-center justify-center gap-3 w-full h-full text-dark-bg font-black">
-                    <svg class="animate-spin h-5 w-5 text-dark-bg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    SYNTHESIZING...
-                </span>
-            </button>
-        </div>
+        <span class="htmx-indicator flex items-center justify-center gap-3 w-full h-full text-dark-bg font-black relative z-10">
+            
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent animate-shimmer-sweep pointer-events-none z-0"></div>
+            
+            <div class="flex items-center justify-center gap-3 relative z-10">
+                <svg class="animate-spin h-5 w-5 text-dark-bg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                SYNTHESIZING...
+            </div>
+            
+        </span>
+    </button>
+</div>
     </div>
 </form>
 
@@ -287,5 +303,24 @@
 
         updateSlider();
         slider.addEventListener("input", updateSlider);
+    });
+
+    // Listen for HTMX to finish its request successfully
+    document.body.addEventListener('htmx:afterOnLoad', function(event) {
+        // Ensure it was a successful request (status 200)
+        if(event.detail.successful) {
+            const btnText = document.getElementById('btn-text');
+            
+            if(btnText) {
+                // Change the text to the completed state
+                btnText.innerText = 'GENERATED SUCCESSFULLY';
+                
+                // Reset it back to "GENERATE CONTENT" after 3 seconds
+                // so the user knows they can click it again!
+                setTimeout(() => {
+                    btnText.innerText = 'GENERATE CONTENT';
+                }, 3000);
+            }
+        }
     });
 </script>

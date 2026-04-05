@@ -5,96 +5,112 @@
 {% block body_bg %}bg-[#0f0f0f]{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 flex flex-col items-center font-sans">
 
     <div class="w-full flex flex-col items-center text-center animate-slide-up">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 text-accent text-[15px] sm:text-xs font-bold tracking-widest uppercase mb-8">
-           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-           OUR MISSION
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#0df2f2]/20 bg-[#0df2f2]/5 text-[#0df2f2] text-[12px] font-bold tracking-[0.2em] uppercase mb-8 shadow-[0_0_15px_rgba(13,242,242,0.1)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Our Mission
         </div>
 
-        <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[1.05] mb-6 tracking-tight ">
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-8 tracking-tight">
             Redefining the <br class="hidden md:block">
             <span class="text-transparent bg-clip-text bg-gradient-to-b from-gray-100 via-accent to-deep-blue">Creative Process</span>
         </h1>
 
-        <p class="text-text-muted max-w-3xl text-lg md:text-xl mb-12 leading-relaxed opacity-90">
+        <p class="text-gray-300 max-w-3xl text-lg md:text-xl mb-12 leading-relaxed">
             Athenura is born from the intersection of human creativity and artificial intelligence. We build tools that don't just "generate" content, but understand the pulse of digital storytelling.
         </p>
     </div>
 
-    <div class="w-full mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center animate-slide-up" style="animation-delay: 0.2s;">
-        <div class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-deep-blue rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-            <div class="relative bg-card-bg border border-white/10 rounded-[2.5rem] p-8 md:p-12">
-                <h2 class="text-3xl font-bold text-white mb-6">Why Athenura?</h2>
-                <p class="text-text-darker text-lg leading-relaxed mb-6">
-                    Content fatigue is real. In a world flooded with generic AI text, we focused on building an engine that prioritizes **context, engagement, and viral potential.**
-                </p>
-                <p class="text-text-darker text-lg leading-relaxed">
-                    Our team of developers and marketing experts fine-tuned the <span class="text-accent font-semibold">Athenura Core V1</span> to ensure that every idea generated feels authentic to your brand's voice.
-                </p>
+    <div class="w-full mt-16 flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch animate-slide-up" style="animation-delay: 0.2s;">
+        
+        <div class="w-full lg:w-5/12 relative group flex flex-col">
+            <div class="absolute -inset-1 bg-gradient-to-r from-[#0df2f2] to-blue-600 rounded-[2rem] blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+            
+            <div class="relative flex-grow bg-[#121820] border border-white/10 rounded-[2rem] p-8 md:p-12 lg:p-14 hover:border-accent hover:bg-[#121820]/80 transition-all duration-300 flex flex-col justify-center">
+                <h2 class="text-3xl lg:text-4xl font-black text-white mb-8 tracking-tight">Why Athenura?</h2>
+                
+                <div class="space-y-7 text-gray-300 text-[16px] md:text-[17px] leading-[1.8] max-w-xl">
+                    <p>
+                        Content fatigue is real. In a world flooded with generic AI text, we focused on building an engine that prioritizes <strong class="text-white">context, engagement, and viral potential.</strong>
+                    </p>
+                    <p>
+                        Our team of developers and marketing experts fine-tuned the <span class="text-[#0df2f2] font-bold tracking-wide">Athenura Core V1</span> to ensure that every idea generated feels authentic to your brand's voice.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
-                <div class="text-accent text-4xl font-black mb-2">10x</div>
-                <div class="text-white font-bold mb-1">Faster Growth</div>
-                <p class="text-text-darker text-sm">Accelerate your content pipeline without burnouts.</p>
+        <div class="w-full lg:w-7/12 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105  transition-transform origin-left">10x</div>
+                <div class="text-white text-lg font-bold mb-2">Faster Growth</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Accelerate your content pipeline without burnouts.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
-                <div class="text-accent text-4xl font-black mb-2">99%</div>
-                <div class="text-white font-bold mb-1">Accuracy</div>
-                <p class="text-text-darker text-sm">Content optimized for high-conversion and SEO.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">99%</div>
+                <div class="text-white text-lg font-bold mb-2">Accuracy</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Content optimized for high-conversion and SEO.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
-                <div class="text-accent text-4xl font-black mb-2">24/7</div>
-                <div class="text-white font-bold mb-1">AI Support</div>
-                <p class="text-text-darker text-sm">Always ready to brainstorm your next big hit.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">24/7</div>
+                <div class="text-white text-lg font-bold mb-2">AI Support</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Always ready to brainstorm your next big hit.</p>
             </div>
-            <div class="bg-white/[0.03] border border-white/10 p-8 rounded-3xl hover:border-accent/30 transition-all">
-                <div class="text-accent text-4xl font-black mb-2">API</div>
-                <div class="text-white font-bold mb-1">Seamless</div>
-                <p class="text-text-darker text-sm">Integrates directly into your existing workflow.</p>
+            
+            <div class="bg-white/[0.02] border border-white/10 p-8 rounded-[2rem] hover:border-accent hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-center h-full group">
+                <div class="text-[#0df2f2] text-5xl font-black mb-3 group-hover:scale-105 transition-transform origin-left">API</div>
+                <div class="text-white text-lg font-bold mb-2">Seamless</div>
+                <p class="text-gray-400 text-sm leading-relaxed">Integrates directly into your existing workflow.</p>
             </div>
+
         </div>
     </div>
 
     <div class="w-full mt-32 text-center animate-slide-up" style="animation-delay: 0.4s;">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-16 tracking-tight">Core Philosophy</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="p-8 flex flex-col items-center">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-16 tracking-tight">Core Philosophy</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Innovation First</h3>
-                <p class="text-text-darker leading-relaxed">We push the boundaries of what's possible with Generative AI every single day.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">Innovation First</h3>
+                <p class="text-gray-400 leading-relaxed">We push the boundaries of what's possible with Generative AI every single day.</p>
             </div>
 
-            <div class="p-8 flex flex-col items-center border-x border-white/5">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Privacy Centric</h3>
-                <p class="text-text-darker leading-relaxed">Your data and creative drafts are always secure and private with us.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">Privacy Centric</h3>
+                <p class="text-gray-400 leading-relaxed">Your data and creative drafts are always secure and private with us.</p>
             </div>
 
-            <div class="p-8 flex flex-col items-center">
-                <div class="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-6">
+            <div class="bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2rem] hover:border-[#0df2f2]/40 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-2 flex flex-col items-center text-center group shadow-lg hover:shadow-2xl cursor-default">
+                <div class="w-16 h-16 rounded-2xl bg-[#0df2f2]/10 flex items-center justify-center text-[#0df2f2] mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-300 group-hover:bg-[#0df2f2]/20">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3">Community Driven</h3>
-                <p class="text-text-darker leading-relaxed">Built for creators, by creators. Your feedback drives our roadmap.</p>
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#0df2f2] transition-colors duration-300">Community Driven</h3>
+                <p class="text-gray-400 leading-relaxed">Built for creators, by creators. Your feedback drives our roadmap.</p>
             </div>
+
         </div>
     </div>
 
-    <div class="w-full mt-32 rounded-lg bg-gradient-to-br from-accent/20 to-deep-blue/10 border border-accent/20 flex flex-col gap-10 items-center text-center">
-        <h2 class="text-5xl md:text-5xl font-extrabold text-white  mt-10">Ready to join the future?</h2>
-        <a href="{% url 'dashboard' %}" class="p-4 mb-6 bg-accent hover:bg-accent-hover text-dark-bg font-extrabold rounded-btn transition-all duration-300 shadow-neon-glow flex items-center gap-2 group">
+    <div class="w-full mt-32 rounded-[2.5rem] bg-gradient-to-br from-[#0df2f2]/10 to-[#121820] border border-[#0df2f2]/20 py-16 px-8 flex flex-col gap-8 items-center text-center relative overflow-hidden group">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0df2f2]/10 rounded-full blur-[80px] pointer-events-none transition-opacity group-hover:opacity-100 opacity-50"></div>
+        
+        <h2 class="text-4xl md:text-5xl font-black text-white relative z-10">Ready to join the future?</h2>
+        
+        <a href="{% url 'dashboard' %}" class="relative z-10 px-8 py-4 bg-[#0df2f2] hover:bg-[#0cf2f2] text-[#0b121c] text-lg font-black rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(13,242,242,0.3)] hover:shadow-[0_0_30px_rgba(13,242,242,0.5)] hover:-translate-y-0.5 flex items-center gap-3 active:scale-95 group/btn">
             Start Creating Now
-            <svg class="w-5 h-5 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
         </a>
     </div>
 
