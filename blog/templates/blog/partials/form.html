@@ -151,42 +151,61 @@
             >{{ form.topic.value|default:'' }}</textarea>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 form-group">
-            
-            <div class="relative custom-dropdown w-full" id="tone-select">
-                <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Tone of Voice</label>
-                <input type="hidden" name="tone" id="tone-input" value="Professional">
-                <div class="dropdown-trigger liquid-glass-input w-full bg-card-bg rounded-btn py-4 px-6 flex justify-between items-center cursor-pointer gap-3">
-                    <span class="selected-label text-sm flex-1 text-left truncate">Professional</span>
-                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Professional">Professional</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Casual">Casual</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Witty">Witty</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Inspirational">Inspirational</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
-                </div>
-            </div>
-
-            <div class="relative custom-dropdown w-full" id="style-select">
-                <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Writing Style</label>
-                <input type="hidden" name="style" id="style-input" value="Storytelling">
-                <div class="dropdown-trigger liquid-glass-input w-full py-4 px-6 flex justify-between items-center cursor-pointer rounded-btn gap-3">
-                    <span class="selected-label text-sm flex-1 text-left truncate">Storytelling</span>
-                    <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Journalistic">Journalistic</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Listicle">Listicle</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Analytical">Analytical</div>
-                    <div class="option px-6 py-4 cursor-pointer" data-value="Persuasive">Persuasive</div>
-                </div>
-            </div>
+       <div class="grid grid-cols-2 w-full gap-4 form-group mb-5">
+    
+    <div class="relative custom-dropdown w-full" id="tone-select" style="z-index: 50;">
+        <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Tone of Voice</label>
+        <input type="hidden" name="tone" id="tone-input" value="Professional">
+        <div class="dropdown-trigger liquid-glass-input w-full bg-card-bg rounded-btn py-4 px-6 flex justify-between items-center cursor-pointer gap-3">
+            <span class="selected-label text-sm flex-1 text-left truncate">Professional</span>
+            <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
         </div>
+        <div class="dropdown-menu">
+            <div class="option px-6 py-4 cursor-pointer" data-value="Professional">Professional</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Casual">Casual</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Witty">Witty</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Inspirational">Inspirational</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
+        </div>
+    </div>
+
+    <div class="relative custom-dropdown w-full" id="style-select" style="z-index: 50;">
+        <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Writing Style</label>
+        <input type="hidden" name="style" id="style-input" value="Storytelling">
+        <div class="dropdown-trigger liquid-glass-input w-full py-4 px-6 flex justify-between items-center cursor-pointer rounded-btn gap-3">
+            <span class="selected-label text-sm flex-1 text-left truncate">Storytelling</span>
+            <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
+        </div>
+        <div class="dropdown-menu">
+            <div class="option px-6 py-4 cursor-pointer" data-value="Storytelling">Storytelling</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Journalistic">Journalistic</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Listicle">Listicle</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Educational">Educational</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Analytical">Analytical</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Persuasive">Persuasive</div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group mb-5">
+    <div class="relative custom-dropdown w-full" id="language-select" style="z-index: 40;">
+        <label class="block text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] mb-3 ml-2">Language</label>
+        <input type="hidden" name="language" id="language-input" value="English (US)">
+        <div class="dropdown-trigger liquid-glass-input w-full py-4 px-6 flex justify-between items-center cursor-pointer rounded-btn gap-3">
+            <span class="selected-label text-sm flex-1 text-left truncate">English (US)</span>
+            <i class="fas fa-chevron-down text-[12px] text-gray-400 transition-transform duration-300 shrink-0"></i>
+        </div>
+        <div class="dropdown-menu">
+            <div class="option px-6 py-4 cursor-pointer" data-value="English (US)">English (US)</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="English (UK)">English (UK)</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Hinglish">Hinglish</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Hindi">Hindi</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="French">French</div>
+            <div class="option px-6 py-4 cursor-pointer" data-value="Spanish">Spanish</div>
+        </div>
+    </div>
+</div>
 
         <div class="form-group">
             <div class="flex justify-between items-end mb-3 ml-2 mr-2">
@@ -288,6 +307,7 @@
         
         initDropdown('tone-select', 'tone-input');
         initDropdown('style-select', 'style-input');
+        initDropdown('language-select', 'language-input');
         
         // --- Range Slider Logic ---
         const slider = document.getElementById("wordCountSlider");

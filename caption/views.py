@@ -21,8 +21,9 @@ def caption(request):
         topic = form.cleaned_data.get("topic")
         platform = form.cleaned_data.get("platform")
         tone = form.cleaned_data.get("tone")
+        language = form.cleaned_data.get("language")
 
-        content = generate_caption_content(topic, platform, tone)
+        content = generate_caption_content(topic, platform, tone, language)
         data = json.loads(content)
         
         # Calculate the new offset based on how many captions were generated

@@ -4,7 +4,7 @@ from core.config import GROQ_API_KEY, GROQ_MODEL
 
 client = Groq(api_key=GROQ_API_KEY)
 
-def generate_blog_content(topic, word_count, tone, style, audience, external_thoughts=None):
+def generate_blog_content(topic, word_count, tone, style, language, audience, external_thoughts=None):
 
     BLOG_PROMPT = f"""
 
@@ -17,6 +17,7 @@ Topic: {topic}
 Target Word Count: {word_count}
 Tone: {tone}
 Writing Style: {style}
+Language: {language}
 Target Audience: {audience}
 Additional Context: {external_thoughts}
 

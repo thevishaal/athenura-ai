@@ -6,5 +6,6 @@ class BlogForm(forms.Form):
     word_count = forms.CharField(required=True)
     tone = forms.CharField(required=True)
     style = forms.CharField(required=True)
+    language = forms.CharField(required=True)
     audience =  forms.CharField(required=True)
     external_thoughts = forms.CharField(required=False, widget=forms.Textarea)

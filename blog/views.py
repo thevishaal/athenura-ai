@@ -18,10 +18,11 @@ def blog(request):
         word_count = form.cleaned_data["word_count"]
         tone = form.cleaned_data["tone"]
         style = form.cleaned_data["style"]
+        language = form.cleaned_data["language"]
         audience =  form.cleaned_data["audience"]
         external_thoughts = form.cleaned_data["external_thoughts"]
 
-        content = generate_blog_content(topic, word_count, tone, style, audience, external_thoughts)
+        content = generate_blog_content(topic, word_count, tone, style, language, audience, external_thoughts)
 
         data = json.loads(content)
         return render(

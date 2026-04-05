@@ -28,13 +28,15 @@ def generate_structure(request):
     tone = form.cleaned_data["tone"]
     length = form.cleaned_data["length"]
     audience = form.cleaned_data["audience"]
+    language = form.cleaned_data["language"]
 
     try:
         ai_response = generate_article_structure(
             topic=topic,
             tone=tone,
             length=length,
-            audience=audience
+            audience=audience,
+            language=language
         )
 
         data = json.loads(ai_response)
@@ -56,7 +58,8 @@ def generate_structure(request):
             "data": data,
             "tone": tone,
             "length": length,
-            "audience": audience
+            "audience": audience,
+            "language": language
         }
     )
 
@@ -69,6 +72,7 @@ def generate_article(request):
     tone = request.POST.get("tone")
     length = request.POST.get("length")
     audience = request.POST.get("audience")
+    language = request.POST.get("language")
 
     if not title or not structure:
         return render(request, "article/partials/error.html", {
@@ -81,7 +85,9 @@ def generate_article(request):
         structure=structure,
         tone=tone,
         length=length,
-        audience=audience
+        audience=audience,
+        language=language
+
     )
 
     data = json.loads(ai_response)

@@ -5,3 +5,4 @@ class CaptionForm(forms.Form):
     topic = forms.CharField(required=True)
     platform = forms.CharField(required=True)
     tone = forms.CharField(required=True)
+    language = forms.CharField(required=True)

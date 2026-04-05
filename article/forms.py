@@ -6,3 +6,4 @@ class ArticleStructureForm(forms.Form):
     tone = forms.CharField(required=True)
     length = forms.CharField(required=True)
     audience = forms.CharField(required=True)
+    language = forms.CharField(required=True)

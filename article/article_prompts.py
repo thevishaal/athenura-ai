@@ -3,7 +3,7 @@ from core.config import GROQ_API_KEY, GROQ_MODEL
 
 client = Groq(api_key=GROQ_API_KEY)
 
-def generate_article_structure(topic, tone, length, audience):
+def generate_article_structure(topic, tone, length, audience, language):
     ARTICLE_STRUCTURE = f"""
 You are an expert content strategist specializing in SEO and long-form articles.
 
@@ -14,6 +14,7 @@ User Input:
 - Tone: {tone}
 - Length: {length}
 - Target Audience: {audience}
+- Language: {language}
 
 Instructions:
 1. Generate an optimized, engaging, and SEO-friendly article title.
@@ -58,7 +59,7 @@ Output Format (STRICT JSON):
     return chat_completion.choices[0].message.content
 
 
-def generate_full_article(title, structure, tone, length, audience):
+def generate_full_article(title, structure, tone, length, audience, language):
     FULL_ARTICLE_PROMPT = f"""
 You are a professional SEO article writer.
 
@@ -70,6 +71,7 @@ Inputs:
 - Tone: {tone}
 - Target Audience: {audience}
 - Length: {length}
+- language: {language}
 
 Instructions:
 1. Write an engaging introduction.

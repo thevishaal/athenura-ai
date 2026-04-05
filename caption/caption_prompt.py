@@ -3,7 +3,7 @@ from core.config import GROQ_API_KEY, GROQ_MODEL
 
 client = Groq(api_key=GROQ_API_KEY)
 
-def generate_caption_content(topic, platform, tone):
+def generate_caption_content(topic, platform, tone, language):
     CAPTION_PROMPT = f"""
 You are an expert social media content creator.
 
@@ -13,6 +13,7 @@ User Input:
 - Topic: {topic}
 - Platform: {platform}
 - Tone: {tone}
+- language: {language}
 
 Instructions:
 1. Generate exactly 5 captions.
