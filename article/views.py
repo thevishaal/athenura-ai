@@ -79,18 +79,28 @@ def generate_article(request):
             "error": "Missing required data. Please regenerate structure."
         })
 
+    try:
+        ai_response = generate_full_article(
+            title=title,
+            structure=structure,
+            tone=tone,
+            length=length,
+            audience=audience,
+            language=language
 
-    ai_response = generate_full_article(
-        title=title,
-        structure=structure,
-        tone=tone,
-        length=length,
-        audience=audience,
-        language=language
+        )
 
-    )
+        data = json.loads(ai_response)
 
-    data = json.loads(ai_response)
+    except json.JSONDecodeError:
+        return render(request, "article/partials/error.html", {
+            "error": "AI returned invalid JSON. Try again."
+        })
+
+    except Exception as e:
+        return render(request, "article/partials/error.html", {
+            "error": f"Something went wrong: {str(e)}"
+        })
 
     return render(
         request,

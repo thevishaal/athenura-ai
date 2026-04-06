@@ -24,9 +24,18 @@ def blog(request):
         audience =  form.cleaned_data["audience"]
         external_thoughts = form.cleaned_data["external_thoughts"]
 
-        content = generate_blog_content(topic, word_count, tone, style, language, audience, external_thoughts)
+        try:
+            content = generate_blog_content(topic, word_count, tone, style, language, audience, external_thoughts)
 
-        data = json.loads(content)
+            data = json.loads(content)
+        except json.JSONDecodeError:
+            return render(request, "blog/partials/error.html", {
+                "error": "AI returned invalid JSON. Try again."
+            })
+        except Exception as e:
+            return render(request, "blog/partials/error.html", {
+                "error": f"Something went wrong: {str(e)}"
+            })
         return render(
             request, 
             "blog/partials/blog_result.html", 
