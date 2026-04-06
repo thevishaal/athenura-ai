@@ -1,3 +1,5 @@
+
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import BlogForm
@@ -32,6 +34,7 @@ def blog(request):
                 "data": data
             }
         )
+
     
     form = BlogForm()
     return render(request, "blog/blog.html", {"form": form})

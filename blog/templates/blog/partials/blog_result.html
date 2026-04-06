@@ -1,103 +1,124 @@
 <style>
     /* Sleek Accent Scrollbar */
     .liquid-scrollbar::-webkit-scrollbar { width: 6px; }
-    .liquid-scrollbar::-webkit-scrollbar-track { background: transparent; margin: 60px 0; }
+    .liquid-scrollbar::-webkit-scrollbar-track { background: transparent; margin: 10px 0; }
     .liquid-scrollbar::-webkit-scrollbar-thumb { 
-        background: #0df2f2; 
+        background: rgba(13, 242, 242, 0.3); 
         border-radius: 10px; 
+    }
+    .liquid-scrollbar::-webkit-scrollbar-thumb:hover { 
+        background: #0df2f2; 
         box-shadow: 0 0 10px rgba(13, 242, 242, 0.4); 
     }
-    .liquid-scrollbar::-webkit-scrollbar-thumb:hover { background: #00ffff; }
 </style>
 
-<div id="blog-output" class="w-full h-[83vh] overflow-y-auto overflow-x-hidden liquid-glass-panel/2 rounded-2xl relative flex flex-col animate-fade-in text-left liquid-scrollbar bg-[#0b1c1e]"> 
+<div id="blog-output" class="w-full h-[90vh] bg-[#050B14] shadow-[0_0_50px_rgba(0,0,0,0.5)] relative flex flex-col animate-fade-in text-left overflow-hidden z-0"> 
 
-    <div class="sticky top-0 z-20 flex items-center justify-between px-8 py-5 border-b border-white/5 bg-[#0b1c1e]/90 backdrop-blur-xl shrink-0 w-full">
-        <div class="flex items-center gap-3 text-[#0df2f2] font-bold text-lg tracking-wide">
-            <i class="fa-regular fa-file-lines"></i> Output Preview
-        </div>
-        <div class="flex items-center gap-3">
-            <button id="copy-btn" onclick="copyBlog()" title="Copy to clipboard" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-white/10 transition-all cursor-pointer shadow-sm">
-                <i class="fa-regular fa-copy"></i>
-            </button>
-            <button id="download-btn" onclick="downloadBlog()" title="Download as .txt" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2] hover:bg-white/10 transition-all cursor-pointer shadow-sm">
-                <i class="fa-solid fa-download"></i>
-            </button>
-        </div>
+    <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-[#0df2f2]/10 rounded-full blur-[100px] animate-pulse duration-1000"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-purple-500/10 rounded-full blur-[100px] animate-pulse duration-1000" style="animation-delay: 2s;"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:24px_24px]"></div>
     </div>
 
-    <div class="p-8 flex flex-col flex-grow">
-        
-        <div class="mb-12">
-            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4 ml-1">Generated Title</h4>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight">{{ data.title }}</h2>
+    <div class="relative z-10 flex flex-col h-full overflow-y-auto overflow-x-hidden liquid-scrollbar">
+
+        <div class="sticky top-0 z-50 flex items-center justify-between px-8 py-7 mt-0 border-b border-white/5 bg-[#050B14]/80 backdrop-blur-xl shrink-0 w-full shadow-sm">
+            <div class="flex items-center gap-3 text-[#0df2f2] font-bold text-lg tracking-wide">
+                <i class="fa-regular fa-file-lines"></i> Output Preview
+            </div>
+            <div class="flex items-center gap-3">
+                <button id="copy-btn" onclick="copyBlog()" title="Copy to clipboard" class="w-9 h-9 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2]/50 hover:bg-[#0df2f2]/10 transition-all duration-300 cursor-pointer shadow-sm">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+                <button id="download-btn" onclick="downloadBlog()" title="Download as .txt" class="w-9 h-9 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-gray-400 hover:text-[#0df2f2] hover:border-[#0df2f2]/50 hover:bg-[#0df2f2]/10 transition-all duration-300 cursor-pointer shadow-sm">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="mb-12">
-            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 ml-1">Content Outline</h4>
-            <ul class="space-y-4">
+        <div class="p-8 md:p-12 flex flex-col flex-grow">
+            
+            <div class="mb-12">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4 ml-1">Generated Title</h4>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400 leading-tight tracking-tight">{{ data.title }}</h2>
+            </div>
+
+            <div class="mb-12">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 ml-1">Content Outline</h4>
+                <ul class="space-y-4">
+                    {% for section in data.sections %}
+                    <li class="flex items-start gap-3 text-gray-300 text-[15px] transition-colors hover:text-white">
+                        <i class="fa-regular fa-circle-check text-[#0df2f2] mt-1 text-[16px] drop-shadow-[0_0_8px_rgba(13,242,242,0.5)]"></i>
+                        {{ section.heading }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="bg-white/[0.02] backdrop-blur-xl border border-white/5 border-l-[3px] border-l-[#0df2f2] rounded-r-3xl rounded-l-sm p-8 mb-12 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">Introduction Paragraph</h4>
+                <p class="text-gray-200 text-[15px] leading-relaxed italic">"{{ data.introduction }}"</p>
+            </div>
+
+            <div class="mb-12 space-y-10">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-6 border-b border-white/5 pb-4 ml-1">Full Article Body</h4>
                 {% for section in data.sections %}
-                <li class="flex items-start gap-3 text-gray-300 text-[15px] transition-colors hover:text-white">
-                    <i class="fa-regular fa-circle-check text-[#0df2f2] mt-1 text-[16px] shadow-[0_0_10px_rgba(13,242,242,0.3)] rounded-full"></i>
-                    {{ section.heading }}
-                </li>
+                <div class="group">
+                    <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-[#0df2f2] transition-colors duration-300">{{ section.heading }}</h3>
+                    <p class="text-[15px] leading-relaxed text-[#e2e8f0] whitespace-pre-line">{{ section.content }}</p>
+                </div>
                 {% endfor %}
-            </ul>
-        </div>
-
-        <div class="bg-black/20 border-l-[3px] border-[#0df2f2] rounded-r-2xl rounded-l-sm p-8 mb-12 shadow-[inset_0_0_15px_rgba(13,242,242,0.05)]">
-            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">Introduction Paragraph</h4>
-            <p class="text-gray-200 text-[15px] leading-relaxed italic">"{{ data.introduction }}"</p>
-        </div>
-
-        <div class="mb-12 space-y-10">
-            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-6 border-b border-white/10 pb-4 ml-1">Full Article Body</h4>
-            {% for section in data.sections %}
-            <div class="group">
-                <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-[#0df2f2] transition-colors duration-300">{{ section.heading }}</h3>
-                <p class="text-[15px] leading-relaxed text-[#e2e8f0] whitespace-pre-line">{{ section.content }}</p>
-            </div>
-            {% endfor %}
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            <div class="bg-white/5 border border-white/5 rounded-2xl p-8 hover:border-[#0df2f2] hover:-translate-y-1 transition-all duration-300">
-                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">Pro Tips</h4>
-                <ul class="space-y-4">
-                    {% for tip in data.tips %}
-                    <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
-                        <i class="fa-solid fa-bolt text-[#0df2f2] mt-1 text-[12px]"></i> {{ tip }}
-                    </li>
-                    {% endfor %}
-                </ul>
             </div>
 
-            <div class="bg-white/5 border border-white/5 rounded-2xl p-8 hover:border-[#0df2f2] hover:-translate-y-1 transition-all duration-300">
-                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2">Key Takeaways</h4>
-                <ul class="space-y-4">
-                    {% for takeaway in data.key_takeaways %}
-                    <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
-                        <div class="w-1.5 h-1.5 rounded-full bg-[#0df2f2] shrink-0 mt-2 shadow-[0_0_8px_rgba(13,242,242,0.8)]"></div>
-                        {{ takeaway }}
-                    </li>
-                    {% endfor %}
-                </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                
+                <div class="relative bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 transition-all duration-500 group overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#0df2f2]/10 rounded-full blur-[40px] -mr-10 -mt-10 transition-opacity duration-500 opacity-0 group-hover:opacity-100"></div>
+                    <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2 relative z-10">
+                        <i class="fa-solid fa-bolt text-[#0df2f2] text-[12px]"></i> Pro Tips
+                    </h4>
+                    <ul class="space-y-4 relative z-10">
+                        {% for tip in data.tips %}
+                        <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#0df2f2] shrink-0 mt-2 shadow-[0_0_8px_rgba(13,242,242,0.8)]"></div>
+                            {{ tip }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="relative bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 transition-all duration-500 group overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-[40px] -mr-10 -mt-10 transition-opacity duration-500 opacity-0 group-hover:opacity-100"></div>
+                    <h4 class="text-purple-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-5 flex items-center gap-2 relative z-10">
+                        <i class="fa-solid fa-key text-purple-400 text-[12px]"></i> Key Takeaways
+                    </h4>
+                    <ul class="space-y-4 relative z-10">
+                        {% for takeaway in data.key_takeaways %}
+                        <li class="flex items-start gap-3 text-gray-300 text-[14px] leading-relaxed">
+                            <div class="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0 mt-2 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
+                            {{ takeaway }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
             </div>
+
+            <div class="mb-4">
+                <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 border-b border-white/5 pb-4 ml-1">Conclusion</h4>
+                <p class="text-[#e2e8f0] text-[15px] leading-relaxed">{{ data.conclusion }}</p>
+            </div>
+
+        </div> 
+
+        <div class="sticky bottom-0 z-50 border-t border-white/5 bg-[#050B14]/80 backdrop-blur-xl px-8 py-4 flex justify-between items-center text-[12px] shrink-0 mt-auto w-full">
+            <span class="text-gray-400 uppercase tracking-widest text-[10px]">Generation Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">1.2s</span></span>
+            <span class="text-gray-400 uppercase tracking-widest text-[10px]">Read Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">~8 mins</span></span>
         </div>
 
-        <div class="mb-4">
-            <h4 class="text-[#0df2f2] text-[11px] font-bold uppercase tracking-[0.2em] mb-5 border-b border-white/10 pb-4 ml-1">Conclusion</h4>
-            <p class="text-[#e2e8f0] text-[15px] leading-relaxed">{{ data.conclusion }}</p>
-        </div>
-
-    </div> 
-
-    <div class="sticky bottom-0 z-20 border-t border-white/5 bg-[#0b1c1e]/90 backdrop-blur-xl px-8 py-4 flex justify-between items-center text-[12px] shrink-0 mt-auto w-full">
-        <span class="text-gray-400 uppercase tracking-widest text-[10px]">Generation Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">1.2s</span></span>
-        <span class="text-gray-400 uppercase tracking-widest text-[10px]">Read Time: <span class="text-[#0df2f2] font-mono font-bold ml-1 text-[11px]">~8 mins</span></span>
     </div>
-
 </div>
+
 <textarea id="hidden-blog-content" class="hidden" aria-hidden="true">{{ data.title }}
 
 {{ data.introduction }}

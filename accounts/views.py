@@ -109,7 +109,7 @@ def change_password(request):
         if form.is_valid():
 
             user = request.user
-            user.set_password(form.cleaned_data["new_password1"])
+            user.set_password(form.cleaned_data["new_password"])
             user.save()
 
             update_session_auth_hash(request, user)

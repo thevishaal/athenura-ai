@@ -63,8 +63,8 @@ class SigninForm(forms.Form):
 
 class ChangePasswordForm(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput)
-    new_password1 = forms.CharField(widget=forms.PasswordInput)
-    new_password2 = forms.CharField(widget=forms.PasswordInput)
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -78,18 +78,18 @@ class ChangePasswordForm(forms.Form):
 
         return old_password
     
-    def clean_new_password1(self):
-        password = self.cleaned_data.get("new_password1")
+    def clean_new_password(self):
+        password = self.cleaned_data.get("new_password")
         validate_password(password, self.user)
         return password
     
     def clean(self):
         cleaned_data = super().clean()
 
-        new_password1 = cleaned_data.get("new_password1")
-        new_password2 = cleaned_data.get("new_password2")
+        new_password = cleaned_data.get("new_password")
+        confirm_password = cleaned_data.get("confirm_password")
 
-        if new_password1 and new_password2 and new_password1 != new_password2:
+        if new_password and confirm_password and new_password != confirm_password:
             raise forms.ValidationError("Passwords do not match")
 
         return cleaned_data
